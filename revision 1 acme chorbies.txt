@@ -1,0 +1,7 @@
+Chorbies, navegacion a los chorbies que le han dado like.
+Ban para chorbi
+SearchTemplate revisar para poder ser null
+Entidad banner, tiempo cache
+Nota para limitar like
+Borrar chirp
+Acceso directo al jmeter comprobar si funciona
