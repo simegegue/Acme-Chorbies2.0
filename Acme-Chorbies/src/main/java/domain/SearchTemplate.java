@@ -1,17 +1,18 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,7 +35,6 @@ public class SearchTemplate extends DomainEntity {
 	public Genre getGenre() {
 		return this.genre;
 	}
-
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
@@ -42,7 +42,6 @@ public class SearchTemplate extends DomainEntity {
 	public Integer getAge() {
 		return this.age;
 	}
-
 	public void setAge(Integer age) {
 		this.age = age;
 	}
@@ -51,24 +50,21 @@ public class SearchTemplate extends DomainEntity {
 	public KindRelationShip getKindRelationship() {
 		return this.kindRelationship;
 	}
-
 	public void setKindRelationship(KindRelationShip kindRelationship) {
 		this.kindRelationship = kindRelationship;
 	}
 
-	@NotBlank
 	public String getKeyword() {
 		return this.keyword;
 	}
-
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
 
+	@Valid
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
-
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
@@ -79,11 +75,19 @@ public class SearchTemplate extends DomainEntity {
 	public Date getLastTimeSearched() {
 		return this.lastTimeSearched;
 	}
-
 	public void setLastTimeSearched(Date lastTimeSearched) {
 		this.lastTimeSearched = lastTimeSearched;
 	}
 
 	// Relationships -----------------------------------
-
+	private Collection<Chorbi> chorbies;
+	
+	@Valid
+	@ManyToMany
+	public Collection<Chorbi> getChorbies(){
+		return chorbies;
+	}
+	public void setChorbies(Collection<Chorbi> chorbies){
+		this.chorbies = chorbies;
+	}
 }

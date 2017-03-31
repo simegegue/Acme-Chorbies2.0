@@ -1,11 +1,14 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -99,5 +102,55 @@ public class Chorbi extends Actor {
 	}
 
 	// Relationships -----------------------------------
+	private Collection<Chirp> sended;
+	private Collection<Chirp> received;
+	private Collection<RelationLike> likesSended;
+	private Collection<RelationLike> likesReceived;
+	private SearchTemplate searchTemplate;
+	
+
+	@Valid
+	@OneToMany(mappedBy="sender")
+	public Collection<Chirp> getSended() {
+		return sended;
+	}
+	public void setSended(Collection<Chirp> sended) {
+		this.sended = sended;
+	}
+	@Valid
+	@OneToMany(mappedBy="recipient")
+	public Collection<Chirp> getReceived() {
+		return received;
+	}
+	public void setReceived(Collection<Chirp> received) {
+		this.received = received;
+	}
+	
+	
+	@Valid
+	@OneToMany(mappedBy="likeSender")
+	public Collection<RelationLike> getLikesSended() {
+		return likesSended;
+	}
+	public void setLikesSended(Collection<RelationLike> likesSended) {
+		this.likesSended = likesSended;
+	}
+	@Valid
+	@OneToMany(mappedBy="likeRecipient")
+	public Collection<RelationLike> getLikesReceived() {
+		return likesReceived;
+	}
+	public void setLikesReceived(Collection<RelationLike> likesReceived) {
+		this.likesReceived = likesReceived;
+	}
+	
+	@Valid
+	@OneToOne(optional=false)
+	public SearchTemplate getSearchTemplate(){
+		return searchTemplate;
+	}
+	public void setSearchTemplate(SearchTemplate searchTemplate){
+		this.searchTemplate=searchTemplate;
+	}
 
 }
