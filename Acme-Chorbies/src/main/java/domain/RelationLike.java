@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Like extends DomainEntity {
+public class RelationLike extends DomainEntity {
 
 	// Attributes --------------------------------------
 

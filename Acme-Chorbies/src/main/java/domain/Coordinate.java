@@ -3,11 +3,11 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
+@Embeddable
 @Access(AccessType.PROPERTY)
 public class Coordinate {
 
