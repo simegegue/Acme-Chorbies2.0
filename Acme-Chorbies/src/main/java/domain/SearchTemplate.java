@@ -8,6 +8,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -21,9 +22,8 @@ public class SearchTemplate extends DomainEntity {
 
 	// Attributes --------------------------------------
 
-	private Genre				genre;
+
 	private Integer				age;
-	private KindRelationShip	kindRelationship;
 	private String				keyword;
 	private Coordinate			coordinate;
 	private Date				lastTimeSearched;
@@ -31,27 +31,11 @@ public class SearchTemplate extends DomainEntity {
 
 	// Getters and Setters -----------------------------
 
-	@Valid
-	public Genre getGenre() {
-		return this.genre;
-	}
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}
-
 	public Integer getAge() {
 		return this.age;
 	}
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	@Valid
-	public KindRelationShip getKindRelationship() {
-		return this.kindRelationship;
-	}
-	public void setKindRelationship(KindRelationShip kindRelationship) {
-		this.kindRelationship = kindRelationship;
 	}
 
 	public String getKeyword() {
@@ -80,8 +64,29 @@ public class SearchTemplate extends DomainEntity {
 	}
 
 	// Relationships -----------------------------------
+	private Genre				genre;
+	private KindRelationShip	kindRelationship;
 	private Collection<Chorbi> chorbies;
 	
+	
+	@Valid
+	@ManyToOne(optional= false)
+	public Genre getGenre() {
+		return this.genre;
+	}
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	@Valid
+	@ManyToOne(optional= false)
+	public KindRelationShip getKindRelationship() {
+		return this.kindRelationship;
+	}
+	public void setKindRelationship(KindRelationShip kindRelationship) {
+		this.kindRelationship = kindRelationship;
+	}
+		
 	@Valid
 	@ManyToMany
 	public Collection<Chorbi> getChorbies(){

@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -28,8 +29,6 @@ public class Chorbi extends Actor {
 	private String					description;
 	private Date					birthDate;
 	private CreditCard				creditCard;
-	private Genre					genre;
-	private KindRelationShip		kindRelationship;
 	private Coordinate				coordinate;
 	private Boolean					banned;
 
@@ -70,21 +69,7 @@ public class Chorbi extends Actor {
 		this.creditCard = creditCard;
 	}
 
-	@Valid
-	public Genre getGenre() {
-		return this.genre;
-	}
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}
-
-	@Valid
-	public KindRelationShip getKindRelationship() {
-		return this.kindRelationship;
-	}
-	public void setKindRelationship(KindRelationShip kindRelationship) {
-		this.kindRelationship = kindRelationship;
-	}
+	
 
 	@Valid
 	public Coordinate getCoordinate() {
@@ -102,12 +87,31 @@ public class Chorbi extends Actor {
 	}
 
 	// Relationships -----------------------------------
+	private Genre					genre;
+	private KindRelationShip		kindRelationship;
 	private Collection<Chirp> sended;
 	private Collection<Chirp> received;
 	private Collection<RelationLike> likesSended;
 	private Collection<RelationLike> likesReceived;
 	private SearchTemplate searchTemplate;
 	
+	@Valid
+	@ManyToOne(optional= false)
+	public Genre getGenre() {
+		return this.genre;
+	}
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	@Valid
+	@ManyToOne(optional= false)
+	public KindRelationShip getKindRelationship() {
+		return this.kindRelationship;
+	}
+	public void setKindRelationship(KindRelationShip kindRelationship) {
+		this.kindRelationship = kindRelationship;
+	}
 
 	@Valid
 	@OneToMany(mappedBy="sender")
