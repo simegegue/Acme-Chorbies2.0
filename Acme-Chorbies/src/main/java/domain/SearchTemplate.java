@@ -65,7 +65,7 @@ public class SearchTemplate extends DomainEntity {
 
 	// Relationships -----------------------------------
 	private Genre				genre;
-	private KindRelationShip	kindRelationship;
+	private KindRelationship	kindRelationship;
 	private Collection<Chorbi> chorbies;
 	
 	
@@ -80,10 +80,10 @@ public class SearchTemplate extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional= false)
-	public KindRelationShip getKindRelationship() {
+	public KindRelationship getKindRelationship() {
 		return this.kindRelationship;
 	}
-	public void setKindRelationship(KindRelationShip kindRelationship) {
+	public void setKindRelationship(KindRelationship kindRelationship) {
 		this.kindRelationship = kindRelationship;
 	}
 		

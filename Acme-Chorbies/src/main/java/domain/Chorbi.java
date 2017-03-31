@@ -88,7 +88,7 @@ public class Chorbi extends Actor {
 
 	// Relationships -----------------------------------
 	private Genre					genre;
-	private KindRelationShip		kindRelationship;
+	private KindRelationship		kindRelationship;
 	private Collection<Chirp> sended;
 	private Collection<Chirp> received;
 	private Collection<RelationLike> likesSended;
@@ -106,10 +106,10 @@ public class Chorbi extends Actor {
 
 	@Valid
 	@ManyToOne(optional= false)
-	public KindRelationShip getKindRelationship() {
+	public KindRelationship getKindRelationship() {
 		return this.kindRelationship;
 	}
-	public void setKindRelationship(KindRelationShip kindRelationship) {
+	public void setKindRelationship(KindRelationship kindRelationship) {
 		this.kindRelationship = kindRelationship;
 	}
 

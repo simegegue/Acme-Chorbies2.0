@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class KindRelationShip extends DomainEntity {
+public class KindRelationship extends DomainEntity {
 
 	// Attributes --------------------------------------
 
