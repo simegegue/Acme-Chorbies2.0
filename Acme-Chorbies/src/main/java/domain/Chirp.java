@@ -34,7 +34,7 @@ public class Chirp extends DomainEntity {
 		return this.moment;
 	}
 
-	public void setMoment(final Date moment) {
+	public void setMoment(Date moment) {
 		this.moment = moment;
 	}
 
@@ -43,7 +43,7 @@ public class Chirp extends DomainEntity {
 		return this.subject;
 	}
 
-	public void setSubject(final String subject) {
+	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
@@ -52,7 +52,7 @@ public class Chirp extends DomainEntity {
 		return this.text;
 	}
 
-	public void setText(final String text) {
+	public void setText(String text) {
 		this.text = text;
 	}
 
@@ -60,7 +60,7 @@ public class Chirp extends DomainEntity {
 		return this.attachment;
 	}
 
-	public void setAttachment(final String attachment) {
+	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
 

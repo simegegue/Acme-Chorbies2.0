@@ -26,7 +26,7 @@ public class Coordinate {
 		return this.country;
 	}
 
-	public void setCountry(final String country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -35,7 +35,7 @@ public class Coordinate {
 		return this.state;
 	}
 
-	public void setState(final String state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
@@ -43,7 +43,7 @@ public class Coordinate {
 		return this.province;
 	}
 
-	public void setProvince(final String province) {
+	public void setProvince(String province) {
 		this.province = province;
 	}
 
@@ -52,7 +52,7 @@ public class Coordinate {
 		return this.city;
 	}
 
-	public void setCity(final String city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 

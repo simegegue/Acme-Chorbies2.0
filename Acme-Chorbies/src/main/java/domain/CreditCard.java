@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -26,10 +27,11 @@ public class CreditCard {
 	// Getters and Setters -----------------------------
 
 	@NotBlank
+	@Pattern(regexp = "^Visa$|^MasterCard$|^Discover$|^Discover$|^Dinners$|^Amex$")
 	public String getHolderName() {
 		return this.holderName;
 	}
-	public void setHolderName(final String holderName) {
+	public void setHolderName(String holderName) {
 		this.holderName = holderName;
 	}
 
@@ -37,7 +39,7 @@ public class CreditCard {
 	public String getBrandName() {
 		return this.brandName;
 	}
-	public void setBrandName(final String brandName) {
+	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
 
@@ -45,7 +47,7 @@ public class CreditCard {
 	public String getNumber() {
 		return this.number;
 	}
-	public void setNumber(final String number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -53,7 +55,7 @@ public class CreditCard {
 	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
-	public void setExpirationMonth(final int expirationMonth) {
+	public void setExpirationMonth(int expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
 
@@ -61,7 +63,7 @@ public class CreditCard {
 	public int getExpirationYear() {
 		return this.expirationYear;
 	}
-	public void setExpirationYear(final int expirationYear) {
+	public void setExpirationYear(int expirationYear) {
 		this.expirationYear = expirationYear;
 	}
 

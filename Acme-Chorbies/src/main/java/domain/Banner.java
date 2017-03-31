@@ -23,7 +23,7 @@ public class Banner extends DomainEntity {
 		return this.url;
 	}
 
-	public void setUrl(final String url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 

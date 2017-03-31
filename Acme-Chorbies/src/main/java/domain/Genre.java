@@ -4,30 +4,31 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class CacheTime extends DomainEntity {
+public class Genre extends DomainEntity {
 
 	// Attributes --------------------------------------
 
-	private Integer time;
+	private String	value;
 
-	
+
 	// Getters and Setters -----------------------------
 
-	@NotNull
-	@Min(0)
-	public Integer getTime() {
-		return time;
+	@NotBlank
+	@Pattern(regexp = "^man$|^woman$")
+	public String getValue() {
+		return this.value;
 	}
 
-	public void setTime(Integer time) {
-		this.time = time;
+	public void setValue(String value) {
+		this.value = value;
 	}
-	
+
 	// Relationships -----------------------------------
 
 }
