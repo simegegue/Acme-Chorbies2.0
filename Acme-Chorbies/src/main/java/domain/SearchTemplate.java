@@ -70,7 +70,7 @@ public class SearchTemplate extends DomainEntity {
 	
 	
 	@Valid
-	@ManyToOne(optional= false)
+	@ManyToOne(optional= true)
 	public Genre getGenre() {
 		return this.genre;
 	}
@@ -79,7 +79,7 @@ public class SearchTemplate extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional= false)
+	@ManyToOne(optional= true)
 	public KindRelationship getKindRelationship() {
 		return this.kindRelationship;
 	}

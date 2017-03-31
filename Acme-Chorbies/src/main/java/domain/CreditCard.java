@@ -27,7 +27,7 @@ public class CreditCard {
 	// Getters and Setters -----------------------------
 
 	@NotBlank
-	@Pattern(regexp = "^Visa$|^MasterCard$|^Discover$|^Discover$|^Dinners$|^Amex$")
+	
 	public String getHolderName() {
 		return this.holderName;
 	}
@@ -36,6 +36,7 @@ public class CreditCard {
 	}
 
 	@NotBlank
+	@Pattern(regexp = "^Visa$|^MasterCard$|^Discover$|^Dinners$|^Amex$")
 	public String getBrandName() {
 		return this.brandName;
 	}
@@ -71,7 +72,7 @@ public class CreditCard {
 	public int getCvv() {
 		return this.cvv;
 	}
-	public void setCvv(final int cvv) {
+	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
 

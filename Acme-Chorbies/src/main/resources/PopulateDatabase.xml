@@ -108,30 +108,30 @@
 	
 	<!-- Cache Time -->
 	<bean id="cacheTimer" class="domain.CacheTime">
-	<property name="value" value="12"/>
+	<property name="time" value="12"/>
 	</bean>
 	
 	<!-- Genre -->
-	<bean id="genre1" class="doman.Genre">
+	<bean id="genre1" class="domain.Genre">
 	<property name="value" value="man"/>
 	</bean>
 	
-	<bean id="genre2" class="doman.Genre">
+	<bean id="genre2" class="domain.Genre">
 	<property name="value" value="woman"/>
 	</bean>
 	
 	
 	
 	<!-- KindRelationShip -->
-	<bean id="kindRelationShip1" class="domain.kindRelationShip">
+	<bean id="kindRelationship1" class="domain.KindRelationship">
 	<property name="value" value="activities"/>
 	</bean>
 	
-	<bean id="kindRelationShip2" class="domain.kindRelationShip">
+	<bean id="kindRelationship2" class="domain.KindRelationship">
 	<property name="value" value="friendship"/>
 	</bean>
 	
-	<bean id="kindRelationShip3" class="domain.kindRelationShip">
+	<bean id="kindRelationship3" class="domain.KindRelationship">
 	<property name="value" value="love"/>
 	</bean>
 	
@@ -153,7 +153,7 @@
 	  <property name="number" value="348336595595090" />
 	  <property name="expirationMonth" value="12" />
 	  <property name="expirationYear" value="2017" />
-	  <property name="cvv" value="999" />
+	  <property name="cvv" value="998" />
 	 </bean>
 
 	<bean id="creditCard3" class="domain.CreditCard">
@@ -167,7 +167,7 @@
 	
 	<bean id="creditCard4" class="domain.CreditCard">
 	  <property name="holderName" value="Irene Garcia Vazquez" />
-	  <property name="brandName" value="Mastercard" />
+	  <property name="brandName" value="MasterCard" />
 	  <property name="number" value="5237494243102802" />
 	  <property name="expirationMonth" value="8" />
 	  <property name="expirationYear" value="2020" />
@@ -215,22 +215,28 @@
 	<property name="surname" value="Torres" />
 	<property name="email" value="manuto@gmail.com" />
 	<property name="phone" value="+34 965845789" />
+	<property name="userAccount" ref="userAccount1"/>
 	</bean>
 	<!-- SearchTemplate -->
 	
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
+	<property name="lastTimeSearched" value="03/31/2017 14:55"></property>
 	</bean>
 	
 	<bean id="searchTemplate2" class="domain.SearchTemplate">
+	<property name="lastTimeSearched" value="03/31/2017 14:55"></property>
 	</bean>
 	
 	<bean id="searchTemplate3" class="domain.SearchTemplate">
+	<property name="lastTimeSearched" value="03/31/2017 14:55"></property>
 	</bean>
 	
 	<bean id="searchTemplate4" class="domain.SearchTemplate">
+	<property name="lastTimeSearched" value="03/31/2017 14:55"></property>
 	</bean>
 	
 	<bean id="searchTemplate5" class="domain.SearchTemplate">
+	<property name="lastTimeSearched" value="03/31/2017 14:55"></property>
 	</bean>
 	<!-- Chorbies -->
 	
@@ -244,11 +250,17 @@
 	<property name="birthDate" value="02/06/1993"/>
 	<property name="creditCard" ref="creditCard1"/>
 	<property name="genre" ref="genre1"/>
-	<property name="kindRelationShip" ref="kindRelationShip1"/>
+	<property name="kindRelationship" ref="kindRelationship1"/>
 	<property name="coordinate" ref="coordinate1"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount2"/>
 	<property name="searchTemplate" ref="searchTemplate1"/>
+	<property name="sended">
+		<list>
+			<ref bean="chirp1"/>
+			<ref bean="chirp2"/>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi2" class="domain.Chorbi">
@@ -261,11 +273,21 @@
 	<property name="birthDate" value="02/06/1992"/>
 	<property name="creditCard" ref="creditCard2"/>
 	<property name="genre" ref="genre2"/>
-	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate2"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount3"/>
 	<property name="searchTemplate" ref="searchTemplate2"/>
+	<property name="sended">
+		<list>
+			<ref bean="chirp3"/>
+		</list>
+	</property>
+	<property name="received">
+		<list>
+			<ref bean="chirp1"/>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi3" class="domain.Chorbi">
@@ -278,7 +300,7 @@
 	<property name="birthDate" value="02/05/1991"/>
 	<property name="creditCard" ref="creditCard3"/>
 	<property name="genre" ref="genre1"/>
-	<property name="kindRelationShip" ref="kindRelationShip3"/>
+	<property name="kindRelationship" ref="kindRelationship3"/>
 	<property name="coordinate" ref="coordinate3"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount4"/>
@@ -295,11 +317,17 @@
 	<property name="birthDate" value="02/04/1990"/>
 	<property name="creditCard" ref="creditCard4"/>
 	<property name="genre" ref="genre2"/>
-	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate4"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount5"/>
 	<property name="searchTemplate" ref="searchTemplate4"/>
+	<property name="received">
+		<list>
+			<ref bean="chirp2"/>
+			<ref bean="chirp3"/>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi5" class="domain.Chorbi">
@@ -310,13 +338,58 @@
 	<property name="picture" value="http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg"/>
 	<property name="description" value="description5"/>
 	<property name="birthDate" value="08/03/1989"/>
-	
+	<property name="creditCard" ref="creditCard1"/>
 	<property name="genre" ref="genre1"/>
-	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate4"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount6"/>
 	<property name="searchTemplate" ref="searchTemplate5"/>
+	</bean>
+	
+	<!-- Chirps -->
+	<bean id="chirp1" class="domain.Chirp">
+	<property name="moment" value="02/05/2017 17:44"/>
+	<property name="subject" value="subject1"/>
+	<property name="text" value="text1"/>
+	<property name="attachment">
+			<set>
+				<value>http://www.google.es</value>
+				<value>http://www.google.es</value>
+				<value>http://www.google.es</value>
+			</set>
+		</property>
+	<property name="sender" ref="chorbi1"/>
+	<property name="recipient" ref="chorbi2"/>
+	</bean>
+	
+	<bean id="chirp2" class="domain.Chirp">
+	<property name="moment" value="03/05/2017 17:44"/>
+	<property name="subject" value="subject2"/>
+	<property name="text" value="text2"/>
+	<property name="attachment">
+			<set>
+				<value>http://www.google.es</value>
+				<value>http://www.google.es</value>
+				
+			</set>
+		</property>
+	<property name="sender" ref="chorbi1"/>
+	<property name="recipient" ref="chorbi4"/>
+	</bean>
+	
+	<bean id="chirp3" class="domain.Chirp">
+	<property name="moment" value="01/05/2017 17:44"/>
+	<property name="subject" value="subject3"/>
+	<property name="text" value="text3"/>
+	<property name="attachment">
+			<set>
+				
+				
+			</set>
+		</property>
+	<property name="sender" ref="chorbi2"/>
+	<property name="recipient" ref="chorbi4"/>
 	</bean>
 	<!-- Other domain beans come here -->	
 	
