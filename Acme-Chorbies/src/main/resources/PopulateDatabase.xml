@@ -31,19 +31,293 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="chorbi1" />
+		<property name="password" value="3daa859a294cdefb20a84840240a76f5" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CHORBY" />
+					<property name="authority" value="CHORBI" />
 				</bean>
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="chorbi2" />
+		<property name="password" value="0c8746de81268518ff83490301db8652" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="chorbi3" />
+		<property name="password" value="a2da05a88eead7e64593826cafc6a7a7" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="chorbi4" />
+		<property name="password" value="a09dd233386632e297a7f4f461989563" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="chorbi5" />
+		<property name="password" value="7e062f6f2a4c0f7ec5abacef2917e033" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHORBI" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Banners -->
+	<bean id="banner1" class="domain.Banner">
+	<property name="url" value="https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"/>
+	</bean>
+	
+	<bean id="banner2" class="domain.Banner">
+	<property name="url" value="http://wallpaper-gallery.net/images/image/image-13.jpg"/>
+	</bean>
+	
+	<bean id="banner3" class="domain.Banner">
+	<property name="url" value="http://i.stack.imgur.com/WCveg.jpg"/>
+	</bean>
+	
+	<bean id="banner4" class="domain.Banner">
+	<property name="url" value="https://i.kinja-img.com/gawker-media/image/upload/s--FY0kcgZ4--/c_scale,fl_progressive,q_80,w_800/wpjyw32wdfhc8tenj0l0.jpg"/>
+	</bean>
+	
+	<!-- Cache Time -->
+	<bean id="cacheTimer" class="domain.CacheTime">
+	<property name="value" value="12"/>
+	</bean>
+	
+	<!-- Genre -->
+	<bean id="genre1" class="doman.Genre">
+	<property name="value" value="man"/>
+	</bean>
+	
+	<bean id="genre2" class="doman.Genre">
+	<property name="value" value="woman"/>
+	</bean>
+	
+	
+	
+	<!-- KindRelationShip -->
+	<bean id="kindRelationShip1" class="domain.kindRelationShip">
+	<property name="value" value="activities"/>
+	</bean>
+	
+	<bean id="kindRelationShip2" class="domain.kindRelationShip">
+	<property name="value" value="friendship"/>
+	</bean>
+	
+	<bean id="kindRelationShip3" class="domain.kindRelationShip">
+	<property name="value" value="love"/>
+	</bean>
+	
+	
+	
+	<!-- Credit Card -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="Juan Vazquez" />
+		<property name="brandName" value="Visa" />
+		<property name="number" value="4079978752719950" />
+		<property name="expirationMonth" value="10" />
+		<property name="expirationYear" value="2019" />
+		<property name="cvv" value="580" />
+	</bean>
+	
+	<bean id="creditCard2" class="domain.CreditCard">
+	  <property name="holderName" value="Nica Griego Barco" />
+	  <property name="brandName" value="MasterCard" />
+	  <property name="number" value="348336595595090" />
+	  <property name="expirationMonth" value="12" />
+	  <property name="expirationYear" value="2017" />
+	  <property name="cvv" value="999" />
+	 </bean>
 
+	<bean id="creditCard3" class="domain.CreditCard">
+	  <property name="holderName" value="Manolo Romero Vazquez" />
+	  <property name="brandName" value="Discover" />
+	  <property name="number" value="6011330960939283" />
+	  <property name="expirationMonth" value="1" />
+	  <property name="expirationYear" value="2019" />
+	  <property name="cvv" value="582" />
+	 </bean>
 	
+	<bean id="creditCard4" class="domain.CreditCard">
+	  <property name="holderName" value="Irene Garcia Vazquez" />
+	  <property name="brandName" value="Mastercard" />
+	  <property name="number" value="5237494243102802" />
+	  <property name="expirationMonth" value="8" />
+	  <property name="expirationYear" value="2020" />
+	  <property name="cvv" value="220" />
+	 </bean>
+	 
+	 <!-- Coordinates -->
+	 <bean id="coordinate1" class="domain.Coordinate">
+	 <property name="country" value="España"></property>
+	 <property name="state" value="Andalucia"></property>
+	 <property name="province" value="Sevilla"></property>
+	  <property name="city" value="Sevilla"></property>
+	 </bean>
+	 
+	 <bean id="coordinate2" class="domain.Coordinate">
+	 <property name="country" value="España"></property>
+	 <property name="state" value="Andalucia"></property>
+	 <property name="province" value="Almeria"></property>
+	 <property name="city" value="Aguadulce"></property>
+	 </bean>
+	 
+	 <bean id="coordinate3" class="domain.Coordinate">
+	 <property name="country" value="España"></property>
+	 <property name="state" value="Madrid"></property>
+	 <property name="province" value="Madrid"></property>
+	 <property name="city" value="Madrid"></property>
+	 </bean>
+	 
+	 <bean id="coordinate4" class="domain.Coordinate">
+	 <property name="country" value="España"></property>
+	 <property name="state" value="Andalucia"></property>
+	 <property name="province" value="Sevilla"></property>
+	 <property name="city" value="Sevilla"></property>
+	 </bean>
+	 
+	 <bean id="coordinate5" class="domain.Coordinate">
+	 <property name="country" value="España"></property>
+	 <property name="state" value="Andalucia"></property>
+	 <property name="province" value="Sevilla"></property>
+	 <property name="city" value="Sevilla"></property>
+	 </bean>
+	<!-- Admin -->
+	<bean id="admin" class="domain.Administrator">
+	<property name="name" value="Manuel" />
+	<property name="surname" value="Torres" />
+	<property name="email" value="manuto@gmail.com" />
+	<property name="phone" value="+34 965845789" />
+	</bean>
+	<!-- SearchTemplate -->
 	
+	<bean id="searchTemplate1" class="domain.SearchTemplate">
+	</bean>
+	
+	<bean id="searchTemplate2" class="domain.SearchTemplate">
+	</bean>
+	
+	<bean id="searchTemplate3" class="domain.SearchTemplate">
+	</bean>
+	
+	<bean id="searchTemplate4" class="domain.SearchTemplate">
+	</bean>
+	
+	<bean id="searchTemplate5" class="domain.SearchTemplate">
+	</bean>
+	<!-- Chorbies -->
+	
+	<bean id="chorbi1" class="domain.Chorbi">
+	<property name="name" value="Juan" />
+	<property name="surname" value="Vazquez" />
+	<property name="email" value="juava@gmail.com" />
+	<property name="phone" value="+34 966845789" />
+	<property name="picture" value="http://2.bp.blogspot.com/-H6MLqMZhViM/VD7jpYbzemI/AAAAAAAABN0/C1eyjkI-Y4U/s1600/visitante%2Bmisterioso.jpg"/>
+	<property name="description" value="description1"/>
+	<property name="birthDate" value="02/06/1993"/>
+	<property name="creditCard" ref="creditCard1"/>
+	<property name="genre" ref="genre1"/>
+	<property name="kindRelationShip" ref="kindRelationShip1"/>
+	<property name="coordinate" ref="coordinate1"/>
+	<property name="banned" value="false"/>
+	<property name="userAccount" ref="userAccount2"/>
+	<property name="searchTemplate" ref="searchTemplate1"/>
+	</bean>
+	
+	<bean id="chorbi2" class="domain.Chorbi">
+	<property name="name" value="Nica" />
+	<property name="surname" value="Griego Barco" />
+	<property name="email" value="nigriba@gmail.com" />
+	<property name="phone" value="+34 966995789" />
+	<property name="picture" value="http://photos1.blogger.com/blogger/1942/3777/1600/Anonimo.jpg"/>
+	<property name="description" value="description2"/>
+	<property name="birthDate" value="02/06/1992"/>
+	<property name="creditCard" ref="creditCard2"/>
+	<property name="genre" ref="genre2"/>
+	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="coordinate" ref="coordinate2"/>
+	<property name="banned" value="false"/>
+	<property name="userAccount" ref="userAccount3"/>
+	<property name="searchTemplate" ref="searchTemplate2"/>
+	</bean>
+	
+	<bean id="chorbi3" class="domain.Chorbi">
+	<property name="name" value="Manolo" />
+	<property name="surname" value="Romero Vazquez" />
+	<property name="email" value="marova@gmail.com" />
+	<property name="phone" value="+34 967995789" />
+	<property name="picture" value="http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg"/>
+	<property name="description" value="description3"/>
+	<property name="birthDate" value="02/05/1991"/>
+	<property name="creditCard" ref="creditCard3"/>
+	<property name="genre" ref="genre1"/>
+	<property name="kindRelationShip" ref="kindRelationShip3"/>
+	<property name="coordinate" ref="coordinate3"/>
+	<property name="banned" value="false"/>
+	<property name="userAccount" ref="userAccount4"/>
+	<property name="searchTemplate" ref="searchTemplate3"/>
+	</bean>
+	
+	<bean id="chorbi4" class="domain.Chorbi">
+	<property name="name" value="Irene" />
+	<property name="surname" value="Garcia Vazquez" />
+	<property name="email" value="irgava@gmail.com" />
+	<property name="phone" value="+34 968895789" />
+	<property name="picture" value="http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg"/>
+	<property name="description" value="description4"/>
+	<property name="birthDate" value="02/04/1990"/>
+	<property name="creditCard" ref="creditCard4"/>
+	<property name="genre" ref="genre2"/>
+	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="coordinate" ref="coordinate4"/>
+	<property name="banned" value="false"/>
+	<property name="userAccount" ref="userAccount5"/>
+	<property name="searchTemplate" ref="searchTemplate4"/>
+	</bean>
+	
+	<bean id="chorbi5" class="domain.Chorbi">
+	<property name="name" value="Paco" />
+	<property name="surname" value="Velmez Gracia" />
+	<property name="email" value="pavegra@gmail.com" />
+	<property name="phone" value="+34 967996789" />
+	<property name="picture" value="http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg"/>
+	<property name="description" value="description5"/>
+	<property name="birthDate" value="08/03/1989"/>
+	
+	<property name="genre" ref="genre1"/>
+	<property name="kindRelationShip" ref="kindRelationShip2"/>
+	<property name="coordinate" ref="coordinate4"/>
+	<property name="banned" value="false"/>
+	<property name="userAccount" ref="userAccount6"/>
+	<property name="searchTemplate" ref="searchTemplate5"/>
+	</bean>
 	<!-- Other domain beans come here -->	
 	
 </beans>
