@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Chorby extends Actor {
+public class Chorbi extends Actor {
 
 	// Attributes ---------------------------------------------
 
@@ -28,6 +28,7 @@ public class Chorby extends Actor {
 	private String		genre;
 	private String		kindRelationship;
 	private Coordinate	coordinate;
+	private Boolean		banned;
 
 
 	// Getters and Setters ------------------------------------
@@ -92,6 +93,14 @@ public class Chorby extends Actor {
 
 	public void setCoordinate(final Coordinate coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	public Boolean getBanned() {
+		return this.banned;
+	}
+
+	public void setBanned(final Boolean banned) {
+		this.banned = banned;
 	}
 
 	// Relationships -----------------------------------
