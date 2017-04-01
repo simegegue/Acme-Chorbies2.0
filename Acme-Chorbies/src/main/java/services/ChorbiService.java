@@ -131,6 +131,36 @@ public class ChorbiService {
 		return chorbiRepository.findChorbiesByKindRelationship(kindRelationship);
 	}
 
+	public void banUnban(Chorbi chorbi) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		if (chorbi.getBanned())
+			chorbi.setBanned(false);
+		else
+			chorbi.setBanned(true);
+	}
+
+	public void disableAccount(Chorbi chorbi) {
+		if (chorbi.getBanned() == true)
+			chorbi.setUserAccount(null);
+	}
+
+	public void enableAccount(Chorbi chorbi) {
+		UserAccount userAccount = new UserAccount();
+		List<Authority> authorities = new ArrayList<Authority>();
+		Authority a = new Authority();
+		if (chorbi.getBanned() == false) {
+			a.setAuthority(Authority.CHORBI);
+			authorities.add(a);
+			userAccount.addAuthority(a);
+			chorbi.setUserAccount(userAccount);
+		}
+	}
+
 	//Dashboard Services -------------------
 
 	public Collection<Integer> numberOfChorbiesByCountry() {

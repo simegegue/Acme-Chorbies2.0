@@ -59,7 +59,6 @@
 				<jstl:out value="${noH}"/>
 			</jstl:if>
 		</display:column>
-	<security:authorize access="hasRole('ADMIN')">
 	
 	<spring:message code="chorbi.banned" var="bannedHeader" />
 	<display:column title="${bannedHeader}">
@@ -79,8 +78,6 @@
 	
 	</security:authorize>
 	
-	</security:authorize>
-	
 	<display:column>
 		<a href="chorbi/displayById.do?chorbiId=${row.id}"><spring:message code="chorbi.view.profile" /></a>
 	</display:column>
@@ -89,11 +86,7 @@
 		<a href="chorbi/chorbieswholikethem.do?chorbiId=${row.id}"><spring:message code="chorbi.view.likethem" /></a>
 	</display:column>
 	
-	
-	
-	
-	
-	
+
 </display:table>
 
 </security:authorize>
