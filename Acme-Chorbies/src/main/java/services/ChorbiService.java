@@ -239,13 +239,13 @@ public class ChorbiService {
 		Collection<Double> result = new ArrayList<Double>();
 		Double aux;
 
-		aux = chorbiRepository.minSendedChirpChorbi();
+		aux = chorbiRepository.minSentChirpChorbi();
 		result.add(aux);
 
-		aux = chorbiRepository.maxSendedChirpChorbi();
+		aux = chorbiRepository.maxSentChirpChorbi();
 		result.add(aux);
 
-		aux = chorbiRepository.avgSendedChirpChorbi();
+		aux = chorbiRepository.avgSentChirpChorbi();
 		result.add(aux);
 
 		return result;

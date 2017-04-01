@@ -65,18 +65,18 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select avg(c.received.size)from Chorbi c")
 	Double avgReceivedChirpChorbi();
 
-	@Query("select min(c.sended.size)from Chorbi c")
-	Double minSendedChirpChorbi();
+	@Query("select min(c.sent.size)from Chorbi c")
+	Double minSentChirpChorbi();
 
-	@Query("select max(c.sended.size)from Chorbi c")
-	Double maxSendedChirpChorbi();
+	@Query("select max(c.sent.size)from Chorbi c")
+	Double maxSentChirpChorbi();
 
-	@Query("select avg(c.sended.size)from Chorbi c")
-	Double avgSendedChirpChorbi();
+	@Query("select avg(c.sent.size)from Chorbi c")
+	Double avgSentChirpChorbi();
 
 	@Query("select c from Chorbi c where c.received.size=(select max(c2.received.size) from Chorbi c2)")
 	Collection<Chorbi> moreChirpReceivedChorbies();
 
-	@Query("select c from Chorbi c where c.sended.size=(select max(c2.sended.size) from Chorbi c2)")
+	@Query("select c from Chorbi c where c.sent.size=(select max(c2.sent.size) from Chorbi c2)")
 	Collection<Chorbi> moreChirpSentChorbies();
 }
