@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChorbiService;
+import domain.Chorbi;
 
 @Controller
 @RequestMapping("/administrator")
@@ -49,10 +50,18 @@ public class AdministratorController extends AbstractController {
 		Collection<Double> minMaxAvgChorbiYear = chorbiService.minMaxAvgChorbiYear();
 		Double ratioChorbiesNullCreditCard = chorbiService.ratioChorbiesNullCreditCard();
 		Collection<Double> actFriLoveRatioRelationChorbi = chorbiService.actFriLoveRatioRelationChorbi();
+		Collection<String> auxCountry = chorbiService.auxCountry();
+		Collection<String> auxCity = chorbiService.auxCity();
 
 		//B
+		Collection<Chorbi> listChorbiesbyLikes = chorbiService.listChorbiesbyLikes();
+		Collection<Double> minMaxAvgReceivedLikeChorbi = chorbiService.minMaxAvgReceivedLikeChorbi();
 
 		//A
+		Collection<Double> minMaxAvgReceivedChirpChorbi = chorbiService.minMaxAvgReceivedChirpChorbi();
+		Collection<Double> minMaxAvgSentChirpChorbi = chorbiService.minMaxAvgSentChirpChorbi();
+		Collection<Chorbi> moreChirpReceivedChorbies = chorbiService.moreChirpReceivedChorbies();
+		Collection<Chorbi> moreChirpSentChorbies = chorbiService.moreChirpSentChorbies();
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -62,10 +71,18 @@ public class AdministratorController extends AbstractController {
 		result.addObject("minMaxAvgChorbiYear", minMaxAvgChorbiYear);
 		result.addObject("ratioChorbiesNullCreditCard", ratioChorbiesNullCreditCard);
 		result.addObject("actFriLoveRatioRelationChorbi", actFriLoveRatioRelationChorbi);
+		result.addObject("auxCountry", auxCountry);
+		result.addObject("auxCity", auxCity);
 
 		//B
+		result.addObject("listChorbiesbyLikes", listChorbiesbyLikes);
+		result.addObject("minMaxAvgReceivedLikeChorbi", minMaxAvgReceivedLikeChorbi);
 
 		//A
+		result.addObject("minMaxAvgReceivedChirpChorbi", minMaxAvgReceivedChirpChorbi);
+		result.addObject("minMaxAvgSentChirpChorbi", minMaxAvgSentChirpChorbi);
+		result.addObject("moreChirpReceivedChorbies", moreChirpReceivedChorbies);
+		result.addObject("moreChirpSentChorbies", moreChirpSentChorbies);
 
 		result.addObject("requestURI", "administrator/dashboard.do");
 

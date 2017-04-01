@@ -29,13 +29,13 @@ public class ChorbiService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ChorbiRepository	chorbiRepository;
-
+	private ChorbiRepository		chorbiRepository;
 
 	// Supporting services ----------------------------------------------------
-	
+
 	@Autowired
-	private SearchTemplateService searchTemplateService;
+	private SearchTemplateService	searchTemplateService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -300,25 +300,47 @@ public class ChorbiService {
 		Collection<Chorbi> result = chorbiRepository.moreChirpSentChorbies();
 		return result;
 	}
-	
+
+	public Collection<String> auxCountry() {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		Collection<String> result = chorbiRepository.auxCountry();
+		return result;
+	}
+
+	public Collection<String> auxCity() {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		Collection<String> result = chorbiRepository.auxCity();
+		return result;
+	}
+
 	// Form methods -----------------------------------------------------------
-	
-	public ChorbiForm generate(){
+
+	public ChorbiForm generate() {
 		ChorbiForm result;
 		result = new ChorbiForm();
 		return result;
 	}
-	
-	public Chorbi reconstruct(ChorbiForm chorbiForm, BindingResult binding){
+
+	public Chorbi reconstruct(ChorbiForm chorbiForm, BindingResult binding) {
 		Chorbi result = create();
 		DateTime today = new DateTime();
 		DateTime birthDate = new DateTime(chorbiForm.getBirthDate());
 		String password = chorbiForm.getPassword();
-		
-		Assert.isTrue(chorbiForm.getPassword2().equals(password) ,"notEqualPassword");
-		Assert.isTrue(birthDate.isBefore(today.minusYears(18)),"not18Old");	
-		Assert.isTrue(chorbiForm.getAgreed(),"agreedNotAccepted");
-		
+
+		Assert.isTrue(chorbiForm.getPassword2().equals(password), "notEqualPassword");
+		Assert.isTrue(birthDate.isBefore(today.minusYears(18)), "not18Old");
+		Assert.isTrue(chorbiForm.getAgreed(), "agreedNotAccepted");
+
 		UserAccount userAccount = new UserAccount();
 		List<Authority> authorities = new ArrayList<Authority>();
 		Authority a = new Authority();
@@ -327,7 +349,7 @@ public class ChorbiService {
 		userAccount.addAuthority(a);
 		userAccount.setPassword(password);
 		userAccount.setUsername(chorbiForm.getUsername());
-		
+
 		result.setUserAccount(userAccount);
 		result.setName(chorbiForm.getName());
 		result.setSurname(chorbiForm.getSurname());
@@ -340,7 +362,7 @@ public class ChorbiService {
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
-		
+
 		return result;
 	}
 

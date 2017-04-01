@@ -22,9 +22,20 @@
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>
 		<table id="numberOfChorbiesByCountry" class="table">
 			<tr>
-				<jstl:if test="${not empty numberOfChorbiesByCountry }">
-					<td><jstl:out value="${numberOfChorbiesByCountry}" /></td>
-				</jstl:if>
+				<td><jstl:if test="${not empty numberOfChorbiesByCountry }">
+					<jstl:forEach var="X" items="${numberOfChorbiesByCountry}">
+						<tr>
+							<td><jstl:out value="${X}"/></td>
+						</tr>
+					</jstl:forEach>	
+				</jstl:if></td>
+				<!--  <td><jstl:if test="${not empty auxCountry }">
+					<jstl:forEach var="Y" items="${auxCountry}">
+						<tr>
+							<td><jstl:out value="${Y}"/></td>
+						</tr>
+					</jstl:forEach>	
+				</jstl:if></td> -->
 			</tr>
 		</table>
 	</fieldset>
@@ -106,10 +117,129 @@
 
 <!-- B -->
 
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.listChorbiesbyLikes" /></legend>
+		<table id="listChorbiesbyLikes" class="table">
+			<tr>
+				<jstl:if test="${not empty listChorbiesbyLikes }">
+					<jstl:forEach var="X" items="${listChorbiesbyLikes}">
+					<tr>
+						<td><jstl:out value="${X.name} (${X.userAccount.username}) (${X.likesReceived.size()})"/></td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
 
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.minMaxAvgReceivedLikeChorbi" /></legend>
+		<table id="minMaxAvgReceivedLikeChorbi" class="table">
+			<tr>
+				<th><spring:message code="administrator.dashboard.min"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedLikeChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedLikeChorbi.get(0) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.max"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedLikeChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedLikeChorbi.get(1) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.avg"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedLikeChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedLikeChorbi.get(2) }" /></td>
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
 
 <!-- A -->
 
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.minMaxAvgReceivedChirpChorbi" /></legend>
+		<table id="minMaxAvgReceivedChirpChorbi" class="table">
+			<tr>
+				<th><spring:message code="administrator.dashboard.min"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedChirpChorbi.get(0) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.max"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedChirpChorbi.get(1) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.avg"/></th>
+				<jstl:if test="${not empty minMaxAvgReceivedChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgReceivedChirpChorbi.get(2) }" /></td>
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
 
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.minMaxAvgSentChirpChorbi" /></legend>
+		<table id="minMaxAvgSentChirpChorbi" class="table">
+			<tr>
+				<th><spring:message code="administrator.dashboard.min"/></th>
+				<jstl:if test="${not empty minMaxAvgSentChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgSentChirpChorbi.get(0) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.max"/></th>
+				<jstl:if test="${not empty minMaxAvgSentChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgSentChirpChorbi.get(1) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.avg"/></th>
+				<jstl:if test="${not empty minMaxAvgSentChirpChorbi }">
+					<td><jstl:out value="${minMaxAvgSentChirpChorbi.get(2) }" /></td>
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.moreChirpReceivedChorbies" /></legend>
+		<table id="moreChirpReceivedChorbies" class="table">
+			<tr>
+				<jstl:if test="${not empty moreChirpReceivedChorbies }">
+					<jstl:forEach var="X" items="${moreChirpReceivedChorbies}">
+					<tr>
+						<td><jstl:out value="${X.name} (${X.userAccount.username}) (${X.received.size()})"/></td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.moreChirpSentChorbies" /></legend>
+		<table id="moreChirpSentChorbies" class="table">
+			<tr>
+				<jstl:if test="${not empty moreChirpSentChorbies }">
+					<jstl:forEach var="X" items="${moreChirpSentChorbies}">
+					<tr>
+						<td><jstl:out value="${X.name} (${X.userAccount.username}) (${X.sent.size()})"/></td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
 
 </security:authorize>

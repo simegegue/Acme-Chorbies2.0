@@ -79,4 +79,12 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 
 	@Query("select c from Chorbi c where c.sent.size=(select max(c2.sent.size) from Chorbi c2)")
 	Collection<Chorbi> moreChirpSentChorbies();
+
+	//Aux---------------
+
+	@Query("select c.coordinate.country from Chorbi c group by c.coordinate.country")
+	Collection<String> auxCountry();
+
+	@Query("select c.coordinate.city from Chorbi c group by c.coordinate.city")
+	Collection<String> auxCity();
 }
