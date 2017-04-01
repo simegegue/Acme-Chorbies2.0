@@ -39,7 +39,7 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	Double ratioChorbiesRelationActivities();
 
 	@Query("select 1.0*(select count(c) from Chorbi c where c.kindRelationship.value='friendship')/ count(c2) from Chorbi c2")
-	Double ratioChorbiesRelationFriendShip();
+	Double ratioChorbiesRelationFriendship();
 
 	@Query("select 1.0*(select count(c) from Chorbi c where c.kindRelationship.value='love')/ count(c2) from Chorbi c2")
 	Double ratioChorbiesRelationLove();
