@@ -37,6 +37,13 @@
 					<li><a href="administrator/genre/create.do"><spring:message code="master.page.genre.create" /></a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.administrator.kindRelationship" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/kindRelationship/list.do"><spring:message code="master.page.kindRelationship.list" /></a></li>
+					<li><a href="administrator/kindRelationship/create.do"><spring:message code="master.page.kindRelationship.create" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHORBI')">
