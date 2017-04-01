@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 import repositories.KindRelationshipRepository;
 import domain.Chorbi;
 import domain.KindRelationship;
+import domain.SearchTemplate;
 import forms.KindRelationshipForm;
 
 @Service
@@ -27,6 +28,10 @@ public class KindRelationshipService {
 		
 		@Autowired
 		private ChorbiService chorbiService;
+		
+		@Autowired
+		private SearchTemplateService searchTemplateService;
+		
 		
 		@Autowired
 		private Validator  validator;
@@ -83,12 +88,18 @@ public class KindRelationshipService {
 
 			KindRelationship aux = findKindRelationshipByValue("none");
 					
+			Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByKindRelationship(kindRelationship);
 			Collection<Chorbi> chorbies = chorbiService.findChorbiesByKindRelationship(kindRelationship);
 			
 			for(Chorbi c : chorbies){
 				c.setKindRelationship(aux);
 				chorbiService.save(c);
 			}	
+			
+			for(SearchTemplate s : searches){
+				s.setKindRelationship(aux);
+				searchTemplateService.save(s);
+			}
 			
 			kindRelationshipRepository.delete(kindRelationship);
 		}
