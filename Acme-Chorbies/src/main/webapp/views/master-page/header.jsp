@@ -28,6 +28,13 @@
 					<li><a href="banner/create.do"><spring:message code="master.page.banner.create" /></a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.administrator.genre" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="genre/list.do"><spring:message code="master.page.genre.list" /></a></li>
+					<li><a href="genre/create.do"><spring:message code="master.page.genre.create" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CUSTOMER')">

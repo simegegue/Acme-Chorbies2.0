@@ -28,6 +28,8 @@
 		<value>/views/profile/messages</value>
 		<value>/views/chirp/messages</value>
 		<value>/views/banner/messages</value>
+		<value>/views/genre/messages</value>
+		
 	</util:list>
 
 </beans>

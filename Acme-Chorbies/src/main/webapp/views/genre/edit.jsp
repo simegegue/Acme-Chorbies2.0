@@ -22,18 +22,17 @@
 <security:authorize
 	access="hasRole('ADMIN')">
 
-	<form:form	action="banner/edit.do"	modelAttribute="bannerForm"> 
+	<form:form	action="genre/edit.do"	modelAttribute="genreForm"> 
 	
 		<form:hidden path="id"/>
+		<acme:textbox code="genre.value" path="value"/>
 		
-		<acme:textbox code="banner.url" path="url"/>
 		
-		
-		<acme:submit name="save" code="banner.save"/>
-		<jstl:if test="${bannerForm.id != 0}">
-			<input type="submit" name="delete" value="<spring:message code="banner.delete" />" onclick="return confirm('<spring:message code="banner.confirm.delete" />')" />
+		<acme:submit name="save" code="genre.save"/>
+		<jstl:if test="${genreForm.id != 0}">
+			<input type="submit" name="delete" value="<spring:message code="genre.delete" />" onclick="return confirm('<spring:message code="genre.confirm.delete" />')" />
 		</jstl:if>
-		<acme:cancel code="banner.cancel" url="banner/list.do"/>
+		<acme:cancel code="genre.cancel" url="genre/list.do"/>
 		
 	</form:form>
 

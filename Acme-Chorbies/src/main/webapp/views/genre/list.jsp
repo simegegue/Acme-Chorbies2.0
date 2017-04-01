@@ -1,5 +1,5 @@
 <%--
- * edit.jsp
+ * list.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -9,32 +9,29 @@
  --%>
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<security:authorize
-	access="hasRole('ADMIN')">
 
-	<form:form	action="banner/edit.do"	modelAttribute="bannerForm"> 
+<security:authorize access="hasRole('ADMIN')">
+
+<display:table name="genres"
+	id="row"
+	class="displaytag"
+	pagesize="5"
+	requestURI="${requestURI}" >
 	
-		<form:hidden path="id"/>
-		
-		<acme:textbox code="banner.url" path="url"/>
-		
-		
-		<acme:submit name="save" code="banner.save"/>
-		<jstl:if test="${bannerForm.id != 0}">
-			<input type="submit" name="delete" value="<spring:message code="banner.delete" />" onclick="return confirm('<spring:message code="banner.confirm.delete" />')" />
-		</jstl:if>
-		<acme:cancel code="banner.cancel" url="banner/list.do"/>
-		
-	</form:form>
+	<display:column>
+		<a href="genre/edit.do?genreId=${row.id}"><spring:message code="genre.edit" /></a>
+	</display:column>
+	
+	<spring:message code="genre.value" var="valueHeader" />
+	<display:column property="value" title="${valueHeader}"/>
+	
+</display:table>
 
 </security:authorize>

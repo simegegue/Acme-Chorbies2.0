@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Pattern;
 
@@ -21,6 +22,7 @@ public class Genre extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^man$|^woman$")
+	@Column(unique = true)
 	public String getValue() {
 		return this.value;
 	}
