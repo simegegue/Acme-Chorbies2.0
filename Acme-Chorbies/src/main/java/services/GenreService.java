@@ -81,11 +81,9 @@ public class GenreService {
 		Assert.notNull(genre);
 		Assert.isTrue(genre.getId() != 0);
 		
-		Genre aux = findGenreByValue("None");
-		
-		// Buscar todos los chorbis qeu tengan la relacion a eliminar
-		
-		Collection<Chorbi> chorbies = null;
+		Genre aux = findGenreByValue("none");
+			
+		Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre);
 		
 		for(Chorbi c : chorbies){
 			c.setGenre(aux);

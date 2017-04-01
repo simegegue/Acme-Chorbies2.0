@@ -81,11 +81,9 @@ public class KindRelationshipService {
 			Assert.notNull(kindRelationship);
 			Assert.isTrue(kindRelationship.getId() != 0);
 
-			KindRelationship aux = findKindRelationshipByValue("None");
-			
-			// Buscar todos los chorbis qeu tengan la relacion a eliminar
-			
-			Collection<Chorbi> chorbies = null;
+			KindRelationship aux = findKindRelationshipByValue("none");
+					
+			Collection<Chorbi> chorbies = chorbiService.findChorbiesByKindRelationship(kindRelationship);
 			
 			for(Chorbi c : chorbies){
 				c.setKindRelationship(aux);

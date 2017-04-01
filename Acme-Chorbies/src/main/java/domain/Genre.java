@@ -21,7 +21,7 @@ public class Genre extends DomainEntity {
 	// Getters and Setters -----------------------------
 
 	@NotBlank
-	@Pattern(regexp = "^man$|^woman$")
+	@Pattern(regexp = "^man$|^woman$|^none$")
 	@Column(unique = true)
 	public String getValue() {
 		return this.value;
