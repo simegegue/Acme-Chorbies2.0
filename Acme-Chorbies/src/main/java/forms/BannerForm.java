@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.URL;
 public class BannerForm {
 
 	private int		id;
-	private String	image;
+	private String	url;
 
 	// Constructor --------------------------------------------------
 
@@ -29,11 +29,11 @@ public class BannerForm {
 	@NotBlank
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getImage() {
-		return image;
+	public String getUrl() {
+		return url;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@NotNull

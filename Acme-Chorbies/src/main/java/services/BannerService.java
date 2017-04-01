@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.BannerRepository;
@@ -13,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Banner;
+import forms.BannerForm;
 
 @Service
 @Transactional
@@ -119,5 +121,33 @@ public class BannerService {
 
 		bannerRepository.delete(banner);
 	}
+	
+	// Form methods ----------------------------------------------------------
+
+		public BannerForm generateForm() {
+			BannerForm result = new BannerForm();
+
+			return result;
+		}
+
+		public Banner reconstruct(BannerForm bannerForm, BindingResult binding) {
+			Banner result;
+			if (bannerForm.getId() == 0)
+				result = create();
+			else {
+				result = bannerRepository.findOne(bannerForm.getId());
+			}
+			result.setUrl(bannerForm.getUrl());
+			validator.validate(result, binding);
+			return result;
+		}
+
+		public BannerForm transform(Banner banner) {
+			BannerForm result = generateForm();
+			result.setId(banner.getId());
+			result.setUrl(banner.getUrl());
+			return result;
+		}
+
 
 }
