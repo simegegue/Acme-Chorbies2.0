@@ -47,6 +47,7 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHORBI')">
+		<li><a class="fNiv" href="chorbi/browse.do"><spring:message code="master.page.chorbi.browse" /></a></li>
 			<li><a class = "fNiv"><spring:message code="master.page.chirp"/></a>
 				<ul>
 					<li class="arrow"></li>
