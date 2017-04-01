@@ -167,7 +167,7 @@ public class ChirpService {
 
 			Collection<Chirp> result = new ArrayList<Chirp>();
 			Chorbi chorbi = chorbiService.findByPrincipal();
-			result = chorbi.getReceived();
+			result = chirpRepository.chirpReceivedByActorId(chorbi.getId());
 			return result;
 		}
 		

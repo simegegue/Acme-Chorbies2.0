@@ -17,15 +17,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('CHORBI')">
 
 	<form:form action="${requestURI}"	modelAttribute="chirpForm">
 	
 		<acme:textbox code="chirp.sender" path="sender.userAccount.username" readonly="true" />
 		<br/>
-		<acme:select items="${actors }" itemLabel="userAccount.username" code="chirp.recipient" path="recipient" />
+		<acme:select items="${chorbies }" itemLabel="userAccount.username" code="chirp.recipient" path="recipient" />
 		<br/>
-		<acme:textbox code="chirp.subject" path="title" />
+		<acme:textbox code="chirp.subject" path="subject" />
 		<br/>
 		<acme:textarea code="chirp.text" path="text" />
 		<br/>

@@ -38,12 +38,13 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
+		<security:authorize access="hasRole('CHORBI')">
+			<li><a class = "fNiv"><spring:message code="master.page.chirp"/></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
+					<li><a href="chirp/write.do" ><spring:message code="master.page.chirp.write" /></a></li>
+					<li><a href="chirp/sent.do" ><spring:message code="master.page.chirp.sent" /></a></li>
+					<li><a href="chirp/received.do" ><spring:message code="master.page.chirp.received" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('CHORBI')">
 
 	<display:table name="chirp" id="row" class="displaytag" pagesize="5" requestURI="chirp/sent.do" >
 	
@@ -38,9 +38,9 @@
 	<spring:message code = "chirp.attachment" var = "attachementHeader"/>
 	<display:column property="attachment" title="${attachmentHeader}" sortable="true"/>
 	
-	<display:column><a href="chirp/view.do?messageId=${row.id }"><spring:message code="message.view"/></a></display:column>
+	<display:column><a href="chirp/view.do?chirpId=${row.id }"><spring:message code="chirp.view"/></a></display:column>
 	
-	<display:column><a href="chirp/forward.do?messageId=${row.id }" ><spring:message code="message.forward" /></a></display:column>
+	<display:column><a href="chirp/forward.do?chirpId=${row.id }" ><spring:message code="chirp.forward" /></a></display:column>
 		
 	</display:table>
 	

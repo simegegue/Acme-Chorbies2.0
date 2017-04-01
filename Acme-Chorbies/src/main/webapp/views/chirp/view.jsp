@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('CHORBI')">
 
 	<form:form action="${requestURI}"	modelAttribute="chirpDisplay">
 	

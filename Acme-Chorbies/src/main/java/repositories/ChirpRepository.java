@@ -11,10 +11,10 @@ import domain.Chirp;
 @Repository
 public interface ChirpRepository extends JpaRepository<Chirp, Integer>{
 	
-	@Query("select c from Chirp c where c.sender.id=?1")
+	@Query("select c from Chirp c where c.sender.id=?1 and c.deleteSender=false")
 	Collection<Chirp> chirpSentByActorId(int actorId);
 
-	@Query("select c from Chirp c where c.recipient.id=?1")
+	@Query("select c from Chirp c where c.recipient.id=?1 and c.deleteRecipient=false")
 	Collection<Chirp> chirpReceivedByActorId(int actorId);
 
 }
