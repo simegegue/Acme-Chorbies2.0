@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Chorbi;
-import domain.Genre;
-import domain.KindRelationship;
 
 @Repository
 public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
@@ -17,11 +15,11 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c from Chorbi c where c.userAccount.id=?1")
 	Chorbi findByUserAccountId(int id);
 	
-	@Query("select c from Chorbi c where c.genre = ?1")
-	Collection<Chorbi> findChorbiesByGenre(Genre genre);
+	@Query("select c from Chorbi c where c.genre.id = ?1")
+	Collection<Chorbi> findChorbiesByGenre(int genreId);
 	
-	@Query("select c from Chorbi c where c.kindRelationship = ?1")
-	Collection<Chorbi> findChorbiesByKindRelationship(KindRelationship kindRelationship);
+	@Query("select c from Chorbi c where c.kindRelationship.id = ?1")
+	Collection<Chorbi> findChorbiesByKindRelationship(int kindRelationshipId);
 
 	//Dashboard
 

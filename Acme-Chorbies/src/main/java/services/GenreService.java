@@ -87,8 +87,8 @@ public class GenreService {
 		
 		Genre aux = findGenreByValue("none");
 			
-		Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre);
-		Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre);
+		Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
+		Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre.getId());
 		
 		for(Chorbi c : chorbies){
 			c.setGenre(aux);

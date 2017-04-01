@@ -88,8 +88,8 @@ public class KindRelationshipService {
 
 			KindRelationship aux = findKindRelationshipByValue("none");
 					
-			Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByKindRelationship(kindRelationship);
-			Collection<Chorbi> chorbies = chorbiService.findChorbiesByKindRelationship(kindRelationship);
+			Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByKindRelationship(kindRelationship.getId());
+			Collection<Chorbi> chorbies = chorbiService.findChorbiesByKindRelationship(kindRelationship.getId());
 			
 			for(Chorbi c : chorbies){
 				c.setKindRelationship(aux);
