@@ -18,6 +18,8 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.Genre;
+import domain.KindRelationship;
 import domain.RelationLike;
 import domain.SearchTemplate;
 import forms.ChorbiForm;
@@ -122,6 +124,15 @@ public class ChorbiService {
 
 		return result;
 	}
+	
+	public Collection<Chorbi> findChorbiesByGenre(Genre genre){
+		return chorbiRepository.findChorbiesByGenre(genre);
+	}
+	
+	public Collection<Chorbi> findChorbiesByKindRelationship(KindRelationship kindRelationship){
+		return chorbiRepository.findChorbiesByKindRelationship(kindRelationship);
+	}
+
 
 	//Dashboard Services -------------------
 
