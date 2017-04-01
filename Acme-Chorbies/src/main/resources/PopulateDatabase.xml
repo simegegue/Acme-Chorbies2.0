@@ -390,6 +390,8 @@
 		</property>
 	<property name="sender" ref="chorbi1"/>
 	<property name="recipient" ref="chorbi2"/>
+	<property name="deleteSender" value="false"/>
+	<property name="deleteRecipient" value="false"/>
 	</bean>
 	
 	<bean id="chirp2" class="domain.Chirp">
@@ -405,6 +407,8 @@
 		</property>
 	<property name="sender" ref="chorbi1"/>
 	<property name="recipient" ref="chorbi4"/>
+	<property name="deleteSender" value="false"/>
+	<property name="deleteRecipient" value="false"/>
 	</bean>
 	
 	<bean id="chirp3" class="domain.Chirp">
@@ -419,6 +423,8 @@
 		</property>
 	<property name="sender" ref="chorbi2"/>
 	<property name="recipient" ref="chorbi4"/>
+	<property name="deleteSender" value="false"/>
+	<property name="deleteRecipient" value="false"/>
 	</bean>
 	
 	<!-- RelationLike -->
