@@ -99,7 +99,7 @@ public class KindRelationshipController extends AbstractController {
 			} catch (Throwable oops) {
 				String msgCode = "banner.save.error";
 				if (oops.getMessage().equals("usedKindRelationship"))
-					msgCode = "genre.register.usedKindRelationship";
+					msgCode = "kindRelationship.register.usedKindRelationship";
 				
 				result = createEditModelAndView(kindRelationshipForm, msgCode);
 

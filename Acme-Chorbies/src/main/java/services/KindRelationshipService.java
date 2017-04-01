@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.KindRelationshipRepository;
+import domain.Genre;
 import domain.KindRelationship;
 import forms.KindRelationshipForm;
 
@@ -82,6 +83,10 @@ public class KindRelationshipService {
 		}
 		
 		// Other bussiness methods ------------------------------------------------
+		public KindRelationship findKindRelationshipByValue(String value){
+			return kindRelationshipRepository.findKindRelationshipByValue(value);
+		}
+		
 		// Form methods ----------------------------------------------------------
 
 				public KindRelationshipForm generateForm() {
