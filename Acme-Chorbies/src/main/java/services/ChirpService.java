@@ -86,7 +86,7 @@ public class ChirpService {
 			return result;
 		}
 
-		public Chirp findOne(int messageId) {
+		public Chirp findOne(int chirpId) {
 
 			UserAccount userAccount;
 			userAccount = LoginService.getPrincipal();
@@ -97,7 +97,7 @@ public class ChirpService {
 
 			Chirp result;
 
-			result = chirpRepository.findOne(messageId);
+			result = chirpRepository.findOne(chirpId);
 			Assert.notNull(result);
 
 			return result;
@@ -119,7 +119,7 @@ public class ChirpService {
 			return result;
 		}
 
-		public void delete(Chirp message) {
+		public void delete(Chirp chirp) {
 
 			UserAccount userAccount;
 			userAccount = LoginService.getPrincipal();
@@ -127,14 +127,14 @@ public class ChirpService {
 			au.setAuthority("CHORBI");
 
 			Assert.isTrue(userAccount.getAuthorities().contains(au));
-			Assert.isTrue(message.getRecipient().equals(chorbiService.findByPrincipal()) || message.getSender().equals(chorbiService.findByPrincipal()));
+			Assert.isTrue(chirp.getRecipient().equals(chorbiService.findByPrincipal()) || chirp.getSender().equals(chorbiService.findByPrincipal()));
 
-			Assert.notNull(message);
+			Assert.notNull(chirp);
 			Chorbi chorbi = chorbiService.findByPrincipal();
-			Assert.isTrue(chorbi.equals(message.getSender()) || chorbi.equals(message.getRecipient()));
-			Assert.isTrue(message.getId() != 0);
+			Assert.isTrue(chorbi.equals(chirp.getSender()) || chorbi.equals(chirp.getRecipient()));
+			Assert.isTrue(chirp.getId() != 0);
 
-			chirpRepository.delete(message);
+			chirpRepository.delete(chirp);
 		}
 
 		// Other business methods -------------------------------------------------
