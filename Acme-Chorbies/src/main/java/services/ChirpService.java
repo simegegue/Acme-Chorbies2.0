@@ -65,6 +65,8 @@ public class ChirpService {
 			result.setSender(chorbi);
 			result.setMoment(moment);
 			result.setAttachment(attachments);
+			result.setDeleteRecipient(false);
+			result.setDeleteSender(false);
 
 			return result;
 		}
@@ -167,6 +169,29 @@ public class ChirpService {
 			Chorbi chorbi = chorbiService.findByPrincipal();
 			result = chorbi.getReceived();
 			return result;
+		}
+		
+		public void deleteChirp(Chirp chirp){
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			Chorbi principal = chorbiService.findByPrincipal();
+			
+			if(chirp.getDeleteRecipient() || chirp.getDeleteSender()){
+				delete(chirp);
+			}else{
+				if(chirp.getRecipient().equals(principal)){
+					chirp.setDeleteRecipient(true);
+					save(chirp);
+				}else{
+					Assert.isTrue(chirp.getSender().equals(principal));
+					chirp.setDeleteSender(true);
+					save(chirp);
+				}
+			}
 		}
 
 		// Reply --------------------------------------------------------------
