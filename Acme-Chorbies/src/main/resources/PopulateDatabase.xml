@@ -264,13 +264,13 @@
 			<ref bean="relationLike5"/>
 		</list>
 	</property>
-	<property name="likesSended">
+	<property name="likesSent">
 		<list>
 			<ref bean="relationLike1"/>
 			<ref bean="relationLike2"/>
 		</list>
 	</property>
-	<property name="sended">
+	<property name="sent">
 		<list>
 			<ref bean="chirp1"/>
 			<ref bean="chirp2"/>
@@ -300,13 +300,13 @@
 			<ref bean="relationLike6"/>
 		</list>
 	</property>
-	<property name="likesSended">
+	<property name="likesSent">
 		<list>
 			<ref bean="relationLike3"/>
 			<ref bean="relationLike5"/>
 		</list>
 	</property>
-	<property name="sended">
+	<property name="sent">
 		<list>
 			<ref bean="chirp3"/>
 		</list>
@@ -339,12 +339,12 @@
 
 		</list>
 	</property>
-	<property name="likesSended">
+	<property name="likesSent">
 		<list>
 			<ref bean="relationLike4"/>
 		</list>
 	</property>
-	<property name="sended">
+	<property name="sent">
 		<list>
 
 		</list>
@@ -372,7 +372,7 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount5"/>
 	<property name="searchTemplate" ref="searchTemplate4"/>
-	<property name="likesSended">
+	<property name="likesSent">
 		<list>
 			<ref bean="relationLike6"/>
 		</list>
@@ -412,12 +412,12 @@
 			<ref bean="relationLike4"/>
 		</list>
 	</property>
-	<property name="likesSended">
+	<property name="likesSent">
 		<list>
 			
 		</list>
 	</property>
-	<property name="sended">
+	<property name="sent">
 		<list>
 
 		</list>

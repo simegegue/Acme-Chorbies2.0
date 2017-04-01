@@ -25,12 +25,12 @@ public class Chorbi extends Actor {
 
 	// Attributes ---------------------------------------------
 
-	private String					picture;
-	private String					description;
-	private Date					birthDate;
-	private CreditCard				creditCard;
-	private Coordinate				coordinate;
-	private Boolean					banned;
+	private String		picture;
+	private String		description;
+	private Date		birthDate;
+	private CreditCard	creditCard;
+	private Coordinate	coordinate;
+	private Boolean		banned;
 
 
 	// Getters and Setters ------------------------------------
@@ -69,8 +69,6 @@ public class Chorbi extends Actor {
 		this.creditCard = creditCard;
 	}
 
-	
-
 	@Valid
 	public Coordinate getCoordinate() {
 		return this.coordinate;
@@ -86,17 +84,19 @@ public class Chorbi extends Actor {
 		this.banned = banned;
 	}
 
+
 	// Relationships -----------------------------------
-	private Genre					genre;
-	private KindRelationship		kindRelationship;
-	private Collection<Chirp> sended;
-	private Collection<Chirp> received;
-	private Collection<RelationLike> likesSended;
-	private Collection<RelationLike> likesReceived;
-	private SearchTemplate searchTemplate;
-	
+	private Genre						genre;
+	private KindRelationship			kindRelationship;
+	private Collection<Chirp>			sent;
+	private Collection<Chirp>			received;
+	private Collection<RelationLike>	likesSent;
+	private Collection<RelationLike>	likesReceived;
+	private SearchTemplate				searchTemplate;
+
+
 	@Valid
-	@ManyToOne(optional= false)
+	@ManyToOne(optional = false)
 	public Genre getGenre() {
 		return this.genre;
 	}
@@ -105,7 +105,7 @@ public class Chorbi extends Actor {
 	}
 
 	@Valid
-	@ManyToOne(optional= false)
+	@ManyToOne(optional = false)
 	public KindRelationship getKindRelationship() {
 		return this.kindRelationship;
 	}
@@ -114,47 +114,46 @@ public class Chorbi extends Actor {
 	}
 
 	@Valid
-	@OneToMany(mappedBy="sender")
-	public Collection<Chirp> getSended() {
-		return sended;
+	@OneToMany(mappedBy = "sender")
+	public Collection<Chirp> getSent() {
+		return sent;
 	}
-	public void setSended(Collection<Chirp> sended) {
-		this.sended = sended;
+	public void setSent(Collection<Chirp> sent) {
+		this.sent = sent;
 	}
 	@Valid
-	@OneToMany(mappedBy="recipient")
+	@OneToMany(mappedBy = "recipient")
 	public Collection<Chirp> getReceived() {
 		return received;
 	}
 	public void setReceived(Collection<Chirp> received) {
 		this.received = received;
 	}
-	
-	
+
 	@Valid
-	@OneToMany(mappedBy="likeSender")
-	public Collection<RelationLike> getLikesSended() {
-		return likesSended;
+	@OneToMany(mappedBy = "likeSender")
+	public Collection<RelationLike> getLikesSent() {
+		return likesSent;
 	}
-	public void setLikesSended(Collection<RelationLike> likesSended) {
-		this.likesSended = likesSended;
+	public void setLikesSent(Collection<RelationLike> likesSent) {
+		this.likesSent = likesSent;
 	}
 	@Valid
-	@OneToMany(mappedBy="likeRecipient")
+	@OneToMany(mappedBy = "likeRecipient")
 	public Collection<RelationLike> getLikesReceived() {
 		return likesReceived;
 	}
 	public void setLikesReceived(Collection<RelationLike> likesReceived) {
 		this.likesReceived = likesReceived;
 	}
-	
+
 	@Valid
-	@OneToOne(optional=false)
-	public SearchTemplate getSearchTemplate(){
+	@OneToOne(optional = false)
+	public SearchTemplate getSearchTemplate() {
 		return searchTemplate;
 	}
-	public void setSearchTemplate(SearchTemplate searchTemplate){
-		this.searchTemplate=searchTemplate;
+	public void setSearchTemplate(SearchTemplate searchTemplate) {
+		this.searchTemplate = searchTemplate;
 	}
 
 }
