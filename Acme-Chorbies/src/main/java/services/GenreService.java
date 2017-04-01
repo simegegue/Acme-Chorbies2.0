@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.GenreRepository;
+import domain.Chorbi;
 import domain.Genre;
 import forms.GenreForm;
 
@@ -22,10 +23,13 @@ public class GenreService {
 	@Autowired
 	private GenreRepository genreRepository;
 	
+	// Supporting services ----------------------------------------------------
+	
+	@Autowired
+	private ChorbiService chorbiService;
+	
 	@Autowired
 	private Validator validator;
-	
-	// Supporting services ----------------------------------------------------
 
 	// Constructors -----------------------------------------------------------
 
@@ -75,8 +79,18 @@ public class GenreService {
 	public void delete(Genre genre) {
 
 		Assert.notNull(genre);
-				
 		Assert.isTrue(genre.getId() != 0);
+		
+		Genre aux = findGenreByValue("None");
+		
+		// Buscar todos los chorbis qeu tengan la relacion a eliminar
+		
+		Collection<Chorbi> chorbies = null;
+		
+		for(Chorbi c : chorbies){
+			c.setGenre(aux);
+			chorbiService.save(c);
+		}	
 
 		genreRepository.delete(genre);
 	}

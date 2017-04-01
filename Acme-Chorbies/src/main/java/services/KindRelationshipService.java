@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.KindRelationshipRepository;
-import domain.Genre;
+import domain.Chorbi;
 import domain.KindRelationship;
 import forms.KindRelationshipForm;
 
@@ -24,6 +24,9 @@ public class KindRelationshipService {
 		private KindRelationshipRepository kindRelationshipRepository;
 		
 		// Supporting services ----------------------------------------------------
+		
+		@Autowired
+		private ChorbiService chorbiService;
 		
 		@Autowired
 		private Validator  validator;
@@ -76,9 +79,19 @@ public class KindRelationshipService {
 		public void delete(KindRelationship kindRelationship) {
 
 			Assert.notNull(kindRelationship);
-					
 			Assert.isTrue(kindRelationship.getId() != 0);
 
+			KindRelationship aux = findKindRelationshipByValue("None");
+			
+			// Buscar todos los chorbis qeu tengan la relacion a eliminar
+			
+			Collection<Chorbi> chorbies = null;
+			
+			for(Chorbi c : chorbies){
+				c.setKindRelationship(aux);
+				chorbiService.save(c);
+			}	
+			
 			kindRelationshipRepository.delete(kindRelationship);
 		}
 		
