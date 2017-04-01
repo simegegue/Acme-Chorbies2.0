@@ -7,104 +7,106 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import repositories.Repository;
-import domain.Banner;
-import domain.;
-import forms.BannerForm;
+import repositories.GenreRepository;
+import domain.Genre;
+import forms.GenreForm;
 
 @Service
 @Transactional
-public class Service {
+public class GenreService {
 	
 	// Managed repository -----------------------------------------------------
 	
 	@Autowired
-	private Repository Repository;
+	private GenreRepository genreRepository;
+	
+	@Autowired
+	private Validator validator;
 	
 	// Supporting services ----------------------------------------------------
 
 	// Constructors -----------------------------------------------------------
 
-	public Service() {
+	public GenreService() {
 		super();
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
 			
-	public  create() {
+	public Genre create() {
 
-		 result;
-		result = new ();
+		Genre result;
+		result = new Genre();
 
 		return result;
 	}
 
-	public Collection<> findAll() {
+	public Collection<Genre> findAll() {
 
-		Collection<> result;
+		Collection<Genre> result;
 
-		result = Repository.findAll();
+		result = genreRepository.findAll();
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public  findOne(int Id) {
+	public Genre findOne(int genreId) {
 
-		 result;
+		Genre result;
 
-		result = Repository.findOne(Id);
+		result = genreRepository.findOne(genreId);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public  save( ) {
+	public Genre save(Genre genre) {
 
-		Assert.notNull();
-		 result;
-		result = Repository.save();
+		Assert.notNull(genre);
+		Genre result;
+		result = genreRepository.save(genre);
 
 		return result;
 	}
 
-	public void delete( ) {
+	public void delete(Genre genre) {
 
-		Assert.notNull();
+		Assert.notNull(genre);
 				
-		Assert.isTrue(.getId() != 0);
+		Assert.isTrue(genre.getId() != 0);
 
-		Repository.delete();
+		genreRepository.delete(genre);
 	}
 	
 	// Other bussiness methods ------------------------------------------------
 	// Form methods ----------------------------------------------------------
 
-		public BannerForm generateForm() {
-			BannerForm result = new BannerForm();
+		public GenreForm generateForm() {
+			GenreForm result = new GenreForm();
 
 			return result;
 		}
 
-		public Banner reconstruct(BannerForm bannerForm, BindingResult binding) {
-			Banner result;
-			if (bannerForm.getId() == 0)
+		public Genre reconstruct(GenreForm genreForm, BindingResult binding) {
+			Genre result;
+			if (genreForm.getId() == 0)
 				result = create();
 			else {
-				result = bannerRepository.findOne(bannerForm.getId());
+				result = genreRepository.findOne(genreForm.getId());
 			}
-			result.setUrl(bannerForm.getUrl());
+			result.setValue(genreForm.getValue());
 			validator.validate(result, binding);
 			return result;
 		}
 
-		public BannerForm transform(Banner banner) {
-			BannerForm result = generateForm();
-			result.setId(banner.getId());
-			result.setUrl(banner.getUrl());
+		public GenreForm transform(Genre genre) {
+			GenreForm result = generateForm();
+			result.setId(genre.getId());
+			result.setValue(genre.getValue());
 			return result;
 		}
-
 
 }

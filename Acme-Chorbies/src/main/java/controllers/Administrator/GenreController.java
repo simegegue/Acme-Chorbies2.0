@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.Administrator;
 
 import java.util.Collection;
 
@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+
 import services.BannerService;
 import domain.Banner;
 import forms.BannerForm;
 
 @Controller
 @RequestMapping("/banner")
-public class BannerController extends AbstractController {
+public class GenreController extends AbstractController {
 
 	//Services-------------------------
 
@@ -30,7 +32,7 @@ public class BannerController extends AbstractController {
 
 	//Constructor----------------------
 
-	public BannerController() {
+	public GenreController() {
 		super();
 	}
 
