@@ -3,17 +3,24 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.ChorbiRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Chirp;
 import domain.Chorbi;
+import domain.RelationLike;
+import domain.SearchTemplate;
+import forms.ChorbiForm;
 
 @Service
 @Transactional
@@ -26,6 +33,9 @@ public class ChorbiService {
 
 
 	// Supporting services ----------------------------------------------------
+	
+	@Autowired
+	private SearchTemplateService searchTemplateService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -36,9 +46,27 @@ public class ChorbiService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public Chorbi create() {
+		UserAccount userAccount = new UserAccount();
+		List<Authority> authorities = new ArrayList<Authority>();
+		Authority a = new Authority();
+		a.setAuthority(Authority.CHORBI);
+		authorities.add(a);
+		userAccount.addAuthority(a);
+		SearchTemplate search = searchTemplateService.create();
+		ArrayList<Chirp> sent = new ArrayList<Chirp>();
+		ArrayList<Chirp> received = new ArrayList<Chirp>();
+		ArrayList<RelationLike> likesSent = new ArrayList<RelationLike>();
+		ArrayList<RelationLike> likesReceived = new ArrayList<RelationLike>();
 
 		Chorbi result;
 		result = new Chorbi();
+		result.setUserAccount(userAccount);
+		result.setBanned(false);
+		result.setSent(sent);
+		result.setLikesReceived(likesReceived);
+		result.setLikesSent(likesSent);
+		result.setReceived(received);
+		result.setSearchTemplate(search);
 
 		return result;
 	}
@@ -270,6 +298,49 @@ public class ChorbiService {
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
 		Collection<Chorbi> result = chorbiRepository.moreChirpSentChorbies();
+		return result;
+	}
+	
+	// Form methods -----------------------------------------------------------
+	
+	public ChorbiForm generate(){
+		ChorbiForm result;
+		result = new ChorbiForm();
+		return result;
+	}
+	
+	public Chorbi reconstruct(ChorbiForm chorbiForm, BindingResult binding){
+		Chorbi result = create();
+		DateTime today = new DateTime();
+		DateTime birthDate = new DateTime(chorbiForm.getBirthDate());
+		String password = chorbiForm.getPassword();
+		
+		Assert.isTrue(chorbiForm.getPassword2().equals(password) ,"notEqualPassword");
+		Assert.isTrue(birthDate.isBefore(today.minusYears(18)),"not18Old");	
+		Assert.isTrue(chorbiForm.getAgreed(),"agreedNotAccepted");
+		
+		UserAccount userAccount = new UserAccount();
+		List<Authority> authorities = new ArrayList<Authority>();
+		Authority a = new Authority();
+		a.setAuthority(Authority.CHORBI);
+		authorities.add(a);
+		userAccount.addAuthority(a);
+		userAccount.setPassword(password);
+		userAccount.setUsername(chorbiForm.getUsername());
+		
+		result.setUserAccount(userAccount);
+		result.setName(chorbiForm.getName());
+		result.setSurname(chorbiForm.getSurname());
+		result.setEmail(chorbiForm.getEmail());
+		result.setPhone(chorbiForm.getPhone());
+		result.setPicture(chorbiForm.getPicture());
+		result.setDescription(chorbiForm.getDescription());
+		result.setBirthDate(chorbiForm.getBirthDate());
+		result.setCreditCard(chorbiForm.getCreditCard());
+		result.setCoordinate(chorbiForm.getCoordinate());
+		result.setGenre(chorbiForm.getGenre());
+		result.setKindRelationship(chorbiForm.getKindRelationship());
+		
 		return result;
 	}
 
