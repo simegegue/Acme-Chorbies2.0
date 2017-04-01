@@ -82,6 +82,12 @@ public class GenreService {
 	}
 	
 	// Other bussiness methods ------------------------------------------------
+	
+	public Genre findGenreByValue(String value){
+		return genreRepository.findGenreByValue(value);
+	}
+	
+	
 	// Form methods ----------------------------------------------------------
 
 		public GenreForm generateForm() {
