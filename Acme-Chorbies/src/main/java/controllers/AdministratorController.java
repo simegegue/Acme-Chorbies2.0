@@ -10,13 +10,25 @@
 
 package controllers;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ChorbiService;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
+
+	// Services ---------------------------------------------------------------
+
+	@Autowired
+	private ChorbiService	chorbiService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -24,24 +36,38 @@ public class AdministratorController extends AbstractController {
 		super();
 	}
 
-	// Action-1 ---------------------------------------------------------------		
+	// Dashboard -----------------------------------------------
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView dashboard() {
+
 		ModelAndView result;
 
-		result = new ModelAndView("administrator/action-1");
+		//C
+		Collection<Integer> numberOfChorbiesByCountry = chorbiService.numberOfChorbiesByCountry();
+		Collection<Integer> numberOfChorbiesByCity = chorbiService.numberOfChorbiesByCity();
+		Collection<Double> minMaxAvgChorbiYear = chorbiService.minMaxAvgChorbiYear();
+		Double ratioChorbiesNullCreditCard = chorbiService.ratioChorbiesNullCreditCard();
+		Collection<Double> actFriLoveRatioRelationChorbi = chorbiService.actFriLoveRatioRelationChorbi();
 
-		return result;
-	}
+		//B
 
-	// Action-2 ---------------------------------------------------------------
+		//A
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
-		ModelAndView result;
+		result = new ModelAndView("administrator/dashboard");
 
-		result = new ModelAndView("administrator/action-2");
+		//C
+		result.addObject("numberOfChorbiesByCountry", numberOfChorbiesByCountry);
+		result.addObject("numberOfChorbiesByCity", numberOfChorbiesByCity);
+		result.addObject("minMaxAvgChorbiYear", minMaxAvgChorbiYear);
+		result.addObject("ratioChorbiesNullCreditCard", ratioChorbiesNullCreditCard);
+		result.addObject("actFriLoveRatioRelationChorbi", actFriLoveRatioRelationChorbi);
+
+		//B
+
+		//A
+
+		result.addObject("requestURI", "administrator/dashboard.do");
 
 		return result;
 	}
