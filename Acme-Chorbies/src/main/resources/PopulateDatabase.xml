@@ -259,6 +259,11 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount2"/>
 	<property name="searchTemplate" ref="searchTemplate1"/>
+	<property name="likesReceived">
+		<list>
+			<ref bean="relationLike5"/>
+		</list>
+	</property>
 	<property name="likesSended">
 		<list>
 			<ref bean="relationLike1"/>
@@ -269,6 +274,7 @@
 		<list>
 			<ref bean="chirp1"/>
 			<ref bean="chirp2"/>
+			<ref bean="chirp4"/>
 		</list>
 	</property>
 	</bean>
@@ -291,13 +297,13 @@
 	<property name="likesReceived">
 		<list>
 			<ref bean="relationLike1"/>
-			
+			<ref bean="relationLike6"/>
 		</list>
 	</property>
 	<property name="likesSended">
 		<list>
 			<ref bean="relationLike3"/>
-			
+			<ref bean="relationLike5"/>
 		</list>
 	</property>
 	<property name="sended">
@@ -308,6 +314,7 @@
 	<property name="received">
 		<list>
 			<ref bean="chirp1"/>
+			<ref bean="chirp4"/>
 		</list>
 	</property>
 	</bean>
@@ -327,7 +334,28 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount4"/>
 	<property name="searchTemplate" ref="searchTemplate3"/>
+	<property name="likesReceived">
+		<list>
+
+		</list>
+	</property>
+	<property name="likesSended">
+		<list>
+			<ref bean="relationLike4"/>
+		</list>
+	</property>
+	<property name="sended">
+		<list>
+
+		</list>
+	</property>
+	<property name="received">
+		<list>
+			
+		</list>
+	</property>
 	</bean>
+
 	
 	<bean id="chorbi4" class="domain.Chorbi">
 	<property name="name" value="Irene" />
@@ -344,6 +372,11 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount5"/>
 	<property name="searchTemplate" ref="searchTemplate4"/>
+	<property name="likesSended">
+		<list>
+			<ref bean="relationLike6"/>
+		</list>
+	</property>
 	<property name="likesReceived">
 		<list>
 			<ref bean="relationLike2"/>
@@ -374,6 +407,26 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount6"/>
 	<property name="searchTemplate" ref="searchTemplate5"/>
+		<property name="likesReceived">
+		<list>
+			<ref bean="relationLike4"/>
+		</list>
+	</property>
+	<property name="likesSended">
+		<list>
+			
+		</list>
+	</property>
+	<property name="sended">
+		<list>
+
+		</list>
+	</property>
+	<property name="received">
+		<list>
+
+		</list>
+	</property>
 	</bean>
 	
 	<!-- Chirps -->
@@ -427,6 +480,21 @@
 	<property name="deleteRecipient" value="false"/>
 	</bean>
 	
+	<bean id="chirp4" class="domain.Chirp">
+	<property name="moment" value="01/05/2017 10:45"/>
+	<property name="subject" value="subject4"/>
+	<property name="text" value="text4"/>
+	<property name="attachment">
+			<set>
+				
+			</set>
+		</property>
+	<property name="sender" ref="chorbi1"/>
+	<property name="recipient" ref="chorbi2"/>
+	<property name="deleteSender" value="false"/>
+	<property name="deleteRecipient" value="false"/>
+	</bean>
+	
 	<!-- RelationLike -->
 	<bean id="relationLike1" class="domain.RelationLike">
 	<property name="moment" value="03/31/2017 12:45"/>
@@ -448,6 +516,29 @@
 	<property name="comment" value="Me pareces muy interesante"/>
 	<property name="likeSender" ref="chorbi2"/>
 	<property name="likeRecipient" ref="chorbi4"/>
+	
+	</bean>
+	
+	<bean id="relationLike4" class="domain.RelationLike">
+	<property name="moment" value="02/16/2017 12:15"/>
+	<property name="comment" value="Tienes mucha carisma"/>
+	<property name="likeSender" ref="chorbi3"/>
+	<property name="likeRecipient" ref="chorbi5"/>
+	
+	</bean>
+	
+	<bean id="relationLike5" class="domain.RelationLike">
+	<property name="moment" value="03/14/2017 22:13"/>
+	<property name="likeSender" ref="chorbi2"/>
+	<property name="likeRecipient" ref="chorbi1"/>
+	
+	</bean>
+	
+	<bean id="relationLike6" class="domain.RelationLike">
+	<property name="moment" value="01/16/2017 19:45"/>
+	<property name="comment" value="Podriamos conectar :^)"/>
+	<property name="likeSender" ref="chorbi4"/>
+	<property name="likeRecipient" ref="chorbi2"/>
 	
 	</bean>
 	<!-- Other domain beans come here -->	
