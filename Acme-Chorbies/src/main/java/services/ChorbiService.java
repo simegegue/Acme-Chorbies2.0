@@ -122,15 +122,14 @@ public class ChorbiService {
 
 		return result;
 	}
-	
-	public Collection<Chorbi> findChorbiesByGenre(int genre){
+
+	public Collection<Chorbi> findChorbiesByGenre(int genre) {
 		return chorbiRepository.findChorbiesByGenre(genre);
 	}
-	
-	public Collection<Chorbi> findChorbiesByKindRelationship(int kindRelationship){
+
+	public Collection<Chorbi> findChorbiesByKindRelationship(int kindRelationship) {
 		return chorbiRepository.findChorbiesByKindRelationship(kindRelationship);
 	}
-
 
 	//Dashboard Services -------------------
 

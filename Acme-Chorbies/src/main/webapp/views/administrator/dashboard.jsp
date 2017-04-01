@@ -22,32 +22,39 @@
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>
 		<table id="numberOfChorbiesByCountry" class="table">
 			<tr>
-				<td><jstl:if test="${not empty numberOfChorbiesByCountry }">
-					<jstl:forEach var="X" items="${numberOfChorbiesByCountry}">
-						<tr>
-							<td><jstl:out value="${X}"/></td>
-						</tr>
+				<td><jstl:if test="${not empty auxCountry }">
+					<jstl:forEach var="Y" items="${auxCountry}">
+						<td>	<jstl:out value="${Y}"/> <td>
 					</jstl:forEach>	
 				</jstl:if></td>
-				<!--  <td><jstl:if test="${not empty auxCountry }">
-					<jstl:forEach var="Y" items="${auxCountry}">
-						<tr>
-							<td><jstl:out value="${Y}"/></td>
-						</tr>
+			</tr>
+			<tr>
+				<td><jstl:if test="${not empty numberOfChorbiesByCountry }">
+					<jstl:forEach var="X" items="${numberOfChorbiesByCountry}">
+						<td>	<jstl:out value="${X}"/><td>
 					</jstl:forEach>	
-				</jstl:if></td> -->
+				</jstl:if></td>
 			</tr>
 		</table>
 	</fieldset>
 </div>
 
 <div>
-	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCity" /></legend>
-		<table id="numberOfChorbiesByCity" class="table">
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>
+		<table id="numberOfChorbiesByCountry" class="table">
 			<tr>
-				<jstl:if test="${not empty numberOfChorbiesByCity }">
-					<td><jstl:out value="${numberOfChorbiesByCity}" /></td>
-				</jstl:if>
+				<td><jstl:if test="${not empty auxCity }">
+					<jstl:forEach var="Y" items="${auxCity}">
+						<td>	<jstl:out value="${Y}"/> <td>
+					</jstl:forEach>	
+				</jstl:if></td>
+			</tr>
+			<tr>
+				<td><jstl:if test="${not empty numberOfChorbiesByCity }">
+					<jstl:forEach var="X" items="${numberOfChorbiesByCity}">
+						<td>	<jstl:out value="${X}"/><td>
+					</jstl:forEach>	
+				</jstl:if></td>
 			</tr>
 		</table>
 	</fieldset>
