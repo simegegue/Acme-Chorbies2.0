@@ -29,7 +29,7 @@
 		<value>/views/chirp/messages</value>
 		<value>/views/banner/messages</value>
 		<value>/views/genre/messages</value>
-		
+		<value>/views/cacheTime/messages</value>
 	</util:list>
 
 </beans>
