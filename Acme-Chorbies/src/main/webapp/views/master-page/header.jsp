@@ -47,7 +47,7 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHORBI')">
-		<li><a class="fNiv" href="chorbi/browse.do"><spring:message code="master.page.chorbi.browse" /></a></li>
+		
 			<li><a class = "fNiv"><spring:message code="master.page.chirp"/></a>
 				<ul>
 					<li class="arrow"></li>
@@ -59,10 +59,12 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
+		
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+		<li><a class="fNiv" href="chorbi/browse.do"><spring:message code="master.page.chorbi.browse" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
