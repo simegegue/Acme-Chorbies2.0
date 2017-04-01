@@ -108,7 +108,7 @@
 	
 	<!-- Cache Time -->
 	<bean id="cacheTimer" class="domain.CacheTime">
-	<property name="time" value="12"/>
+	<property name="time" value="12:00:00"/>
 	</bean>
 	
 	<!-- Genre -->
