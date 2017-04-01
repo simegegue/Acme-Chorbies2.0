@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SearchTemplateRepository;
+import domain.Genre;
+import domain.KindRelationship;
 import domain.SearchTemplate;
 
 @Service
@@ -77,4 +79,12 @@ public class SearchTemplateService {
 	
 	// Other bussiness methods ------------------------------------------------
 
+	public Collection<SearchTemplate> findSearchTemplateByGenre(Genre genre){
+		return searchTemplateRepository.findSearchTemplateByGenre(genre);
+	}
+	
+	public Collection<SearchTemplate> findSearchTemplateByKindRelationship(KindRelationship kindRelationship){
+		return searchTemplateRepository.findSearchTemplateByKindRelationship(kindRelationship);
+	}
+	
 }

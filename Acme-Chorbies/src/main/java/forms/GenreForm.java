@@ -28,7 +28,7 @@ public class GenreForm {
 	// Getters and Setters --------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "^man$|^woman$")
+	@Pattern(regexp = "^man$|^woman$|^none$")
 	@Column(unique = true)
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getValue() {

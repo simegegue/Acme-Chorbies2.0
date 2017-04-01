@@ -27,7 +27,7 @@ public class KindRelationshipForm {
 	// Getters and Setters --------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "^activities$|^friendship$|^love$")
+	@Pattern(regexp = "^activities$|^friendship$|^love$|^none$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getValue() {
 		return value;

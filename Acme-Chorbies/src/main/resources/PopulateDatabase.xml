@@ -120,6 +120,10 @@
 	<property name="value" value="woman"/>
 	</bean>
 	
+	<bean id="genre3" class="domain.Genre">
+	<property name="value" value="none"/>
+	</bean>
+	
 	
 	
 	<!-- KindRelationShip -->
@@ -133,6 +137,10 @@
 	
 	<bean id="kindRelationship3" class="domain.KindRelationship">
 	<property name="value" value="love"/>
+	</bean>
+	
+	<bean id="kindRelationship4" class="domain.KindRelationship">
+	<property name="value" value="none"/>
 	</bean>
 	
 	

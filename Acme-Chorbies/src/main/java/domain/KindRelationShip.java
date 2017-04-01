@@ -20,7 +20,7 @@ public class KindRelationship extends DomainEntity {
 	// Getters and Setters -----------------------------
 
 	@NotBlank
-	@Pattern(regexp = "^activities$|^friendship$|^love$")
+	@Pattern(regexp = "^activities$|^friendship$|^love$|^none$")
 	public String getValue() {
 		return this.value;
 	}
