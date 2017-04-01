@@ -16,18 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 
-import services.BannerService;
-import domain.Banner;
-import forms.BannerForm;
+import services.GenreService;
+import domain.Genre;
+import forms.GenreForm;
 
 @Controller
-@RequestMapping("/banner")
+@RequestMapping("/administrator/genre")
 public class GenreController extends AbstractController {
 
 	//Services-------------------------
 
 	@Autowired
-	private BannerService	bannerService;
+	private GenreService	genreService;
 
 
 	//Constructor----------------------
@@ -39,14 +39,14 @@ public class GenreController extends AbstractController {
 	//List--------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listAdmin() {
+	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Banner> banners;
-		banners = bannerService.findAll();
+		Collection<Genre> genres;
+		genres = genreService.findAll();
 
-		result = new ModelAndView("banner/list");
-		result.addObject("banners", banners);
-		result.addObject("requestURI", "banner/list.do");
+		result = new ModelAndView("genre/list");
+		result.addObject("genres", genres);
+		result.addObject("requestURI", "administrator/genre/list.do");
 
 		return result;
 	}
@@ -57,10 +57,10 @@ public class GenreController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		BannerForm bannerForm;
+		GenreForm genreForm;
 
-		bannerForm = bannerService.generateForm();
-		result = createEditModelAndView(bannerForm, null);
+		genreForm = genreService.generateForm();
+		result = createEditModelAndView(genreForm, null);
 
 		return result;
 
@@ -69,75 +69,75 @@ public class GenreController extends AbstractController {
 	//Edition--------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int bannerId) {
+	public ModelAndView edit(@RequestParam int genreId) {
 
 		ModelAndView result;
-		Banner banner;
+		Genre genre;
 
-		banner = bannerService.findOne(bannerId);
-		BannerForm bannerForm=bannerService.transform(banner);
-		Assert.notNull(banner);
-		result = new ModelAndView("banner/edit");
-		result.addObject("bannerForm", bannerForm);
+		genre = genreService.findOne(genreId);
+		GenreForm genreForm=genreService.transform(genre);
+		Assert.notNull(genre);
+		result = new ModelAndView("genre/edit");
+		result.addObject("genreForm", genreForm);
 		
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid BannerForm bannerForm, BindingResult binding) {
+	public ModelAndView save(@Valid GenreForm genreForm, BindingResult binding) {
 
 		ModelAndView result = new ModelAndView();
 
 		if (binding.hasErrors())
-			result = createEditModelAndView(bannerForm, null);
+			result = createEditModelAndView(genreForm, null);
 		else
 			try {
-				Banner banner= bannerService.reconstruct(bannerForm, binding);
-				bannerService.save(banner);
-				result = listAdmin();
+				Genre genre= genreService.reconstruct(genreForm, binding);
+				genreService.save(genre);
+				result = list();
 			} catch (Throwable oops) {
 				String msgCode = "banner.save.error";
-				result = createEditModelAndView(bannerForm, msgCode);
+				result = createEditModelAndView(genreForm, msgCode);
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(BannerForm bannerForm, BindingResult binding) {
+	public ModelAndView delete(GenreForm genreForm, BindingResult binding) {
 
 		ModelAndView result;
 
-		Banner banner = bannerService.reconstruct(bannerForm, binding);
+		Genre genre = genreService.reconstruct(genreForm, binding);
 		if (binding.hasErrors())
-			result = createEditModelAndView(banner,null);
+			result = createEditModelAndView(genre,null);
 		else
 			try {
-				bannerService.delete(banner);
-				result = listAdmin();
+				genreService.delete(genre);
+				result = list();
 			} catch (Throwable oops) {
-				result = createEditModelAndView(banner,null);
+				result = createEditModelAndView(genre,null);
 			}
 		return result;
 	}
 
 	//Ancillary Methods---------------------------
 
-	protected ModelAndView createEditModelAndView(Banner banner, String message) {
+	protected ModelAndView createEditModelAndView(Genre genre, String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("banner/edit");
-		result.addObject("banner", banner);
+		result = new ModelAndView("genre/edit");
+		result.addObject("genre", genre);
 		result.addObject("message", message);
 		return result;
 
 	}
 
-	protected ModelAndView createEditModelAndView(BannerForm bannerForm, String message) {
+	protected ModelAndView createEditModelAndView(GenreForm genreForm, String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("banner/edit");
-		result.addObject("bannerForm", bannerForm);
+		result = new ModelAndView("genre/edit");
+		result.addObject("genreForm", genreForm);
 		result.addObject("message", message);
 
 		return result;

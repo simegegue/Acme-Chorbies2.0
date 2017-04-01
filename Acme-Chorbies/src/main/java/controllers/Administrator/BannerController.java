@@ -46,7 +46,7 @@ public class BannerController extends AbstractController {
 
 		result = new ModelAndView("banner/list");
 		result.addObject("banners", banners);
-		result.addObject("requestURI", "banner/list.do");
+		result.addObject("requestURI", "administrator/banner/list.do");
 
 		return result;
 	}

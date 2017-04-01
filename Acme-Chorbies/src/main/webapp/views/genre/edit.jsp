@@ -22,7 +22,7 @@
 <security:authorize
 	access="hasRole('ADMIN')">
 
-	<form:form	action="genre/edit.do"	modelAttribute="genreForm"> 
+	<form:form	action="administrator/genre/edit.do" modelAttribute="genreForm"> 
 	
 		<form:hidden path="id"/>
 		<acme:textbox code="genre.value" path="value"/>
@@ -32,7 +32,7 @@
 		<jstl:if test="${genreForm.id != 0}">
 			<input type="submit" name="delete" value="<spring:message code="genre.delete" />" onclick="return confirm('<spring:message code="genre.confirm.delete" />')" />
 		</jstl:if>
-		<acme:cancel code="genre.cancel" url="genre/list.do"/>
+		<acme:cancel code="genre.cancel" url="administrator/genre/list.do"/>
 		
 	</form:form>
 

@@ -22,7 +22,7 @@
 <security:authorize
 	access="hasRole('ADMIN')">
 
-	<form:form	action="banner/edit.do"	modelAttribute="bannerForm"> 
+	<form:form	action="administrator/banner/edit.do"	modelAttribute="bannerForm"> 
 	
 		<form:hidden path="id"/>
 		
@@ -33,7 +33,7 @@
 		<jstl:if test="${bannerForm.id != 0}">
 			<input type="submit" name="delete" value="<spring:message code="banner.delete" />" onclick="return confirm('<spring:message code="banner.confirm.delete" />')" />
 		</jstl:if>
-		<acme:cancel code="banner.cancel" url="banner/list.do"/>
+		<acme:cancel code="banner.cancel" url="administrator/banner/list.do"/>
 		
 	</form:form>
 

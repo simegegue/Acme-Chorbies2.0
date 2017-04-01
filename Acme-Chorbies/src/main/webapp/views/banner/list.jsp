@@ -26,7 +26,7 @@
 	requestURI="${requestURI}" >
 	
 	<display:column>
-		<a href="banner/edit.do?bannerId=${row.id}"><spring:message code="banner.edit" /></a>
+		<a href="administrator/banner/edit.do?bannerId=${row.id}"><spring:message code="banner.edit" /></a>
 	</display:column>
 	
 	<spring:message code="banner.url" var="urlHeader" />

@@ -26,7 +26,7 @@
 	requestURI="${requestURI}" >
 	
 	<display:column>
-		<a href="genre/edit.do?genreId=${row.id}"><spring:message code="genre.edit" /></a>
+		<a href="administrator/genre/edit.do?genreId=${row.id}"><spring:message code="genre.edit" /></a>
 	</display:column>
 	
 	<spring:message code="genre.value" var="valueHeader" />
