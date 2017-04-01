@@ -27,6 +27,8 @@ public class Chirp extends DomainEntity {
 	private String	subject;
 	private String	text;
 	private Collection<String>	attachment;
+	private boolean deleteSender;
+	private boolean deleteRecipient;
 
 
 	// Getters and Setters -----------------------------
@@ -66,6 +68,20 @@ public class Chirp extends DomainEntity {
 	}
 	public void setAttachment(Collection<String> attachment) {
 		this.attachment = attachment;
+	}
+	
+	public boolean getDeleteSender(){
+		return deleteSender;
+	}
+	public void setDeleteSender(boolean deleteSender){
+		this.deleteSender = deleteSender;
+	}
+	
+	public boolean getDeleteRecipient(){
+		return deleteRecipient;
+	}
+	public void setDeleteRecipient(boolean deleteRecipient){
+		this.deleteRecipient = deleteRecipient;
 	}
 
 	// Relationships -----------------------------------
