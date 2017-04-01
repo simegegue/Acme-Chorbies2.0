@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.KindRelationshipRepository;
 import domain.KindRelationship;
+import forms.KindRelationshipForm;
 
 @Service
 @Transactional
@@ -20,7 +23,10 @@ public class KindRelationshipService {
 		private KindRelationshipRepository kindRelationshipRepository;
 		
 		// Supporting services ----------------------------------------------------
-
+		
+		@Autowired
+		private Validator  validator;
+		
 		// Constructors -----------------------------------------------------------
 
 		public KindRelationshipService() {
@@ -76,5 +82,34 @@ public class KindRelationshipService {
 		}
 		
 		// Other bussiness methods ------------------------------------------------
+		// Form methods ----------------------------------------------------------
+
+				public KindRelationshipForm generateForm() {
+					KindRelationshipForm result = new KindRelationshipForm();
+
+					return result;
+				}
+
+				public KindRelationship reconstruct(KindRelationshipForm kindRelationshipForm, BindingResult binding) {
+					KindRelationship result;
+					if (kindRelationshipForm.getId() == 0)
+						result = create();
+					else {
+						result = kindRelationshipRepository.findOne(kindRelationshipForm.getId());
+					}
+					result.setValue(kindRelationshipForm.getValue());
+					for(KindRelationship k : kindRelationshipRepository.findAll()){
+						Assert.isTrue(!k.getValue().equals(kindRelationshipForm.getValue()),"usedKindRelationship");
+					}
+					validator.validate(result, binding);
+					return result;
+				}
+
+				public KindRelationshipForm transform(KindRelationship kindRelationship) {
+					KindRelationshipForm result = generateForm();
+					result.setId(kindRelationship.getId());
+					result.setValue(kindRelationship.getValue());
+					return result;
+				}
 
 }
