@@ -174,6 +174,10 @@
 	  <property name="cvv" value="220" />
 	 </bean>
 	 
+	
+	 
+	 
+	 
 	 <!-- Coordinates -->
 	 <bean id="coordinate1" class="domain.Coordinate">
 	 <property name="country" value="España"></property>
@@ -255,6 +259,12 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount2"/>
 	<property name="searchTemplate" ref="searchTemplate1"/>
+	<property name="likesSended">
+		<list>
+			<ref bean="relationLike1"/>
+			<ref bean="relationLike2"/>
+		</list>
+	</property>
 	<property name="sended">
 		<list>
 			<ref bean="chirp1"/>
@@ -278,6 +288,18 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount3"/>
 	<property name="searchTemplate" ref="searchTemplate2"/>
+	<property name="likesReceived">
+		<list>
+			<ref bean="relationLike1"/>
+			
+		</list>
+	</property>
+	<property name="likesSended">
+		<list>
+			<ref bean="relationLike3"/>
+			
+		</list>
+	</property>
 	<property name="sended">
 		<list>
 			<ref bean="chirp3"/>
@@ -322,6 +344,13 @@
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount5"/>
 	<property name="searchTemplate" ref="searchTemplate4"/>
+	<property name="likesReceived">
+		<list>
+			<ref bean="relationLike2"/>
+			<ref bean="relationLike3"/>
+			
+		</list>
+	</property>
 	<property name="received">
 		<list>
 			<ref bean="chirp2"/>
@@ -338,8 +367,8 @@
 	<property name="picture" value="http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg"/>
 	<property name="description" value="description5"/>
 	<property name="birthDate" value="08/03/1989"/>
-	<property name="creditCard" ref="creditCard1"/>
 	<property name="genre" ref="genre1"/>
+	
 	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate4"/>
 	<property name="banned" value="false"/>
@@ -390,6 +419,30 @@
 		</property>
 	<property name="sender" ref="chorbi2"/>
 	<property name="recipient" ref="chorbi4"/>
+	</bean>
+	
+	<!-- RelationLike -->
+	<bean id="relationLike1" class="domain.RelationLike">
+	<property name="moment" value="03/31/2017 12:45"/>
+	<property name="comment" value="Me pareces muy interesante"/>
+	<property name="likeSender" ref="chorbi1"/>
+	<property name="likeRecipient" ref="chorbi2"/>
+	
+	</bean>
+	
+	<bean id="relationLike2" class="domain.RelationLike">
+	<property name="moment" value="03/31/2017 14:55"/>
+	<property name="likeSender" ref="chorbi1"/>
+	<property name="likeRecipient" ref="chorbi4"/>
+	
+	</bean>
+	
+	<bean id="relationLike3" class="domain.RelationLike">
+	<property name="moment" value="03/30/2017 15:55"/>
+	<property name="comment" value="Me pareces muy interesante"/>
+	<property name="likeSender" ref="chorbi2"/>
+	<property name="likeRecipient" ref="chorbi4"/>
+	
 	</bean>
 	<!-- Other domain beans come here -->	
 	
