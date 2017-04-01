@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.RelationLikeRepository;
+import domain.Chorbi;
 import domain.RelationLike;
 
 @Service
@@ -76,5 +77,9 @@ public class RelationLikeService {
 		}
 		
 		// Other bussiness methods ------------------------------------------------
-
+		public Collection<Chorbi> findByLikesSent(int id){
+			Collection<Chorbi>result;
+			result=relationLikeRepository.findByLikesSent(id);
+			return result;
+		}
 }

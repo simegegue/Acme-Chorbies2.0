@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Chorbi;
-
 import services.ChorbiService;
+import services.RelationLikeService;
+import domain.Chorbi;
 
 @Controller
 @RequestMapping("/chorbi")
@@ -19,6 +20,10 @@ public class ChorbiController extends AbstractController{
 	
 	@Autowired
 	private ChorbiService chorbiService;
+	
+
+	@Autowired
+	private RelationLikeService relationLikeService;
 	
 	public ChorbiController(){
 		super();
@@ -42,5 +47,24 @@ public class ChorbiController extends AbstractController{
 
 		return result;
 	}
+	
+	//Browse
+		@RequestMapping(value = "/chorbieswholikethem", method = RequestMethod.GET)
+		public ModelAndView chorbieswholikethem(@RequestParam int chorbiId) {
+			ModelAndView result;
+			Collection<Chorbi> aux = new ArrayList<Chorbi>();
+			Collection<Chorbi>chorbies=new ArrayList<Chorbi>() ;
+			aux =relationLikeService.findByLikesSent(chorbiId);
+
+			for (Chorbi c : aux)
+				if (c.getBanned() == false)
+					chorbies.add(c);
+
+			result = new ModelAndView("chorbi/browse");
+			result.addObject("chorbies", chorbies);
+			result.addObject("requestURI", "chorbi/browse.do");
+
+			return result;
+		}
 
 }
