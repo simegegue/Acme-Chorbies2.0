@@ -187,10 +187,10 @@
 	 </bean>
 	 
 	 <bean id="coordinate2" class="domain.Coordinate">
-	 <property name="country" value="España"></property>
-	 <property name="state" value="Andalucia"></property>
-	 <property name="province" value="Almeria"></property>
-	 <property name="city" value="Aguadulce"></property>
+	 <property name="country" value="Rusia"></property>
+	 <property name="state" value="Moscu"></property>
+	 <property name="province" value="Moscu"></property>
+	 <property name="city" value="Moscu"></property>
 	 </bean>
 	 
 	 <bean id="coordinate3" class="domain.Coordinate">
