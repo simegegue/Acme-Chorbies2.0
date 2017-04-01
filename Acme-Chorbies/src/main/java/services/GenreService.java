@@ -98,6 +98,9 @@ public class GenreService {
 				result = genreRepository.findOne(genreForm.getId());
 			}
 			result.setValue(genreForm.getValue());
+			for(Genre g : genreRepository.findAll()){
+				Assert.isTrue(!g.getValue().equals(genreForm.getValue()),"usedGenre");
+			}
 			validator.validate(result, binding);
 			return result;
 		}

@@ -98,7 +98,11 @@ public class GenreController extends AbstractController {
 				result = list();
 			} catch (Throwable oops) {
 				String msgCode = "banner.save.error";
+				if (oops.getMessage().equals("usedGenre"))
+					msgCode = "genre.register.usedGenre";
+				
 				result = createEditModelAndView(genreForm, msgCode);
+
 			}
 		return result;
 	}
