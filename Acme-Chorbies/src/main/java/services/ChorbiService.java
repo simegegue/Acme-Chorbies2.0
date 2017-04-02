@@ -473,12 +473,9 @@ public class ChorbiService {
 		result.setBirthDate(chorbiForm.getBirthDate());
 
 		if (chorbiForm.getCreditCard().getBrandName() == null)
-
-			if (chorbiForm.getCreditCard().getBrandName() == "")
-
-				result.setCreditCard(null);
-			else
-				result.setCreditCard(chorbiForm.getCreditCard());
+			result.setCreditCard(null);
+		else
+			result.setCreditCard(chorbiForm.getCreditCard());
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());

@@ -117,22 +117,6 @@ public class ChorbiController extends AbstractController {
 		return result;
 	}
 
-	// Register ----------------------------------------------------
-
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView create() {
-		ModelAndView result;
-		ChorbiForm chorbiForm;
-
-		chorbiForm = chorbiService.generate();
-
-		result = new ModelAndView("chorbi/register");
-
-		result.addObject("chorbiForm", chorbiForm);
-
-		return result;
-	}
-
 	// Edit profile ------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -201,12 +185,6 @@ public class ChorbiController extends AbstractController {
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
 
 		result = new ModelAndView("chorbi/edit");
-		result.addObject("chorbiForm", chorbiForm);
-		result.addObject("genres", genres);
-		result.addObject("kindRelationships", kindRelationships);
-		result.addObject("message", message);
-
-		result = new ModelAndView("chorbi/register");
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("genres", genres);
 		result.addObject("kindRelationships", kindRelationships);
