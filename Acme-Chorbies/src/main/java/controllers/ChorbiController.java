@@ -116,6 +116,7 @@ public class ChorbiController extends AbstractController {
 
 		return result;
 	}
+<<<<<<< HEAD
 
 	// Register ----------------------------------------------------
 
@@ -123,47 +124,71 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		ChorbiForm chorbiForm;
+=======
+	
+	// Edit profile ------------------------------------------------
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		String tipe = "edit";
+>>>>>>> Completado el editar perfil
 
 		Collection<Genre> genres = genreService.findAll();
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+		ChorbiForm chorbiForm = chorbiService.generateForm(chorbi);
 
+<<<<<<< HEAD
 		chorbiForm = chorbiService.generate();
 
 		result = new ModelAndView("chorbi/register");
+=======
+		result = new ModelAndView("chorbi/edit");
+>>>>>>> Completado el editar perfil
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("genres", genres);
 		result.addObject("kindRelationships", kindRelationships);
+		result.addObject("tipe", tipe);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid ChorbiForm chorbiForm, BindingResult binding) {
 		ModelAndView result;
 		Chorbi chorbi;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = createEditModelAndView(chorbiForm);
-		else
+		} else {
 			try {
-				chorbi = chorbiService.reconstruct(chorbiForm, binding);
-				chorbiService.save(chorbi);
-				result = new ModelAndView("redirect:../security/login.do");
+				chorbi = chorbiService.reconstructEditPersonalData(chorbiForm, binding);
+				chorbiService.save2(chorbi);
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
 				String msgCode = "chorbi.register.error";
+<<<<<<< HEAD
 				if (oops.getMessage().equals("notEqualPassword"))
 					msgCode = "chorbi.register.notEqualPassword";
 				else if (oops.getMessage().equals("not18Old"))
 					msgCode = "chorbi.register.not18Old";
 				else if (oops.getMessage().equals("agreedNotAccepted"))
 					msgCode = "chorbi.register.agreedNotAccepted";
+=======
+>>>>>>> Completado el editar perfil
 				result = createEditModelAndView(chorbiForm, msgCode);
 			}
+		}
 
 		return result;
-
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+>>>>>>> Completado el editar perfil
 	// Ancillary methods ---------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm) {
@@ -178,8 +203,16 @@ public class ChorbiController extends AbstractController {
 	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm, String message) {
 		ModelAndView result;
 
+<<<<<<< HEAD
 		Collection<Genre> genres = genreService.findAll();
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+=======
+			result = new ModelAndView("chorbi/edit");
+			result.addObject("chorbiForm", chorbiForm);
+			result.addObject("genres", genres);
+			result.addObject("kindRelationships", kindRelationships);
+			result.addObject("message", message);
+>>>>>>> Completado el editar perfil
 
 		result = new ModelAndView("chorbi/register");
 		result.addObject("chorbiForm", chorbiForm);
