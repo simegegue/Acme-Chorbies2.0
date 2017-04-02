@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ChorbiRepository;
 import security.Authority;
@@ -36,6 +37,9 @@ public class ChorbiService {
 
 	@Autowired
 	private SearchTemplateService	searchTemplateService;
+	
+	@Autowired
+	private Validator			validator;
 
 
 	// Constructors -----------------------------------------------------------
@@ -385,6 +389,55 @@ public class ChorbiService {
 	}
 
 	// Form methods -----------------------------------------------------------
+	
+	public ChorbiForm generateForm(Chorbi chorbi){
+		ChorbiForm result = new ChorbiForm();
+		
+		result.setId(chorbi.getId());
+		result.setUsername(chorbi.getUserAccount().getUsername());
+		result.setPassword(chorbi.getUserAccount().getPassword());
+		result.setPassword2(chorbi.getUserAccount().getPassword());
+		result.setAgreed(true);
+		result.setBirthDate(chorbi.getBirthDate());
+		result.setCreditCard(chorbi.getCreditCard());
+		result.setCoordinate(chorbi.getCoordinate());
+		result.setDescription(chorbi.getDescription());
+		result.setEmail(chorbi.getEmail());
+		result.setName(chorbi.getName());
+		result.setPhone(chorbi.getPhone());
+		result.setPicture(chorbi.getPicture());
+		result.setSurname(chorbi.getSurname());
+		result.setGenre(chorbi.getGenre());
+		result.setKindRelationship(chorbi.getKindRelationship());
+		
+		return result;
+	}
+	
+	public Chorbi reconstructEditPersonalData(ChorbiForm chorbiForm, BindingResult binding) {
+		Chorbi result;
+
+		result = chorbiRepository.findOne(chorbiForm.getId());
+
+		result.setName(chorbiForm.getName());
+		result.setSurname(chorbiForm.getSurname());
+		result.setEmail(chorbiForm.getEmail());
+		result.setPhone(chorbiForm.getPhone());
+		result.setPicture(chorbiForm.getPicture());
+		result.setDescription(chorbiForm.getDescription());
+		result.setBirthDate(chorbiForm.getBirthDate());
+		if(chorbiForm.getCreditCard().getBrandName()==null){
+			result.setCreditCard(null);
+		}else{
+			result.setCreditCard(chorbiForm.getCreditCard());
+		}
+		result.setCoordinate(chorbiForm.getCoordinate());
+		result.setGenre(chorbiForm.getGenre());
+		result.setKindRelationship(chorbiForm.getKindRelationship());
+
+		validator.validate(result, binding);
+
+		return result;
+	}
 
 	public ChorbiForm generate() {
 		ChorbiForm result;
@@ -419,13 +472,19 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
+<<<<<<< HEAD
 		if (chorbiForm.getCreditCard().getBrandName() == "")
+=======
+		if(chorbiForm.getCreditCard().getBrandName()==null){
+>>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
 			result.setCreditCard(null);
 		else
 			result.setCreditCard(chorbiForm.getCreditCard());
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
+		
+		validator.validate(result, binding);
 
 		return result;
 	}
