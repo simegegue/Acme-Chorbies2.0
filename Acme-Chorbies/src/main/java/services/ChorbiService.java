@@ -100,9 +100,9 @@ public class ChorbiService {
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		String md5 = encoder.encodePassword(password, null);
 		chorbi.getUserAccount().setPassword(md5);
-		
-		if(chorbi.getId()!=0){
-			Assert.isTrue(findByPrincipal().getId()==chorbi.getId());
+
+		if (chorbi.getId() != 0) {
+			Assert.isTrue(findByPrincipal().getId() == chorbi.getId());
 			UserAccount userAccount;
 			userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
@@ -115,7 +115,7 @@ public class ChorbiService {
 
 		return result;
 	}
-	
+
 	public Chorbi save2(Chorbi chorbi) {
 		Chorbi result;
 
@@ -169,20 +169,19 @@ public class ChorbiService {
 	}
 
 	public void disableAccount(Chorbi chorbi) {
-		if (chorbi.getBanned() == true)
-			chorbi.setUserAccount(null);
+		UserAccount u = chorbi.getUserAccount();
+		if (chorbi.getBanned() == true) {
+			u.setPassword(null);
+			chorbi.setUserAccount(u);
+		}
 	}
 
 	public void enableAccount(Chorbi chorbi) {
-		UserAccount userAccount = new UserAccount();
-		List<Authority> authorities = new ArrayList<Authority>();
-		Authority a = new Authority();
-		if (chorbi.getBanned() == false) {
-			a.setAuthority(Authority.CHORBI);
-			authorities.add(a);
-			userAccount.addAuthority(a);
-			chorbi.setUserAccount(userAccount);
-		}
+		String password = chorbi.getUserAccount().getUsername();
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		String md5 = encoder.encodePassword(password, null);
+		if (chorbi.getBanned() == false)
+			chorbi.getUserAccount().setPassword(md5);
 	}
 
 	//Dashboard Services -------------------
@@ -420,11 +419,10 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if(chorbiForm.getCreditCard().getBrandName() == ""){
+		if (chorbiForm.getCreditCard().getBrandName() == "")
 			result.setCreditCard(null);
-		}else{
+		else
 			result.setCreditCard(chorbiForm.getCreditCard());
-		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
