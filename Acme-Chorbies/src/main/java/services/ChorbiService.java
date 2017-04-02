@@ -37,9 +37,9 @@ public class ChorbiService {
 
 	@Autowired
 	private SearchTemplateService	searchTemplateService;
-	
+
 	@Autowired
-	private Validator			validator;
+	private Validator				validator;
 
 
 	// Constructors -----------------------------------------------------------
@@ -389,10 +389,10 @@ public class ChorbiService {
 	}
 
 	// Form methods -----------------------------------------------------------
-	
-	public ChorbiForm generateForm(Chorbi chorbi){
+
+	public ChorbiForm generateForm(Chorbi chorbi) {
 		ChorbiForm result = new ChorbiForm();
-		
+
 		result.setId(chorbi.getId());
 		result.setUsername(chorbi.getUserAccount().getUsername());
 		result.setPassword(chorbi.getUserAccount().getPassword());
@@ -409,10 +409,10 @@ public class ChorbiService {
 		result.setSurname(chorbi.getSurname());
 		result.setGenre(chorbi.getGenre());
 		result.setKindRelationship(chorbi.getKindRelationship());
-		
+
 		return result;
 	}
-	
+
 	public Chorbi reconstructEditPersonalData(ChorbiForm chorbiForm, BindingResult binding) {
 		Chorbi result;
 
@@ -425,11 +425,10 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if(chorbiForm.getCreditCard().getBrandName()==null){
+		if (chorbiForm.getCreditCard().getBrandName() == null)
 			result.setCreditCard(null);
-		}else{
+		else
 			result.setCreditCard(chorbiForm.getCreditCard());
-		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
@@ -472,18 +471,15 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-<<<<<<< HEAD
+
 		if (chorbiForm.getCreditCard().getBrandName() == "")
-=======
-		if(chorbiForm.getCreditCard().getBrandName()==null){
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
 			result.setCreditCard(null);
 		else
 			result.setCreditCard(chorbiForm.getCreditCard());
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
-		
+
 		validator.validate(result, binding);
 
 		return result;

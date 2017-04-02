@@ -116,7 +116,7 @@ public class ChorbiController extends AbstractController {
 
 		return result;
 	}
-<<<<<<< HEAD
+
 
 	// Register ----------------------------------------------------
 
@@ -124,7 +124,7 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		ChorbiForm chorbiForm;
-=======
+
 	
 	// Edit profile ------------------------------------------------
 	
@@ -133,19 +133,17 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Chorbi chorbi = chorbiService.findByPrincipal();
 		String tipe = "edit";
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
 
 		Collection<Genre> genres = genreService.findAll();
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
 		ChorbiForm chorbiForm = chorbiService.generateForm(chorbi);
 
-<<<<<<< HEAD
 		chorbiForm = chorbiService.generate();
 
 		result = new ModelAndView("chorbi/register");
-=======
+
 		result = new ModelAndView("chorbi/edit");
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
+
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("genres", genres);
 		result.addObject("kindRelationships", kindRelationships);
@@ -159,36 +157,29 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Chorbi chorbi;
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = createEditModelAndView(chorbiForm);
-		} else {
+		else
 			try {
 				chorbi = chorbiService.reconstructEditPersonalData(chorbiForm, binding);
 				chorbiService.save2(chorbi);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
 				String msgCode = "chorbi.register.error";
-<<<<<<< HEAD
+
 				if (oops.getMessage().equals("notEqualPassword"))
 					msgCode = "chorbi.register.notEqualPassword";
 				else if (oops.getMessage().equals("not18Old"))
 					msgCode = "chorbi.register.not18Old";
 				else if (oops.getMessage().equals("agreedNotAccepted"))
 					msgCode = "chorbi.register.agreedNotAccepted";
-=======
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
+
 				result = createEditModelAndView(chorbiForm, msgCode);
 			}
-		}
 
 		return result;
 	}
-<<<<<<< HEAD
 
-=======
-	
-	
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
 	// Ancillary methods ---------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm) {
@@ -203,16 +194,14 @@ public class ChorbiController extends AbstractController {
 	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm, String message) {
 		ModelAndView result;
 
-<<<<<<< HEAD
 		Collection<Genre> genres = genreService.findAll();
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
-=======
+
 			result = new ModelAndView("chorbi/edit");
 			result.addObject("chorbiForm", chorbiForm);
 			result.addObject("genres", genres);
 			result.addObject("kindRelationships", kindRelationships);
 			result.addObject("message", message);
->>>>>>> 2c9814169dd199c220c6ba45caadc63457efe7c8
 
 		result = new ModelAndView("chorbi/register");
 		result.addObject("chorbiForm", chorbiForm);
