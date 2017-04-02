@@ -32,6 +32,7 @@
 		<value>/views/cacheTime/tiles.xml</value>
 		<value>/views/kindRelationship/tiles.xml</value>
 		<value>/views/chorbi/tiles.xml</value>
+		<value>/views/relationLike/tiles.xml</value>
 		
 		
 	</util:list>

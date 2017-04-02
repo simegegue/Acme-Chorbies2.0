@@ -32,6 +32,7 @@
 		<value>/views/cacheTime/messages</value>
 		<value>/views/kindRelationship/messages</value>
 		<value>/views/chorbi/messages</value>
+		<value>/views/relationLike/messages</value>
 	</util:list>
 
 </beans>

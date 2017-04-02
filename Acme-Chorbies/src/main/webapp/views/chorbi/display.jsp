@@ -62,7 +62,7 @@
 				<spring:message code="chorbi.birthDate" />
 			</th>
 			<td>
-				<fmt:formatDate value="${chorbi.birthDate }" pattern="dd/MM/yyyy HH:mm" />
+				<fmt:formatDate value="${chorbi.birthDate }" pattern="dd/MM/yyyy" />
 			</td>
 		</tr>
 		<tr>
@@ -100,7 +100,7 @@
 			<jstl:when test="${containsL == true }">
 				<input type="button" name="removeLike"
 					value="<spring:message code="chorbi.unlike" />"
-					onclick="javascript: window.location.replace('chorbi/like/delete.do?chorbiId=${chorbi.id}')" 
+					onclick="javascript: window.location.replace('chorbi/relationLike/delete.do?chorbiId=${chorbi.id}')" 
 					style="float: right;padding: 5px 15px; margin: 0 3px 0 3px;" />
 			</jstl:when>
 			<jstl:otherwise>
@@ -129,7 +129,7 @@
 	<display:column title="${comment }" property="comment"/>
 	
 	<display:column>
-		<a href="chorbi/displayById.do?chorbiId=${row.id}"><spring:message code="chorbi.view.profile" /></a>
+		<a href="chorbi/displayById.do?chorbiId=${row.likeSender.id}"><spring:message code="chorbi.view.profile" /></a>
 	</display:column>
 	
 	
