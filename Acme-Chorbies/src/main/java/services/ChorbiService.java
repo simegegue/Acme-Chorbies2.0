@@ -472,13 +472,13 @@ public class ChorbiService {
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
 
-		if (chorbiForm.getCreditCard().getBrandName() == "") {
-		}
-
 		if (chorbiForm.getCreditCard().getBrandName() == null)
-			result.setCreditCard(null);
-		else
-			result.setCreditCard(chorbiForm.getCreditCard());
+
+			if (chorbiForm.getCreditCard().getBrandName() == "")
+
+				result.setCreditCard(null);
+			else
+				result.setCreditCard(chorbiForm.getCreditCard());
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
