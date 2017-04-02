@@ -51,6 +51,20 @@ public class ChorbiController extends AbstractController {
 		super();
 	}
 
+	//Display----------------------------------------------------
+	@RequestMapping(value="/displayById", method=RequestMethod.GET)
+	public ModelAndView display(@RequestParam int chorbiId) {
+			ModelAndView result;
+			Chorbi chorbi;
+			
+			chorbi = chorbiService.findOne(chorbiId);
+			result=new ModelAndView("chorbi/display");
+			result.addObject("chorbi", chorbi);
+			result.addObject("likesReceived", chorbi.getLikesReceived());
+			result.addObject("requestURI", "chorbi/displayById.do");
+	
+			return result;
+		}
 	//Browse ----------------------------------------------------
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
@@ -97,7 +111,7 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//BanUnban -----
-
+/*
 	@RequestMapping(value = "/banUnban", method = RequestMethod.GET)
 	public ModelAndView banUnban(@RequestParam int chorbiId) {
 		ModelAndView result;
@@ -115,7 +129,7 @@ public class ChorbiController extends AbstractController {
 		}
 
 		return result;
-	}
+	}*/
 
 	// Edit profile ------------------------------------------------
 

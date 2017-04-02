@@ -40,6 +40,7 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" />
+		<security:intercept-url pattern="/chorbi/displayById.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/browse.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/register.do" access="permitAll" />
 		<security:intercept-url pattern="/chorbi/edit.do" access="isAuthenticated()" />
