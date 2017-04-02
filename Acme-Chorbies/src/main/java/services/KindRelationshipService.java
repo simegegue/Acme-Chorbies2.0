@@ -55,20 +55,14 @@ public class KindRelationshipService {
 		public Collection<KindRelationship> findAll() {
 
 			Collection<KindRelationship> result;
-
 			result = kindRelationshipRepository.findAll();
-			Assert.notNull(result);
-
 			return result;
 		}
 
 		public KindRelationship findOne(int kindRelationshipId) {
 
 			KindRelationship result;
-
 			result = kindRelationshipRepository.findOne(kindRelationshipId);
-			Assert.notNull(result);
-
 			return result;
 		}
 
@@ -76,6 +70,9 @@ public class KindRelationshipService {
 
 			Assert.notNull(kindRelationship);
 			KindRelationship result;
+			for(KindRelationship k : kindRelationshipRepository.findAll()){
+				Assert.isTrue(!k.getValue().equals(kindRelationship.getValue()),"usedKindRelationship");
+			}
 			result = kindRelationshipRepository.save(kindRelationship);
 
 			return result;
@@ -86,21 +83,23 @@ public class KindRelationshipService {
 			Assert.notNull(kindRelationship);
 			Assert.isTrue(kindRelationship.getId() != 0);
 
-			KindRelationship aux = findKindRelationshipByValue("none");
+			/*KindRelationship aux = findOne(53);
 					
 			Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByKindRelationship(kindRelationship.getId());
 			Collection<Chorbi> chorbies = chorbiService.findChorbiesByKindRelationship(kindRelationship.getId());
-			
-			for(Chorbi c : chorbies){
-				c.setKindRelationship(aux);
-				chorbiService.save(c);
-			}	
-			
-			for(SearchTemplate s : searches){
-				s.setKindRelationship(aux);
-				searchTemplateService.save(s);
+			if(!chorbies.isEmpty()){
+				for(Chorbi c : chorbies){
+					c.setKindRelationship(aux);
+					chorbiService.save(c);
+				}	
 			}
-			
+			if(!searches.isEmpty()){
+				for(SearchTemplate s : searches){
+					s.setKindRelationship(aux);
+					searchTemplateService.save(s);
+				}
+			}
+			*/
 			kindRelationshipRepository.delete(kindRelationship);
 		}
 		
@@ -125,9 +124,6 @@ public class KindRelationshipService {
 						result = kindRelationshipRepository.findOne(kindRelationshipForm.getId());
 					}
 					result.setValue(kindRelationshipForm.getValue());
-					for(KindRelationship k : kindRelationshipRepository.findAll()){
-						Assert.isTrue(!k.getValue().equals(kindRelationshipForm.getValue()),"usedKindRelationship");
-					}
 					validator.validate(result, binding);
 					return result;
 				}
