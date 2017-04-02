@@ -29,20 +29,21 @@ import forms.ChorbiForm;
 @Controller
 @RequestMapping("/chorbi")
 public class ChorbiController extends AbstractController {
-	
+
 	// Services ------------------------------------------------
 
 	@Autowired
-	private ChorbiService		chorbiService;
+	private ChorbiService			chorbiService;
 
 	@Autowired
-	private RelationLikeService	relationLikeService;
-	
+	private RelationLikeService		relationLikeService;
+
 	@Autowired
-	private GenreService genreService;
-	
+	private GenreService			genreService;
+
 	@Autowired
-	private KindRelationshipService kindRelationshipService;
+	private KindRelationshipService	kindRelationshipService;
+
 
 	// Constructor -----------------------------------------------
 
@@ -51,7 +52,7 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//Browse ----------------------------------------------------
-	
+
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public ModelAndView browse() {
 		ModelAndView result;
@@ -103,6 +104,10 @@ public class ChorbiController extends AbstractController {
 		Chorbi c = chorbiService.findOne(chorbiId);
 		try {
 			chorbiService.banUnban(c);
+			if (c.getBanned())
+				chorbiService.disableAccount(c);
+			else
+				chorbiService.enableAccount(c);
 			result = browse();
 		} catch (Throwable oops) {
 			result = browse();
@@ -111,9 +116,9 @@ public class ChorbiController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// Edit profile ------------------------------------------------
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
@@ -125,6 +130,7 @@ public class ChorbiController extends AbstractController {
 		ChorbiForm chorbiForm = chorbiService.generateForm(chorbi);
 
 		result = new ModelAndView("chorbi/edit");
+
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("genres", genres);
 		result.addObject("kindRelationships", kindRelationships);
@@ -138,47 +144,53 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Chorbi chorbi;
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = createEditModelAndView(chorbiForm);
-		} else {
+		else
 			try {
 				chorbi = chorbiService.reconstructEditPersonalData(chorbiForm, binding);
 				chorbiService.save2(chorbi);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
 				String msgCode = "chorbi.register.error";
+
+				if (oops.getMessage().equals("notEqualPassword"))
+					msgCode = "chorbi.register.notEqualPassword";
+				else if (oops.getMessage().equals("not18Old"))
+					msgCode = "chorbi.register.not18Old";
+				else if (oops.getMessage().equals("agreedNotAccepted"))
+					msgCode = "chorbi.register.agreedNotAccepted";
+
 				result = createEditModelAndView(chorbiForm, msgCode);
 			}
-		}
 
 		return result;
 	}
-	
-	
+
 	// Ancillary methods ---------------------------------------------------
 
-		protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm) {
-			ModelAndView result;
+	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm) {
+		ModelAndView result;
 
-			result = createEditModelAndView(chorbiForm, null);
+		result = createEditModelAndView(chorbiForm, null);
 
-			return result;
+		return result;
 
-		}
+	}
 
-		protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm, String message) {
-			ModelAndView result;
-			
-			Collection<Genre> genres = genreService.findAll();
-			Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+	protected ModelAndView createEditModelAndView(ChorbiForm chorbiForm, String message) {
+		ModelAndView result;
 
-			result = new ModelAndView("chorbi/edit");
-			result.addObject("chorbiForm", chorbiForm);
-			result.addObject("genres", genres);
-			result.addObject("kindRelationships", kindRelationships);
-			result.addObject("message", message);
+		Collection<Genre> genres = genreService.findAll();
+		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
 
-			return result;
-		}
+		result = new ModelAndView("chorbi/edit");
+		result.addObject("chorbiForm", chorbiForm);
+		result.addObject("genres", genres);
+		result.addObject("kindRelationships", kindRelationships);
+		result.addObject("message", message);
+
+		return result;
+	}
 
 }
