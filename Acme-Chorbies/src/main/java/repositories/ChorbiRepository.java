@@ -14,10 +14,10 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 
 	@Query("select c from Chorbi c where c.userAccount.id=?1")
 	Chorbi findByUserAccountId(int id);
-	
+
 	@Query("select c from Chorbi c where c.genre.id = ?1")
 	Collection<Chorbi> findChorbiesByGenre(int genreId);
-	
+
 	@Query("select c from Chorbi c where c.kindRelationship.id = ?1")
 	Collection<Chorbi> findChorbiesByKindRelationship(int kindRelationshipId);
 
@@ -93,4 +93,7 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 
 	@Query("select c.coordinate.city from Chorbi c group by c.coordinate.city")
 	Collection<String> auxCity();
+
+	@Query("select c from Chorbi c join c.userAccount us where us.username = '?1'")
+	Chorbi findChorbiByUsername(String name);
 }

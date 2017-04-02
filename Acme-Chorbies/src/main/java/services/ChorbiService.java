@@ -151,6 +151,10 @@ public class ChorbiService {
 		return result;
 	}
 
+	public Chorbi findChorbiByUsername(String name) {
+		return chorbiRepository.findChorbiByUsername(name);
+	}
+
 	public Collection<Chorbi> findChorbiesByGenre(int genre) {
 		return chorbiRepository.findChorbiesByGenre(genre);
 	}
@@ -170,6 +174,19 @@ public class ChorbiService {
 			chorbi.setBanned(false);
 		else
 			chorbi.setBanned(true);
+	}
+
+	public void disableEnable(Chorbi chorbi) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		UserAccount aux = chorbi.getUserAccount();
+		if (chorbi.getBanned())
+			chorbi.setUserAccount(null);
+		else
+			chorbi.setUserAccount(aux);
 	}
 
 	//Dashboard Services -------------------
