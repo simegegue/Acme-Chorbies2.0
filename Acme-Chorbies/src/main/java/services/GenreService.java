@@ -54,20 +54,14 @@ public class GenreService {
 	public Collection<Genre> findAll() {
 
 		Collection<Genre> result;
-
 		result = genreRepository.findAll();
-		Assert.notNull(result);
-
 		return result;
 	}
 
 	public Genre findOne(int genreId) {
 
 		Genre result;
-
 		result = genreRepository.findOne(genreId);
-		Assert.notNull(result);
-
 		return result;
 	}
 
@@ -75,6 +69,9 @@ public class GenreService {
 
 		Assert.notNull(genre);
 		Genre result;
+		for(Genre g : genreRepository.findAll()){
+			Assert.isTrue(!g.getValue().equals(genre.getValue()),"usedGenre");
+		}
 		result = genreRepository.save(genre);
 
 		return result;
@@ -85,21 +82,23 @@ public class GenreService {
 		Assert.notNull(genre);
 		Assert.isTrue(genre.getId() != 0);
 		
-		Genre aux = findGenreByValue("none");
+		//Genre aux = findGenreByValue("none");
 			
-		Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
+	/*	Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
 		Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre.getId());
-		
-		for(Chorbi c : chorbies){
-			c.setGenre(aux);
-			chorbiService.save(c);
-		}	
-		
-		for(SearchTemplate s : searches){
-			s.setGenre(aux);
-			searchTemplateService.save(s);
+		if(!chorbies.isEmpty()){
+			for(Chorbi c : chorbies){
+				c.setGenre(aux);
+				chorbiService.save(c);
+			}	
 		}
-
+		if(!searches.isEmpty()){
+			for(SearchTemplate s : searches){
+				s.setGenre(aux);
+				searchTemplateService.save(s);
+			}
+		}
+*/
 		genreRepository.delete(genre);
 	}
 	
@@ -126,9 +125,7 @@ public class GenreService {
 				result = genreRepository.findOne(genreForm.getId());
 			}
 			result.setValue(genreForm.getValue());
-			for(Genre g : genreRepository.findAll()){
-				Assert.isTrue(!g.getValue().equals(genreForm.getValue()),"usedGenre");
-			}
+			
 			validator.validate(result, binding);
 			return result;
 		}

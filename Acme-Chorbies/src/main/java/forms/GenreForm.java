@@ -3,7 +3,6 @@ package forms;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -29,7 +28,6 @@ public class GenreForm {
 
 	@NotBlank
 	@Pattern(regexp = "^man$|^woman$|^none$")
-	@Column(unique = true)
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getValue() {
 		return value;
