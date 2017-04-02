@@ -1,15 +1,22 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.RelationLikeRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Chorbi;
 import domain.RelationLike;
+import forms.RelationLikeForm;
 
 @Service
 @Transactional
@@ -22,6 +29,13 @@ public class RelationLikeService {
 		
 		// Supporting services ----------------------------------------------------
 
+		@Autowired
+		private ChorbiService chorbiService;
+		
+		@Autowired
+		private Validator validator;
+		
+		
 		// Constructors -----------------------------------------------------------
 
 		public RelationLikeService() {
@@ -32,8 +46,20 @@ public class RelationLikeService {
 				
 		public RelationLike create() {
 
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			
+			
+			
 			RelationLike result;
+			Date date = new Date(System.currentTimeMillis() - 1000);
+			
 			result = new RelationLike();
+			result.setLikeSender(chorbiService.findByPrincipal());
+			result.setMoment(date);
 
 			return result;
 		}
@@ -106,4 +132,23 @@ public class RelationLikeService {
 			return res;
 			
 		}
+		
+		// Form methods ----------------------------------------------------------
+
+				public RelationLikeForm generateForm() {
+					RelationLikeForm result = new RelationLikeForm();
+
+					return result;
+				}
+
+				public RelationLike reconstruct(RelationLikeForm relationLikeForm, BindingResult binding) {
+					RelationLike result;
+					result = create();
+					result.setComment(relationLikeForm.getcomment());
+					result.setLikeRecipient(chorbiService.findOne(relationLikeForm.getchorbiId()));
+					validator.validate(result, binding);
+					return result;
+				}
+
+
 }
