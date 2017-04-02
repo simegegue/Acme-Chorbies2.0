@@ -112,55 +112,48 @@ public class ChorbiController extends AbstractController {
 		return result;
 	}
 	
-	// Register ----------------------------------------------------
+	// Edit profile ------------------------------------------------
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView create() {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
 		ModelAndView result;
-		ChorbiForm chorbiForm;
-		
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		String tipe = "edit";
+
 		Collection<Genre> genres = genreService.findAll();
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+		ChorbiForm chorbiForm = chorbiService.generateForm(chorbi);
 
-		chorbiForm = chorbiService.generate();
-		
-		result = new ModelAndView("chorbi/register");
+		result = new ModelAndView("chorbi/edit");
 		result.addObject("chorbiForm", chorbiForm);
 		result.addObject("genres", genres);
 		result.addObject("kindRelationships", kindRelationships);
+		result.addObject("tipe", tipe);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid ChorbiForm chorbiForm, BindingResult binding) {
 		ModelAndView result;
 		Chorbi chorbi;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = createEditModelAndView(chorbiForm);
-		else
+		} else {
 			try {
-				chorbi = chorbiService.reconstruct(chorbiForm, binding);
-				chorbiService.save(chorbi);
-				result = new ModelAndView("redirect:../security/login.do");
+				chorbi = chorbiService.reconstructEditPersonalData(chorbiForm, binding);
+				chorbiService.save2(chorbi);
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
 				String msgCode = "chorbi.register.error";
-				if (oops.getMessage().equals("notEqualPassword")){
-					msgCode = "chorbi.register.notEqualPassword";
-				}
-				else if(oops.getMessage().equals("not18Old")){
-					msgCode = "chorbi.register.not18Old";
-				}
-				else if(oops.getMessage().equals("agreedNotAccepted")){
-					msgCode = "chorbi.register.agreedNotAccepted";
-				}
 				result = createEditModelAndView(chorbiForm, msgCode);
 			}
+		}
 
 		return result;
-
 	}
+	
 	
 	// Ancillary methods ---------------------------------------------------
 
@@ -179,7 +172,7 @@ public class ChorbiController extends AbstractController {
 			Collection<Genre> genres = genreService.findAll();
 			Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
 
-			result = new ModelAndView("chorbi/register");
+			result = new ModelAndView("chorbi/edit");
 			result.addObject("chorbiForm", chorbiForm);
 			result.addObject("genres", genres);
 			result.addObject("kindRelationships", kindRelationships);
