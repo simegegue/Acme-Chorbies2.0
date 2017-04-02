@@ -91,19 +91,15 @@
 	</bean>
 	<!-- Banners -->
 	<bean id="banner1" class="domain.Banner">
-	<property name="url" value="https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"/>
+	<property name="url" value="https://c1.staticflickr.com/3/2813/33640539192_f498ce27f2.jpg"/>
 	</bean>
 	
 	<bean id="banner2" class="domain.Banner">
-	<property name="url" value="http://wallpaper-gallery.net/images/image/image-13.jpg"/>
+	<property name="url" value="https://c1.staticflickr.com/4/3837/33667275001_890d00ddd7.jpg"/>
 	</bean>
 	
 	<bean id="banner3" class="domain.Banner">
-	<property name="url" value="http://i.stack.imgur.com/WCveg.jpg"/>
-	</bean>
-	
-	<bean id="banner4" class="domain.Banner">
-	<property name="url" value="https://i.kinja-img.com/gawker-media/image/upload/s--FY0kcgZ4--/c_scale,fl_progressive,q_80,w_800/wpjyw32wdfhc8tenj0l0.jpg"/>
+	<property name="url" value="https://c1.staticflickr.com/4/3856/33667279331_a4ec3acb2e_b.jpg"/>
 	</bean>
 	
 	<!-- Cache Time -->

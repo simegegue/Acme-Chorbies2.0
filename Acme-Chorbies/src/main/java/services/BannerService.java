@@ -58,34 +58,16 @@ public class BannerService {
 
 	public Collection<Banner> findAll() {
 
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("ADMIN");
-
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
-
 		Collection<Banner> result;
-
 		result = bannerRepository.findAll();
-		Assert.notNull(result);
 
 		return result;
 	}
 
 	public Banner findOne(int bannerId) {
 
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("ADMIN");
-
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
-
 		Banner result;
-
 		result = bannerRepository.findOne(bannerId);
-		Assert.notNull(result);
 
 		return result;
 	}
