@@ -51,6 +51,13 @@
 		
 		<bean class="converters.SearchTemplateToStringConverter" />
 		<bean class="converters.StringToSearchTemplateConverter" />
+		
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+		
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+		
 	</util:list>
 	
 </beans>

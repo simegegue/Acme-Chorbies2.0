@@ -64,6 +64,7 @@ public class SearchTemplate extends DomainEntity {
 	}
 
 	// Relationships -----------------------------------
+	
 	private Genre				genre;
 	private KindRelationship	kindRelationship;
 	private Collection<Chorbi> chorbies;

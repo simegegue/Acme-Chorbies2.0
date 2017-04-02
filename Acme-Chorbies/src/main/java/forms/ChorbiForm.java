@@ -152,7 +152,7 @@ public class ChorbiForm {
 		this.birthDate = birthDate;
 	}
 	
-	@Valid
+
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}

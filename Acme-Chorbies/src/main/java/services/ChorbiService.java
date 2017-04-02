@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -94,7 +95,30 @@ public class ChorbiService {
 	public Chorbi save(Chorbi chorbi) {
 
 		Assert.notNull(chorbi);
+
+		String password = chorbi.getUserAccount().getPassword();
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		String md5 = encoder.encodePassword(password, null);
+		chorbi.getUserAccount().setPassword(md5);
+		
+		if(chorbi.getId()!=0){
+			Assert.isTrue(findByPrincipal().getId()==chorbi.getId());
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+		}
+		SearchTemplate search = searchTemplateService.save(chorbi.getSearchTemplate());
+		chorbi.setSearchTemplate(search);
+		Chorbi result = chorbiRepository.save(chorbi);
+
+		return result;
+	}
+	
+	public Chorbi save2(Chorbi chorbi) {
 		Chorbi result;
+
 		result = chorbiRepository.save(chorbi);
 
 		return result;
@@ -396,7 +420,11 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		result.setCreditCard(chorbiForm.getCreditCard());
+		if(chorbiForm.getCreditCard().getBrandName() == ""){
+			result.setCreditCard(null);
+		}else{
+			result.setCreditCard(chorbiForm.getCreditCard());
+		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
