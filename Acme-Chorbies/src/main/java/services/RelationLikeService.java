@@ -82,4 +82,28 @@ public class RelationLikeService {
 			result=relationLikeRepository.findByLikesSent(id);
 			return result;
 		}
+		public RelationLike giveLike(Chorbi likeSender,Chorbi likeRecipient){
+			RelationLike res=create();
+			Boolean contains=false;
+			for(RelationLike l:likeSender.getLikesSent()){
+				if(l.getLikeRecipient().equals(likeRecipient)){
+					contains=true;
+				}
+			}
+			if(contains=false){
+				if(!likeSender.equals(likeRecipient)){
+					RelationLike rl=create();
+					
+					rl.setLikeSender(likeSender);
+					rl.setLikeRecipient(likeRecipient);
+					likeSender.getLikesSent().add(rl);
+					likeRecipient.getLikesReceived().add(rl);
+					res=rl;
+					
+				}
+				
+			}
+			return res;
+			
+		}
 }

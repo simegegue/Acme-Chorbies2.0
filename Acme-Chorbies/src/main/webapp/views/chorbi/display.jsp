@@ -89,10 +89,10 @@
 <jstl:if test="${chorbi.userAccount.username != pageContext.request.remoteUser}">
 	<security:authorize access="hasRole('CHORBI')">
 	<div  style="width:980px;height:40px">	  
-		<jstl:set var="containsD" value="false" />
+		<jstl:set var="containsL" value="false" />
 		<jstl:forEach var="item" items="${chorbi.likesReceived}">
 	  		<jstl:if test="${item.likeSender.userAccount.username eq pageContext.request.remoteUser}">
-	    		<jstl:set var="containsD" value="true" />
+	    		<jstl:set var="containsL" value="true" />
 	  		</jstl:if>
 		</jstl:forEach>
 	
@@ -106,7 +106,7 @@
 			<jstl:otherwise>
 				<input type="button" name="adddisLike"
 					value="<spring:message code="chorbi.like" />"
-					onclick="javascript: window.location.replace('chorbi/like/create.do?chorbiId=${chorbi.id}')" 
+					onclick="javascript: window.location.replace('chorbi/relationLike/create.do?chorbiId=${chorbi.id}')" 
 					style="float: right;padding: 5px 15px; margin: 0 3px 0 3px;" />
 			
 			</jstl:otherwise>
@@ -127,7 +127,10 @@
 		
 	<spring:message code="chorbi.comment" var="comment"/>
 	<display:column title="${comment }" property="comment"/>
-
+	
+	<display:column>
+		<a href="chorbi/displayById.do?chorbiId=${row.id}"><spring:message code="chorbi.view.profile" /></a>
+	</display:column>
 	
 	
 <br/>
