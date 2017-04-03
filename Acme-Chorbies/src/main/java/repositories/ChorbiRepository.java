@@ -96,4 +96,7 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 
 	@Query("select c from Chorbi c join c.userAccount us where us.username = '?1'")
 	Chorbi findChorbiByUsername(String name);
+
+	@Query("select c from Chorbi c where datediff(current_date,c.birthDate)/365 = ?1")
+	Collection<Chorbi> findByAge(Integer age);
 }

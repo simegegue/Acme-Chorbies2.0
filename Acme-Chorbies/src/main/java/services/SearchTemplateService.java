@@ -3,17 +3,21 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SearchTemplateRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
 import domain.SearchTemplate;
+import forms.SearchTemplateForm;
 
 @Service
 @Transactional
@@ -24,8 +28,14 @@ public class SearchTemplateService {
 	@Autowired
 	private SearchTemplateRepository	searchTemplateRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ChorbiService				chorbiService;
+
+	@Autowired
+	private Validator					validator;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -98,14 +108,9 @@ public class SearchTemplateService {
 	public Boolean compareSearch(SearchTemplate st) {
 		SearchTemplate old = findByPrincipal();
 		Boolean res = false;
-		if (old.getAge().compareTo(st.getAge()) != 0 
-			&& old.getKeyword().compareTo(st.getKeyword()) != 0 
-			&& old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) != 0 
-			&& old.getCoordinate().getCountry().compareTo(st.getCoordinate().getCountry()) != 0
-			&& old.getCoordinate().getProvince().compareTo(st.getCoordinate().getProvince()) != 0
-			&& old.getCoordinate().getState().compareTo(st.getCoordinate().getState()) != 0
-			&& old.getKindRelationship().getValue().compareTo(st.getKindRelationship().getValue()) != 0
-			&& old.getGenre().getValue().compareTo(st.getGenre().getValue()) != 0)
+		if (old.getAge().compareTo(st.getAge()) != 0 && old.getKeyword().compareTo(st.getKeyword()) != 0 && old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) != 0
+			&& old.getCoordinate().getCountry().compareTo(st.getCoordinate().getCountry()) != 0 && old.getCoordinate().getProvince().compareTo(st.getCoordinate().getProvince()) != 0
+			&& old.getCoordinate().getState().compareTo(st.getCoordinate().getState()) != 0 && old.getKindRelationship().getValue().compareTo(st.getKindRelationship().getValue()) != 0 && old.getGenre().getValue().compareTo(st.getGenre().getValue()) != 0)
 			res = true;
 		return res;
 	}
@@ -117,6 +122,38 @@ public class SearchTemplateService {
 		userAccount = LoginService.getPrincipal();
 		result = searchTemplateRepository.findByUserAccount(userAccount);
 
+		return result;
+	}
+
+	//Form Services
+
+	public SearchTemplateForm generateForm() {
+		SearchTemplateForm result;
+
+		result = new SearchTemplateForm();
+		return result;
+	}
+
+	public SearchTemplate reconstruct(SearchTemplateForm searchTemplateForm, BindingResult binding) {
+		Chorbi chorbi = chorbiService.findByPrincipal();
+
+		SearchTemplate result = chorbi.getSearchTemplate();
+		result.setAge(searchTemplateForm.getAge());
+		result.setKeyword(searchTemplateForm.getKeyword());
+		result.setCoordinate(searchTemplateForm.getCoordinate());
+
+		Date d = new Date(System.currentTimeMillis() - 10000);
+		result.setLastTimeSearched(d);
+		validator.validate(result, binding);
+
+		return result;
+	}
+
+	public SearchTemplateForm transform(SearchTemplate searchTemplate) {
+		SearchTemplateForm result = generateForm();
+		result.setAge(searchTemplate.getAge());
+		result.setKeyword(searchTemplate.getKeyword());
+		result.setCoordinate(searchTemplate.getCoordinate());
 		return result;
 	}
 

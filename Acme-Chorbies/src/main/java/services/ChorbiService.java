@@ -485,4 +485,16 @@ public class ChorbiService {
 		return result;
 	}
 
+	public void findBySearchTemplate(SearchTemplate searchTemplate) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		Collection<Chorbi> aux;
+		if (searchTemplate.getKeyword() == null)
+			aux = chorbiRepository.findByAge(searchTemplate.getAge());
+		//else
+		//	aux = chorbiRepository.findByKey(searchTemplate.getKeyword(), searchTemplate.getDestinationCity());
+
+		searchTemplate.setChorbies(result);
+
+	}
+
 }

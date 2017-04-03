@@ -1,5 +1,5 @@
 <%--
- * action-2.jsp
+ * edit.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -15,5 +15,30 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<p><spring:message code="profile.action.2" /></p>
+<security:authorize
+	access="hasRole('CHORBI')">
+
+	<form:form	action="chorbi/searchTemplate/edit.do"	modelAttribute="searchTemplate"> 
+
+			<acme:textbox code="searchTemplate.age" path="age"/>
+			<acme:textbox code="searchTemplate.keyword" path="keyword"/>
+			
+			<fieldset>
+					<legend align="left"><spring:message code="searchTemplate.coordinate.info"/></legend>
+					<acme:textbox code="searchTemplate.coordinate.country" path="coordinate.country"/>
+					<br/>			
+					<acme:textbox code="searchTemplate.coordinate.state" path="coordinate.state"/>
+					<br/>		
+					<acme:textbox code="searchTemplate.coordinate.province" path="coordinate.province"/>
+					<br/>			
+					<acme:textbox code="searchTemplate.coordinate.city" path="coordinate.city"/>
+			</fieldset>
+			
+			<acme:submit name="save" code="searchTemplate.save"/>
+			<acme:cancel code="searchTemplate.cancel" url="chorbi/searchTemplate/display.do"/>
+		
+	</form:form>
+
+</security:authorize>
