@@ -34,6 +34,24 @@
 	<spring:message code="searchTemplate.keyword" var="keywordHeader"/>
 	<display:column property="keyword" title="${keywordHeader}" sortable="false"/>
 	
+	<spring:message code="searchTemplate.coordinate.country" var="countryHeader" />
+	<display:column property="coordinate.country" title="${countryHeader}" sortable="true"/>
+	
+	<spring:message code="searchTemplate.coordinate.state" var="stateHeader"/>
+	<display:column property="coordinate.state" title="${stateHeader}" sortable="false"/>
+	
+	<spring:message code="searchTemplate.coordinate.province" var="provinceHeader" />
+	<display:column property="coordinate.province" title="${provinceHeader}" sortable="true"/>
+	
+	<spring:message code="searchTemplate.coordinate.city" var="cityHeader"/>
+	<display:column property="coordinate.city" title="${cityHeader}" sortable="false"/>
+	
+	<spring:message code="searchTemplate.genre.value" var="genreHeader" />
+	<display:column property="genre.value" title="${genreHeader}" sortable="true"/>
+	
+	<spring:message code="searchTemplate.kindRelationship.value" var="kindRelationshipHeader"/>
+	<display:column property="kindRelationship.value" title="${kindRelationshipHeader}" sortable="true"/>
+	
 	</security:authorize>
 
 </display:table>

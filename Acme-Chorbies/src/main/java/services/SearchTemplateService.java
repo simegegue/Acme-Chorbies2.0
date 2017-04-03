@@ -141,6 +141,8 @@ public class SearchTemplateService {
 		result.setAge(searchTemplateForm.getAge());
 		result.setKeyword(searchTemplateForm.getKeyword());
 		result.setCoordinate(searchTemplateForm.getCoordinate());
+		result.setGenre(chorbi.getGenre());
+		result.setKindRelationship(chorbi.getKindRelationship());
 
 		Date d = new Date(System.currentTimeMillis() - 10000);
 		result.setLastTimeSearched(d);
@@ -154,6 +156,8 @@ public class SearchTemplateService {
 		result.setAge(searchTemplate.getAge());
 		result.setKeyword(searchTemplate.getKeyword());
 		result.setCoordinate(searchTemplate.getCoordinate());
+		result.setGenre(searchTemplate.getGenre());
+		result.setKindRelationship(searchTemplate.getKindRelationship());
 		return result;
 	}
 

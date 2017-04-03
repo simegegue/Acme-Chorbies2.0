@@ -11,15 +11,19 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 import domain.Coordinate;
+import domain.Genre;
+import domain.KindRelationship;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
 public class SearchTemplateForm {
 
 	// Attributes ------------------------------
-	private Integer		age;
-	private String		keyword;
-	private Coordinate	coordinate;
+	private Integer				age;
+	private String				keyword;
+	private Coordinate			coordinate;
+	private Genre				genre;
+	private KindRelationship	kindRelationship;
 
 
 	// Constructor --------------------------------------------------
@@ -50,6 +54,26 @@ public class SearchTemplateForm {
 	}
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	@Valid
+	@NotNull
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	@Valid
+	@NotNull
+	public KindRelationship getKindRelationship() {
+		return kindRelationship;
+	}
+
+	public void setKindRelationship(KindRelationship kindRelationship) {
+		this.kindRelationship = kindRelationship;
 	}
 
 }
