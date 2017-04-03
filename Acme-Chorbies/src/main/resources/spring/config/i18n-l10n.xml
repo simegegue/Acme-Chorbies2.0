@@ -33,6 +33,7 @@
 		<value>/views/kindRelationship/messages</value>
 		<value>/views/chorbi/messages</value>
 		<value>/views/relationLike/messages</value>
+		<value>/views/searchTemplate/messages</value>
 	</util:list>
 
 </beans>
