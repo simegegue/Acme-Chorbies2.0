@@ -174,10 +174,11 @@ public class ChorbiService {
 		au.setAuthority("ADMIN");
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-		if (chorbi.getBanned())
+		if (chorbi.getBanned()) {
 			chorbi.setBanned(false);
-		else
+		} else {
 			chorbi.setBanned(true);
+		}
 	}
 
 	public void disableEnable(Chorbi chorbi) {
@@ -187,10 +188,11 @@ public class ChorbiService {
 		au.setAuthority("ADMIN");
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		UserAccount aux = chorbi.getUserAccount();
-		if (chorbi.getBanned())
+		if (chorbi.getBanned()) {
 			chorbi.setUserAccount(null);
-		else
+		} else {
 			chorbi.setUserAccount(aux);
+		}
 	}
 
 	//Dashboard Services -------------------
@@ -430,10 +432,11 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if (chorbiForm.getCreditCard().getBrandName() == null)
+		if (chorbiForm.getCreditCard().getBrandName() == null) {
 			result.setCreditCard(null);
-		else
+		} else {
 			result.setCreditCard(chorbiForm.getCreditCard());
+		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
@@ -476,10 +479,11 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if (chorbiForm.getCreditCard().getBrandName() == null)
+		if (chorbiForm.getCreditCard().getBrandName() == null) {
 			result.setCreditCard(null);
-		else
+		} else {
 			result.setCreditCard(chorbiForm.getCreditCard());
+		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());
 		result.setKindRelationship(chorbiForm.getKindRelationship());
@@ -492,31 +496,95 @@ public class ChorbiService {
 	public Map<Chorbi, Integer> map() {
 		Map<Chorbi, Integer> map = new HashMap<Chorbi, Integer>();
 		List<Object[]> aux = chorbiRepository.findByAge();
-		for (Object[] o : aux)
+		for (Object[] o : aux) {
 			map.put((Chorbi) o[0], (Integer) o[1]);
+		}
 		return map;
 	}
 	public Collection<Chorbi> minusPlusFive(Integer age) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Map<Chorbi, Integer> minusPlusFive = map();
-		for (Chorbi c : minusPlusFive.keySet())
-			if (minusPlusFive.get(c) <= (age + 5) && minusPlusFive.get(c) >= (age - 5))
+		for (Chorbi c : minusPlusFive.keySet()) {
+			if ((minusPlusFive.get(c) <= (age + 5)) && (minusPlusFive.get(c) >= (age - 5))) {
 				result.add(c);
+			}
+		}
 
 		return result;
 	}
 
-	public void findBySearchTemplate(SearchTemplate searchTemplate) {
+	public Collection<Chorbi> findByCoordinatesCountry(String keyword) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		result = chorbiRepository.findByCoordinatesCountry(keyword);
+		return result;
+	}
+
+	public Collection<Chorbi> findByCoordinatesState(String keyword) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		result = chorbiRepository.findByCoordinatesState(keyword);
+		return result;
+	}
+
+	public Collection<Chorbi> findByCoordinatesProvince(String keyword) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		result = chorbiRepository.findByCoordinatesProvince(keyword);
+		return result;
+	}
+
+	public Collection<Chorbi> findByCoordinatesCity(String keyword) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		result = chorbiRepository.findByCoordinatesCity(keyword);
+		return result;
+	}
+
+	public Collection<Chorbi> findBySearchTemplate(SearchTemplate searchTemplate) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Collection<Chorbi> aux = new ArrayList<Chorbi>();
-		if (searchTemplate.getKeyword() == null)
-			aux = minusPlusFive(searchTemplate.getAge());
-		else if (searchTemplate.getAge() == null)
-			aux = chorbiRepository.findByKey(searchTemplate.getKeyword());
-		result.addAll(aux);
-		searchTemplate.setChorbies(result);
 
+		if (searchTemplate.getKeyword() == null || searchTemplate.getKeyword().isEmpty()) {
+			aux = minusPlusFive(searchTemplate.getAge());
+		} else {
+			aux = chorbiRepository.findByKey(searchTemplate.getKeyword());
+		}
+		if ((searchTemplate.getGenre().getValue() == null) && (searchTemplate.getKindRelationship().getValue() == null)) {
+			result = aux;
+		} else if (searchTemplate.getGenre().getValue() == null) {
+			for (Chorbi c : aux) {
+				if (chorbiRepository.findByGenre(searchTemplate.getGenre().getValue()).contains(c)) {
+					result.add(c);
+				}
+			}
+		} else if (searchTemplate.getKindRelationship().getValue() == null) {
+			for (Chorbi c : aux) {
+				if (chorbiRepository.findByKindRelationship(searchTemplate.getKindRelationship().getValue()).contains(c)) {
+					result.add(c);
+				}
+			}
+		} else {
+			for (Chorbi c : aux) {
+				if (chorbiRepository.findByKindRelationship(searchTemplate.getKindRelationship().getValue()).contains(c) && chorbiRepository.findByGenre(searchTemplate.getGenre().getValue()).contains(c)) {
+					result.add(c);
+				}
+			}
+		}
+		searchTemplate.setChorbies(result);
+		return result;
 	}
+	/*
+	 * else if (!searchTemplate.getCoordinate().getCountry().isEmpty() && !findByCoordinatesCountry(searchTemplate.getCoordinate().getCountry()).contains(c)) {
+	 * aux.add(c);
+	 * break;
+	 * } else if (!searchTemplate.getCoordinate().getState().isEmpty() && !findByCoordinatesState(searchTemplate.getCoordinate().getState()).contains(c)) {
+	 * aux.add(c);
+	 * break;
+	 * } else if (!searchTemplate.getCoordinate().getProvince().isEmpty() && !findByCoordinatesProvince(searchTemplate.getCoordinate().getProvince()).contains(c)) {
+	 * aux.add(c);
+	 * break;
+	 * } else if (!searchTemplate.getCoordinate().getCity().isEmpty() && !findByCoordinatesCity(searchTemplate.getCoordinate().getCity()).contains(c)) {
+	 * aux.add(c);
+	 * break;
+	 * }
+	 */
 
 	public static boolean check(CreditCard creditCard) {
 		boolean validador = false;
@@ -526,11 +594,13 @@ public class ChorbiService {
 		int mes = fecha.get(Calendar.MONTH) + 1;
 		int año = fecha.get(Calendar.YEAR);
 
-		if (creditCard.getExpirationYear() > año)
+		if (creditCard.getExpirationYear() > año) {
 			validador = true;
-		else if (creditCard.getExpirationYear() == año)
-			if (creditCard.getExpirationMonth() >= mes)
+		} else if (creditCard.getExpirationYear() == año) {
+			if (creditCard.getExpirationMonth() >= mes) {
 				validador = true;
+			}
+		}
 
 		if (validador) {
 			validador = false;
@@ -538,14 +608,16 @@ public class ChorbiService {
 				int n = Integer.parseInt(numero.substring(i, i + 1));
 				if (validador) {
 					n *= 2;
-					if (n > 9)
+					if (n > 9) {
 						n = (n % 10) + 1;
+					}
 				}
 				sum += n;
 				validador = !validador;
 			}
-			if (sum % 10 == 0)
+			if (sum % 10 == 0) {
 				validador = true;
+			}
 		}
 
 		return validador;
@@ -554,10 +626,11 @@ public class ChorbiService {
 	public Boolean principalCheckCreditCard() {
 		Chorbi c = findByPrincipal();
 		Boolean b;
-		if (c.getCreditCard() == null)
+		if (c.getCreditCard() == null) {
 			b = false;
-		else
+		} else {
 			b = ChorbiService.check(c.getCreditCard());
+		}
 		return b;
 	}
 

@@ -101,6 +101,25 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c, datediff(current_date,c.birthDate)/365 from Chorbi c")
 	List<Object[]> findByAge();
 
-	@Query("select c from Chorbi c where c.name like %?1% or c.description like %?1%)")
+	@Query("select c from Chorbi c where c.name like %?1% or c.description like %?1%")
 	Collection<Chorbi> findByKey(String keyword);
+
+	@Query("select c from Chorbi c where c.coordinate.country = ?1")
+	Collection<Chorbi> findByCoordinatesCountry(String keyword);
+
+	@Query("select c from Chorbi c where c.coordinate.state = ?1")
+	Collection<Chorbi> findByCoordinatesState(String keyword);
+
+	@Query("select c from Chorbi c where c.coordinate.province = ?1")
+	Collection<Chorbi> findByCoordinatesProvince(String keyword);
+
+	@Query("select c from Chorbi c where c.coordinate.city = ?1")
+	Collection<Chorbi> findByCoordinatesCity(String keyword);
+
+	@Query("select c from Chorbi c where c.genre.value = ?1")
+	Collection<Chorbi> findByGenre(String keyword);
+
+	@Query("select c from Chorbi c where c.kindRelationship.value = ?1")
+	Collection<Chorbi> findByKindRelationship(String keyword);
+
 }

@@ -97,9 +97,9 @@ public class ChorbiSearchTemplateController extends AbstractController {
 		SearchTemplate searchTemplate;
 
 		searchTemplate = searchTemplateService.findOne(searchTemplateId);
-		SearchTemplateForm finderform = searchTemplateService.transform(searchTemplate);
-		Assert.notNull(finderform);
-		result = createEditModelAndView(finderform);
+		SearchTemplateForm searchTemplateForm = searchTemplateService.transform(searchTemplate);
+		Assert.notNull(searchTemplateForm);
+		result = createEditModelAndView(searchTemplateForm);
 
 		return result;
 
@@ -110,9 +110,9 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 		ModelAndView result;
 		SearchTemplate searchTemplate;
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = createEditModelAndView(searchTemplateForm);
-		else
+		} else {
 			try {
 				searchTemplate = searchTemplateService.reconstruct(searchTemplateForm, binding);
 				if (searchTemplateService.compareSearch(searchTemplate) == false) {
@@ -124,6 +124,7 @@ public class ChorbiSearchTemplateController extends AbstractController {
 			} catch (Throwable oops) {
 				result = createEditModelAndView(searchTemplateForm, "master.page.commit.error");
 			}
+		}
 		return result;
 	}
 
