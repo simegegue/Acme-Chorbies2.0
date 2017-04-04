@@ -55,24 +55,31 @@
 	</security:authorize>
 
 </display:table>
-
-<display:table pagesize="5" class="displaytag" keepStatus="true" name="chorbies" requestURI="${requestURI}" id="row">
+<jstl:choose>
+	<jstl:when test="${validatorCreditCard == true }">
 	
-	<!-- Action links -->
-	
-	<!-- Attributes -->
-	
-	<spring:message code="searchTemplate.chorbi.name" var="nameHeader"/>
-	<display:column property="name" title="${nameHeader}" sortable="false" />
-
-	<spring:message code="searchTemplate.chorbi.description" var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}" sortable="false" />
-
-	<spring:message code="searchTemplate.chorbi.birthDate" var="birthDateHeader" />
-	<display:column title="${birthDateHeader}"	sortable="true"><fmt:formatDate value="${row.birthDate }" pattern="dd/MM/yyyy" /></display:column>
-	
-	<display:column>
-		<a href="chorbi/display.do?chorbiId=${row.id}"><spring:message code="searchTemplate.chorbi.display" /></a>
-	</display:column>
-	
-</display:table>
+		<display:table pagesize="5" class="displaytag" keepStatus="true" name="chorbies" requestURI="${requestURI}" id="row">
+			
+			<!-- Action links -->
+			
+			<!-- Attributes -->
+			
+			<spring:message code="searchTemplate.chorbi.name" var="nameHeader"/>
+			<display:column property="name" title="${nameHeader}" sortable="false" />
+		
+			<spring:message code="searchTemplate.chorbi.description" var="descriptionHeader" />
+			<display:column property="description" title="${descriptionHeader}" sortable="false" />
+		
+			<spring:message code="searchTemplate.chorbi.birthDate" var="birthDateHeader" />
+			<display:column title="${birthDateHeader}"	sortable="true"><fmt:formatDate value="${row.birthDate }" pattern="dd/MM/yyyy" /></display:column>
+			
+			<display:column>
+				<a href="chorbi/display.do?chorbiId=${row.id}"><spring:message code="searchTemplate.chorbi.display" /></a>
+			</display:column>
+			
+		</display:table>
+	</jstl:when>
+	<jstl:otherwise>
+		<h2><spring:message code="searchTemplate.creditCard.invalid"/></h2>
+	</jstl:otherwise>
+</jstl:choose>

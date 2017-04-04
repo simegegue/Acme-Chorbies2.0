@@ -1,6 +1,8 @@
 
 package controllers.Chorbi;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CacheTimeService;
 import services.ChorbiService;
 import services.SearchTemplateService;
 import controllers.AbstractController;
+import domain.CacheTime;
 import domain.Chorbi;
 import domain.SearchTemplate;
 import forms.SearchTemplateForm;
@@ -35,6 +39,9 @@ public class ChorbiSearchTemplateController extends AbstractController {
 	@Autowired
 	private ChorbiService			chorbiService;
 
+	@Autowired
+	private CacheTimeService		cacheTimeService;
+
 
 	//Constructor----------------------
 
@@ -45,20 +52,36 @@ public class ChorbiSearchTemplateController extends AbstractController {
 	//Display--------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
+	public ModelAndView display() throws ParseException {
 
 		ModelAndView result;
 		SearchTemplate searchTemplate;
+		Boolean b = chorbiService.principalCheckCreditCard();
+
+		Collection<CacheTime> cacheTimes = cacheTimeService.findAll();
+		CacheTime cacheTime = new CacheTime();
+		for (CacheTime c : cacheTimes) {
+			cacheTime = c;
+			break;
+		}
+
+		Date cacheTimeDate;
+		SimpleDateFormat fecha = new SimpleDateFormat("HH:mm:ss");
+
+		cacheTimeDate = fecha.parse(cacheTime.getTime());
+
+		Long cacheTimeHours = cacheTimeDate.getTime();
 
 		searchTemplate = searchTemplateService.findByPrincipal();
 		Date d = new Date(System.currentTimeMillis());
 		Long aux = d.getTime() - searchTemplate.getLastTimeSearched().getTime();
-		if (aux >= 3600000) {
+		if (aux >= cacheTimeHours) {
 			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 			searchTemplate.setChorbies(chorbies);
 		}
 		result = new ModelAndView("searchTemplate/display");
 		result.addObject("searchTemplate", searchTemplate);
+		result.addObject("validatorCreditCard", b);
 		result.addObject("chorbies", searchTemplate.getChorbies());
 		result.addObject("requestURI", "chorbi/searchTemplate/display.do");
 

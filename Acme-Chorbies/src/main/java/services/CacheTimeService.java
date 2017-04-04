@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -19,125 +20,125 @@ import forms.CacheTimeForm;
 @Service
 @Transactional
 public class CacheTimeService {
-	
+
 	// Managed repository -----------------------------------------------------
 
-		@Autowired
-		private CacheTimeRepository	cacheTimeRepository;
-		
-		@Autowired
-		private Validator validator;
+	@Autowired
+	private CacheTimeRepository	cacheTimeRepository;
 
-		// Supporting services ----------------------------------------------------
+	@Autowired
+	private Validator			validator;
 
-		// Constructors -----------------------------------------------------------
 
-		public CacheTimeService() {
-			super();
-		}
+	// Supporting services ----------------------------------------------------
 
-		// Simple CRUD methods ----------------------------------------------------
-		
-		public CacheTime create() {
+	// Constructors -----------------------------------------------------------
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("ADMIN");
+	public CacheTimeService() {
+		super();
+	}
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+	// Simple CRUD methods ----------------------------------------------------
 
-			CacheTime result;
-			result = new CacheTime();
+	public CacheTime create() {
 
-			
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
 
-			return result;
-		}
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-		public Collection<CacheTime> findAll() {
+		CacheTime result;
+		result = new CacheTime();
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("ADMIN");
+		return result;
+	}
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+	public Collection<CacheTime> findAll() {
 
-			Collection<CacheTime> result;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		au.setAuthority("CHORBI");
 
-			result = cacheTimeRepository.findAll();
-			Assert.notNull(result);
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-			return result;
-		}
+		Collection<CacheTime> result;
 
-		public CacheTime findOne(int cacheTimeId) {
+		result = cacheTimeRepository.findAll();
+		Assert.notNull(result);
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("ADMIN");
+		return result;
+	}
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+	public CacheTime findOne(int cacheTimeId) {
 
-			CacheTime result;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
 
-			result = cacheTimeRepository.findOne(cacheTimeId);
-			Assert.notNull(result);
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-			return result;
-		}
+		CacheTime result;
 
-		public CacheTime save(CacheTime cacheTime) {
+		result = cacheTimeRepository.findOne(cacheTimeId);
+		Assert.notNull(result);
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("ADMIN");
+		return result;
+	}
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+	public CacheTime save(CacheTime cacheTime) {
 
-			Assert.notNull(cacheTime);
-			CacheTime result;
-			result = cacheTimeRepository.save(cacheTime);
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
 
-			return result;
-		}
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-		public void delete(CacheTime cacheTime) {
+		Assert.notNull(cacheTime);
+		CacheTime result;
+		result = cacheTimeRepository.save(cacheTime);
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("ADMIN");
+		return result;
+	}
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+	public void delete(CacheTime cacheTime) {
 
-			Assert.notNull(cacheTime);
-			
-			Assert.isTrue(cacheTime.getId() != 0);
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
 
-			cacheTimeRepository.delete(cacheTime);
-		}
-		//Form services
-		public CacheTimeForm generateForm() {
-			CacheTimeForm result = new CacheTimeForm();
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-			return result;
-		}
+		Assert.notNull(cacheTime);
 
-		public CacheTime reconstruct(CacheTimeForm cacheTimeForm, BindingResult binding) {
-			CacheTime result=findOne(cacheTimeForm.getId());
-			result.setTime(cacheTimeForm.getTime());
-			validator.validate(result, binding);
-			return result;
-		}
+		Assert.isTrue(cacheTime.getId() != 0);
 
-		public CacheTimeForm transform(CacheTime cacheTime) {
-			CacheTimeForm result = generateForm();
-			result.setId(cacheTime.getId());
-			result.setTime(cacheTime.getTime());
-			return result;
-		}
+		cacheTimeRepository.delete(cacheTime);
+	}
+	//Form services
+	public CacheTimeForm generateForm() {
+		CacheTimeForm result = new CacheTimeForm();
+
+		return result;
+	}
+
+	public CacheTime reconstruct(CacheTimeForm cacheTimeForm, BindingResult binding) {
+		CacheTime result = findOne(cacheTimeForm.getId());
+		result.setTime(cacheTimeForm.getTime());
+		validator.validate(result, binding);
+		return result;
+	}
+
+	public CacheTimeForm transform(CacheTime cacheTime) {
+		CacheTimeForm result = generateForm();
+		result.setId(cacheTime.getId());
+		result.setTime(cacheTime.getTime());
+		return result;
+	}
 }

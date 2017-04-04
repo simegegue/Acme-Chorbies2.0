@@ -2,8 +2,11 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.CreditCard;
 import domain.RelationLike;
 import domain.SearchTemplate;
 import forms.ChorbiForm;
@@ -485,16 +489,76 @@ public class ChorbiService {
 		return result;
 	}
 
+	public Map<Chorbi, Integer> map() {
+		Map<Chorbi, Integer> map = new HashMap<Chorbi, Integer>();
+		List<Object[]> aux = chorbiRepository.findByAge();
+		for (Object[] o : aux)
+			map.put((Chorbi) o[0], (Integer) o[1]);
+		return map;
+	}
+	public Collection<Chorbi> minusPlusFive(Integer age) {
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		Map<Chorbi, Integer> minusPlusFive = map();
+		for (Chorbi c : minusPlusFive.keySet())
+			if (minusPlusFive.get(c) <= (age + 5) && minusPlusFive.get(c) >= (age - 5))
+				result.add(c);
+
+		return result;
+	}
+
 	public void findBySearchTemplate(SearchTemplate searchTemplate) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
-		Collection<Chorbi> aux;
+		Collection<Chorbi> aux = new ArrayList<Chorbi>();
 		if (searchTemplate.getKeyword() == null)
-			aux = chorbiRepository.findByAge(searchTemplate.getAge());
-		//else
-		//	aux = chorbiRepository.findByKey(searchTemplate.getKeyword(), searchTemplate.getDestinationCity());
-
+			aux = minusPlusFive(searchTemplate.getAge());
+		else if (searchTemplate.getAge() == null)
+			aux = chorbiRepository.findByKey(searchTemplate.getKeyword());
+		result.addAll(aux);
 		searchTemplate.setChorbies(result);
 
+	}
+
+	public static boolean check(CreditCard creditCard) {
+		boolean validador = false;
+		int sum = 0;
+		Calendar fecha = Calendar.getInstance();
+		String numero = creditCard.getNumber();
+		int mes = fecha.get(Calendar.MONTH) + 1;
+		int año = fecha.get(Calendar.YEAR);
+
+		if (creditCard.getExpirationYear() > año)
+			validador = true;
+		else if (creditCard.getExpirationYear() == año)
+			if (creditCard.getExpirationMonth() >= mes)
+				validador = true;
+
+		if (validador) {
+			validador = false;
+			for (int i = numero.length() - 1; i >= 0; i--) {
+				int n = Integer.parseInt(numero.substring(i, i + 1));
+				if (validador) {
+					n *= 2;
+					if (n > 9)
+						n = (n % 10) + 1;
+				}
+				sum += n;
+				validador = !validador;
+			}
+			if (sum % 10 == 0)
+				validador = true;
+		}
+
+		return validador;
+	}
+
+	public Boolean principalCheckCreditCard() {
+		Chorbi c = findByPrincipal();
+		Boolean b;
+		if (c.getCreditCard() == null)
+			b = false;
+		else
+			b = ChorbiService.check(c.getCreditCard());
+		return b;
 	}
 
 }

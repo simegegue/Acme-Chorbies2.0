@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -97,6 +98,9 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c from Chorbi c join c.userAccount us where us.username = '?1'")
 	Chorbi findChorbiByUsername(String name);
 
-	@Query("select c from Chorbi c where datediff(current_date,c.birthDate)/365 = ?1")
-	Collection<Chorbi> findByAge(Integer age);
+	@Query("select c, datediff(current_date,c.birthDate)/365 from Chorbi c")
+	List<Object[]> findByAge();
+
+	@Query("select c from Chorbi c where c.name like %?1% or c.description like %?1%)")
+	Collection<Chorbi> findByKey(String keyword);
 }

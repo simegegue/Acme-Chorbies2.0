@@ -5,7 +5,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
@@ -48,7 +47,6 @@ public class SearchTemplateForm {
 	}
 
 	@Valid
-	@NotNull
 	public Coordinate getCoordinate() {
 		return coordinate;
 	}
@@ -57,7 +55,6 @@ public class SearchTemplateForm {
 	}
 
 	@Valid
-	@NotNull
 	public Genre getGenre() {
 		return genre;
 	}
@@ -67,7 +64,6 @@ public class SearchTemplateForm {
 	}
 
 	@Valid
-	@NotNull
 	public KindRelationship getKindRelationship() {
 		return kindRelationship;
 	}
