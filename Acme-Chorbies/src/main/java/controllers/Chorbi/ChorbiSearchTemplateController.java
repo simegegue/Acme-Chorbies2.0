@@ -20,10 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CacheTimeService;
 import services.ChorbiService;
+import services.GenreService;
+import services.KindRelationshipService;
 import services.SearchTemplateService;
 import controllers.AbstractController;
 import domain.CacheTime;
 import domain.Chorbi;
+import domain.Genre;
+import domain.KindRelationship;
 import domain.SearchTemplate;
 import forms.SearchTemplateForm;
 
@@ -41,6 +45,12 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 	@Autowired
 	private CacheTimeService		cacheTimeService;
+	
+	@Autowired
+	private GenreService			genreService;
+
+	@Autowired
+	private KindRelationshipService		kindRelationshipService;
 
 
 	//Constructor----------------------
@@ -98,9 +108,12 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 		searchTemplate = searchTemplateService.findOne(searchTemplateId);
 		SearchTemplateForm searchTemplateForm = searchTemplateService.transform(searchTemplate);
+		Collection<Genre>genres=genreService.findAll();
+		Collection<KindRelationship>kindRelationships=kindRelationshipService.findAll();
 		Assert.notNull(searchTemplateForm);
 		result = createEditModelAndView(searchTemplateForm);
-
+		result.addObject("genres", genres);
+		result.addObject("kindRelationships",kindRelationships);
 		return result;
 
 	}

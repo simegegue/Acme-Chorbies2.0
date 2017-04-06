@@ -16,6 +16,8 @@ import repositories.SearchTemplateRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
+import domain.Genre;
+import domain.KindRelationship;
 import domain.SearchTemplate;
 import forms.SearchTemplateForm;
 
@@ -32,6 +34,12 @@ public class SearchTemplateService {
 
 	@Autowired
 	private ChorbiService				chorbiService;
+	
+	@Autowired
+	private GenreService				genreService;
+	
+	@Autowired
+	private KindRelationshipService				kindRelationshipService;
 
 	@Autowired
 	private Validator					validator;
@@ -51,7 +59,8 @@ public class SearchTemplateService {
 		result = new SearchTemplate();
 
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-
+		result.setGenre(genreService.findGenreByValue("none"));
+		result.setKindRelationship(kindRelationshipService.findKindRelationshipByValue("none"));
 		result.setChorbies(chorbies);
 
 		return result;
@@ -138,16 +147,19 @@ public class SearchTemplateService {
 		Chorbi chorbi = chorbiService.findByPrincipal();
 
 		SearchTemplate result = chorbi.getSearchTemplate();
+		if(searchTemplateForm.getAge()==null){
+			searchTemplateForm.setAge(0);
+		}
 		result.setAge(searchTemplateForm.getAge());
 		result.setKeyword(searchTemplateForm.getKeyword());
 		result.setCoordinate(searchTemplateForm.getCoordinate());
-		result.setGenre(chorbi.getGenre());
-		result.setKindRelationship(chorbi.getKindRelationship());
+		result.setGenre(((searchTemplateForm.getGenre())));
+		result.setKindRelationship((searchTemplateForm.getKindRelationship()));
 
 		Date d = new Date(System.currentTimeMillis() - 10000);
 		result.setLastTimeSearched(d);
 		validator.validate(result, binding);
-
+		
 		return result;
 	}
 

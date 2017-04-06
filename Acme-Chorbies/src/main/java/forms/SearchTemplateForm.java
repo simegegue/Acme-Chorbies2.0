@@ -22,7 +22,7 @@ public class SearchTemplateForm {
 	private String				keyword;
 	private Coordinate			coordinate;
 	private Genre				genre;
-	private KindRelationship	kindRelationship;
+	private KindRelationship				kindRelationship;
 
 
 	// Constructor --------------------------------------------------
@@ -46,7 +46,7 @@ public class SearchTemplateForm {
 		this.keyword = keyword;
 	}
 
-	@Valid
+	
 	public Coordinate getCoordinate() {
 		return coordinate;
 	}
@@ -54,7 +54,7 @@ public class SearchTemplateForm {
 		this.coordinate = coordinate;
 	}
 
-	@Valid
+	
 	public Genre getGenre() {
 		return genre;
 	}
@@ -63,7 +63,7 @@ public class SearchTemplateForm {
 		this.genre = genre;
 	}
 
-	@Valid
+	
 	public KindRelationship getKindRelationship() {
 		return kindRelationship;
 	}

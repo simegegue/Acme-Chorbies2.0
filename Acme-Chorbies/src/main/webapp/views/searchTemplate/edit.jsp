@@ -36,8 +36,8 @@
 					<acme:textbox code="searchTemplate.coordinate.city" path="coordinate.city"/>
 			</fieldset>
 			
-			<acme:textbox code="searchTemplate.genre.value" path="genre.value"/>
-			<acme:textbox code="searchTemplate.kindRelationship.value" path="kindRelationship.value"/>
+			<acme:select items="${genres}" itemLabel="value" code="searchTemplate.genre" path="genre"/>
+			<acme:select items="${kindRelationships}" itemLabel="value" code="searchTemplate.kindRelationship" path="kindRelationship"/>
 			
 			<acme:submit name="save" code="searchTemplate.save"/>
 			<acme:cancel code="searchTemplate.cancel" url="chorbi/searchTemplate/display.do"/>

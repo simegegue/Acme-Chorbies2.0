@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -22,6 +23,7 @@ public class Coordinate {
 	// Getters and Setters -----------------------------
 
 	@NotBlank
+	@Column(nullable=true)
 	public String getCountry() {
 		return this.country;
 	}
@@ -31,6 +33,7 @@ public class Coordinate {
 	}
 
 	@NotBlank
+	@Column(nullable=true)
 	public String getState() {
 		return this.state;
 	}
@@ -38,16 +41,17 @@ public class Coordinate {
 	public void setState(String state) {
 		this.state = state;
 	}
-
+	@Column(nullable=true)
 	public String getProvince() {
 		return this.province;
 	}
-
+	
 	public void setProvince(String province) {
 		this.province = province;
 	}
 
 	@NotBlank
+	@Column(nullable=true)	
 	public String getCity() {
 		return this.city;
 	}

@@ -45,7 +45,7 @@ public class SearchTemplate extends DomainEntity {
 		this.keyword = keyword;
 	}
 
-	@Valid
+	
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
