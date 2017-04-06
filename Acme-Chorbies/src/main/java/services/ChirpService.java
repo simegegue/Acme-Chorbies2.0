@@ -232,7 +232,7 @@ public class ChirpService {
 			ChirpForm result = generate();
 			Chirp chirp = findOne(messageId);
 
-			Assert.isTrue(chirp.getRecipient().equals(chorbiService.findByPrincipal()) || chirp.getSender().equals(chorbiService.findByPrincipal()));
+			Assert.isTrue(chirp.getSender().equals(chorbiService.findByPrincipal()));
 
 			result.setAttachment(chirp.getAttachment());
 			result.setText(chirp.getText());

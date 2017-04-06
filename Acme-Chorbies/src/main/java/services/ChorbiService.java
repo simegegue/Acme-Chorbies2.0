@@ -174,7 +174,7 @@ public class ChorbiService {
 		au.setAuthority("ADMIN");
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-		if (chorbi.getBanned()) {
+		if (chorbi.getBanned()==true) {
 			chorbi.setBanned(false);
 		} else {
 			chorbi.setBanned(true);

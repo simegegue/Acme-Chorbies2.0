@@ -61,7 +61,7 @@ public class Chorbi extends Actor {
 		this.birthDate = birthDate;
 	}
 
-	@Valid
+	
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

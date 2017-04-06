@@ -111,17 +111,13 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//BanUnban -----
-/*
+
 	@RequestMapping(value = "/banUnban", method = RequestMethod.GET)
 	public ModelAndView banUnban(@RequestParam int chorbiId) {
 		ModelAndView result;
 		Chorbi c = chorbiService.findOne(chorbiId);
 		try {
 			chorbiService.banUnban(c);
-			if (c.getBanned())
-				chorbiService.disableAccount(c);
-			else
-				chorbiService.enableAccount(c);
 			result = browse();
 		} catch (Throwable oops) {
 			result = browse();
@@ -129,7 +125,7 @@ public class ChorbiController extends AbstractController {
 		}
 
 		return result;
-	}*/
+	}
 
 	// Edit profile ------------------------------------------------
 

@@ -60,10 +60,11 @@ public class CacheTimeService {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
+		Authority ai = new Authority();
 		au.setAuthority("ADMIN");
-		au.setAuthority("CHORBI");
+		ai.setAuthority("CHORBI");
 
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(ai) );
 
 		Collection<CacheTime> result;
 
