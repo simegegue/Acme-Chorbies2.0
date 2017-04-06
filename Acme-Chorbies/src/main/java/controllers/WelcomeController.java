@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.security.auth.login.LoginContext;
+import javax.swing.JOptionPane;
 import javax.swing.Spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,10 @@ public class WelcomeController extends AbstractController {
 		}
 		
 		if(chorbi!=null && chorbi.getBanned()==true){
-			result = new ModelAndView("redirect:/j_spring_security_logout");
+			//result = new ModelAndView("redirect:/j_spring_security_logout");
+			result = new ModelAndView("welcome/index");
+			result.addObject("banned", true);
+			
 			
 		}else{
 		
