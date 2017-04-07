@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -47,8 +48,19 @@ public class RegisterChorbiController extends AbstractController{
 			ModelAndView result;
 			ChorbiForm chorbiForm;
 			
-			Collection<Genre> genres = genreService.findAll();
-			Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+			Collection<Genre> genres = new ArrayList<Genre>();
+			Collection<KindRelationship> kindRelationships = new ArrayList<KindRelationship>();
+			
+			for(Genre g: genreService.findAll()){
+				if(!g.getValue().equals("none")){
+					genres.add(g);
+				}
+			}
+			for(KindRelationship g: kindRelationshipService.findAll()){
+				if(!g.getValue().equals("none")){
+					kindRelationships.add(g);
+				}
+			}
 
 			chorbiForm = chorbiService.generate();
 			

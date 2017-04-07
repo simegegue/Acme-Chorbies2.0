@@ -479,10 +479,16 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if (chorbiForm.getCreditCard().getBrandName() == null) {
+		if (chorbiForm.getCreditCard().getBrandName() == "" && chorbiForm.getCreditCard().getHolderName() == "" && chorbiForm.getCreditCard().getNumber() == ""
+			&& chorbiForm.getCreditCard().getCvv() == 0 && chorbiForm.getCreditCard().getExpirationMonth() == 0 && chorbiForm.getCreditCard().getExpirationYear() == 0) {
 			result.setCreditCard(null);
 		} else {
-			result.setCreditCard(chorbiForm.getCreditCard());
+			if (chorbiForm.getCreditCard().getBrandName() == "" || chorbiForm.getCreditCard().getHolderName() == "" || chorbiForm.getCreditCard().getNumber() == ""
+				|| chorbiForm.getCreditCard().getCvv() == 0 || chorbiForm.getCreditCard().getExpirationMonth() == 0 || chorbiForm.getCreditCard().getExpirationYear() == 0) {
+				Assert.isTrue(false);
+			}else{
+				result.setCreditCard(chorbiForm.getCreditCard());
+			}
 		}
 		result.setCoordinate(chorbiForm.getCoordinate());
 		result.setGenre(chorbiForm.getGenre());

@@ -16,8 +16,6 @@ import repositories.SearchTemplateRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
-import domain.Genre;
-import domain.KindRelationship;
 import domain.SearchTemplate;
 import forms.SearchTemplateForm;
 
@@ -58,9 +56,11 @@ public class SearchTemplateService {
 		SearchTemplate result;
 		result = new SearchTemplate();
 
+		Date date = new Date(System.currentTimeMillis()-1000);
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-		result.setGenre(genreService.findGenreByValue("none"));
-		result.setKindRelationship(kindRelationshipService.findKindRelationshipByValue("none"));
+		result.setGenre(genreService.findOne(51));
+		result.setKindRelationship(kindRelationshipService.findOne(55));
+		result.setLastTimeSearched(date);
 		result.setChorbies(chorbies);
 
 		return result;
