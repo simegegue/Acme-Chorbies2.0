@@ -129,7 +129,7 @@ public class ChorbiSearchTemplateController extends AbstractController {
 			try {
 				searchTemplate = searchTemplateService.reconstruct(searchTemplateForm, binding);
 				if (searchTemplateService.compareSearch(searchTemplate) == false) {
-					chorbiService.findBySearchTemplate(searchTemplate);
+					searchTemplate.setChorbies(chorbiService.findBySearchTemplate(searchTemplate));
 					searchTemplateService.save(searchTemplate);
 				}
 				result = display();

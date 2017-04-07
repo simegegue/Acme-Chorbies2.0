@@ -512,6 +512,15 @@ public class ChorbiService {
 
 		return result;
 	}
+	public void ageAndkey(Collection<Chorbi> chorbies,String key){
+		
+		for(Chorbi c:chorbies){
+			if(!(c.getName().contains(key) || c.getDescription().contains(key))){
+				chorbies.remove(c);
+			}
+		}
+		
+	}
 
 	public Collection<Chorbi> findByCoordinatesCountry(String keyword) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
@@ -540,29 +549,32 @@ public class ChorbiService {
 	public Collection<Chorbi> findBySearchTemplate(SearchTemplate searchTemplate) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Collection<Chorbi> aux = new ArrayList<Chorbi>();
-
-		if (searchTemplate.getKeyword() == null || searchTemplate.getKeyword().isEmpty()) {
+		if(searchTemplate.getAge()==0){
+			aux=findAll();
+		}
+		else if (searchTemplate.getAge()!=0 && (searchTemplate.getKeyword() == null || searchTemplate.getKeyword().isEmpty())) {
 			aux = minusPlusFive(searchTemplate.getAge());
 		} else {
-			aux = chorbiRepository.findByKey(searchTemplate.getKeyword());
+			aux = minusPlusFive(searchTemplate.getAge());
+			ageAndkey(aux,searchTemplate.getKeyword());
 		}
-		if ((searchTemplate.getGenre().getValue() == null) && (searchTemplate.getKindRelationship().getValue() == null)) {
+		if ((searchTemplate.getGenre().getValue().equals("none")) && (searchTemplate.getKindRelationship().getValue().equals("none"))) {
 			result = aux;
-		} else if (searchTemplate.getGenre().getValue() == null) {
+		} else if (searchTemplate.getGenre().getValue().equals("none")) {
 			for (Chorbi c : aux) {
-				if (chorbiRepository.findByGenre(searchTemplate.getGenre().getValue()).contains(c)) {
+				if (c.getKindRelationship().equals(searchTemplate.getKindRelationship())) {
 					result.add(c);
 				}
 			}
-		} else if (searchTemplate.getKindRelationship().getValue() == null) {
+		} else if (searchTemplate.getKindRelationship().getValue().equals("none")) {
 			for (Chorbi c : aux) {
-				if (chorbiRepository.findByKindRelationship(searchTemplate.getKindRelationship().getValue()).contains(c)) {
+				if (c.getGenre().equals(searchTemplate.getGenre())) {
 					result.add(c);
 				}
 			}
 		} else {
 			for (Chorbi c : aux) {
-				if (chorbiRepository.findByKindRelationship(searchTemplate.getKindRelationship().getValue()).contains(c) && chorbiRepository.findByGenre(searchTemplate.getGenre().getValue()).contains(c)) {
+				if (c.getGenre().equals(searchTemplate.getGenre()) && c.getKindRelationship().equals(searchTemplate.getKindRelationship())) {
 					result.add(c);
 				}
 			}

@@ -115,11 +115,11 @@ public class SearchTemplateService {
 
 	public Boolean compareSearch(SearchTemplate st) {
 		SearchTemplate old = findByPrincipal();
-		Boolean res = false;
-		if (old.getAge().compareTo(st.getAge()) != 0 && old.getKeyword().compareTo(st.getKeyword()) != 0 && old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) != 0
-			&& old.getCoordinate().getCountry().compareTo(st.getCoordinate().getCountry()) != 0 && old.getCoordinate().getProvince().compareTo(st.getCoordinate().getProvince()) != 0
-			&& old.getCoordinate().getState().compareTo(st.getCoordinate().getState()) != 0 && old.getKindRelationship().getValue().compareTo(st.getKindRelationship().getValue()) != 0 && old.getGenre().getValue().compareTo(st.getGenre().getValue()) != 0) {
-			res = true;
+		Boolean res = true;
+		if (old.getAge().compareTo(st.getAge()) != 0 || old.getKeyword().compareTo(st.getKeyword()) != 0 || old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) != 0
+			|| old.getCoordinate().getCountry().compareTo(st.getCoordinate().getCountry()) != 0 || old.getCoordinate().getProvince().compareTo(st.getCoordinate().getProvince()) != 0
+			|| old.getCoordinate().getState().compareTo(st.getCoordinate().getState()) != 0 || old.getKindRelationship().getValue().compareTo(st.getKindRelationship().getValue()) != 0 || old.getGenre().getValue().compareTo(st.getGenre().getValue()) != 0) {
+			res = false;
 		}
 		return res;
 	}
