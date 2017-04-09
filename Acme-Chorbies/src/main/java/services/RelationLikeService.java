@@ -109,6 +109,13 @@ public class RelationLikeService {
 			return result;
 		}
 		public RelationLike giveLike(Chorbi likeSender,Chorbi likeRecipient){
+			
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			
 			RelationLike res=create();
 			Boolean contains=false;
 			for(RelationLike l:likeSender.getLikesSent()){
