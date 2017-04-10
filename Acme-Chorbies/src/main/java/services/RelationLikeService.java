@@ -140,6 +140,23 @@ public class RelationLikeService {
 			
 		}
 		
+		public RelationLike unLike(Chorbi likeSender, Chorbi likeRecipient){
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			
+			RelationLike res=create();
+			
+			for(RelationLike r:likeRecipient.getLikesReceived()){
+				if(r.getLikeSender().equals(likeSender)){
+					delete(r);
+				}
+			}
+			return res;
+		}
+		
 		// Form methods ----------------------------------------------------------
 
 				public RelationLikeForm generateForm() {

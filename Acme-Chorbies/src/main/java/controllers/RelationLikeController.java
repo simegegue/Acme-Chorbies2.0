@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ChorbiService;
+import services.RelationLikeService;
 import domain.Chorbi;
 import domain.RelationLike;
 import forms.RelationLikeForm;
-import services.ChorbiService;
-import services.RelationLikeService;
 
 @Controller
 @RequestMapping("/chorbi/relationLike")
@@ -72,14 +72,11 @@ public class RelationLikeController extends AbstractController{
 	@RequestMapping(value="/delete" , method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam int chorbiId){
 		ModelAndView result = new ModelAndView();
-		Chorbi likeRecipient;
-		likeRecipient=chorbiService.findOne(chorbiId);
+		Chorbi likeRecipient=chorbiService.findOne(chorbiId);
 		Chorbi likeSender=chorbiService.findByPrincipal();
-		for(RelationLike r:likeRecipient.getLikesReceived()){
-			if(r.getLikeSender().equals(likeSender)){
-				relationLikeService.delete(r);
-			}
-		}
+		
+		relationLikeService.unLike(likeSender, likeRecipient);
+		
 		result = new ModelAndView("redirect:../displayById.do?chorbiId=" + chorbiId);
 		return result;
 		

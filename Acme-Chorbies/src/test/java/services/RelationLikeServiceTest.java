@@ -37,7 +37,7 @@ public class RelationLikeServiceTest extends AbstractTest{
 	public void driverLikeUnlikeChorbi(){
 		Object testingData[][] = {
 			{"chorbi1", 64, 63, null},
-			{"chorbi2", 66, 64, IllegalArgumentException.class},
+			{"chorbi2", 66, 64, null},
 			{"admin", 62, 63, IllegalArgumentException.class},
 			{null, 62, 63, IllegalArgumentException.class}
 		};
@@ -52,9 +52,12 @@ public class RelationLikeServiceTest extends AbstractTest{
 		
 		try{
 			authenticate(user); // nos autenticamos como usuario.
-			Chorbi principal = chorbiService.findByPrincipal(); // Obtenemos el chorbi logeado en el sistema
-			Chorbi chorbiToLike = chorbiService.findOne(chorbiLike); // Obtenemos el chorbi al cual se le quiere hacer like.
-			Chorbi chorbiToUnlike = chorbiService.findOne(chorbiUnlike); // Obtenemos el chorbi al cual queremos hacer unlike.
+			Chorbi likeSender = chorbiService.findByPrincipal(); // Obtenemos el chorbi logeado en el sistema
+			Chorbi likeRecipient = chorbiService.findOne(chorbiLike); // Obtenemos el chorbi al cual se le quiere hacer like.
+			Chorbi likeRecipient2 = chorbiService.findOne(chorbiUnlike); // Obtenemos el chorbi al cual queremos hacer unlike.
+			relationLikeService.giveLike(likeSender, likeRecipient); // Se le da like al chorbi.
+			relationLikeService.unLike(likeSender, likeRecipient2); // Le damos unlike al segundo chorbi
+			unauthenticate();
 		}catch(Throwable oops){
 			caught = oops.getClass();
 		}
