@@ -98,5 +98,75 @@ public class AdministratorServiceTest extends AbstractTest{
 		}
 		checkExceptions(expected, caught);
 	}
+	
+	/*Test 
+	 * Dashboard level C
+	 * 
+	 *  A listing with the number of chorbies per country and city.
+	 *  The minimum, the maximum, and the average ages of the chorbies.
+	 *  The ratio of chorbies who have not registered a credit card or have regis-tered an invalid credit card.
+	 *  The ratios of chorbies who search for 'activities', 'friendship', and 'love'.
+	 * */
+	
+	@Test
+	public void driverDashboardC(){
+		Object testingData[][] = {
+			{"admin", null},
+			{"chorbi1", IllegalArgumentException.class},
+			{null, IllegalArgumentException.class}
+		};
+		for(int i = 0; i < testingData.length; i++){
+			templateDashboardC((String) testingData[i][0],(Class<?>) testingData[i][1]);
+		}
+	}
+	
+	protected void templateDashboardC(String user, Class<?> expected){
+		Class<?> caught = null;
+		try{
+			authenticate(user); // Nos autenticamos como usuario.
+			Collection<Integer> d = chorbiService.numberOfChorbiesByCity(); // Obtenemos el numero de chorbies opr ciudad.
+			Collection<Integer> t = chorbiService.numberOfChorbiesByCountry(); // Obtenemos el numero de chorbies por país.
+			Collection<Double> f = chorbiService.minMaxAvgChorbiYear(); // Obtenemos el min, max, avg de la edad de los chorbies.
+			Double c = chorbiService.ratioChorbiesNullCreditCard(); // Obtenemos el ratio de chorbies sin tarjeta de credito.
+			Collection<Double> a = chorbiService.actFriLoveRatioRelationChorbi(); // Obtenemos los ratios de chorbies en funcion de su kindRelationship;
+			unauthenticate();
+		}catch(Throwable oops){
+			caught = oops.getClass();
+		}
+		checkExceptions(expected, caught);
+	}
+	
+	/* Test
+	 * 
+	 * Ban a chorbi, that is, to disable his or her account.
+	 * Unban a chorbi, wich means that his or her account is re-enabled.
+	 * 
+	 */
+	
+	 @Test
+	 public void driverBanUnbanChorbi(){
+		 Object testingData[][] = {
+			 {"admin", 62, null},
+			 {"chorbi2", 66, IllegalArgumentException.class},
+			 {null, 65, IllegalArgumentException.class}
+		 };
+		 for(int i = 0; i < testingData.length; i++){
+			 templateBanUnbanChorbi((String) testingData[i][0],(int) testingData[i][1],(Class<?>) testingData[i][2]);
+		 }
+	 }
+	 
+	 protected void templateBanUnbanChorbi(String user, int chorbiId, Class<?> expected){
+		 Class<?> caught = null;
+		 try{
+			 authenticate(user); // Nos autenticamos como el usuario
+			 Chorbi chorbi = chorbiService.findOne(chorbiId); // Obtenemos el chorbi a banear
+			 chorbiService.banUnban(chorbi); // Baneamos el chorbi indicado.
+			 chorbiService.banUnban(chorbi); // Desbaneamos al usuario baneado anteriormente.
+			 unauthenticate();
+		 }catch(Throwable oops){
+			 caught = oops.getClass();
+		 }
+		 checkExceptions(expected, caught);
+	 }
 
 }
