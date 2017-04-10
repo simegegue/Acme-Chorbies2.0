@@ -45,12 +45,12 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 	@Autowired
 	private CacheTimeService		cacheTimeService;
-	
+
 	@Autowired
 	private GenreService			genreService;
 
 	@Autowired
-	private KindRelationshipService		kindRelationshipService;
+	private KindRelationshipService	kindRelationshipService;
 
 
 	//Constructor----------------------
@@ -66,27 +66,27 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 		ModelAndView result;
 		SearchTemplate searchTemplate;
-		Boolean b = chorbiService.principalCheckCreditCard();
+		final Boolean b = this.chorbiService.principalCheckCreditCard();
 
-		Collection<CacheTime> cacheTimes = cacheTimeService.findAll();
+		final Collection<CacheTime> cacheTimes = this.cacheTimeService.findAll();
 		CacheTime cacheTime = new CacheTime();
-		for (CacheTime c : cacheTimes) {
+		for (final CacheTime c : cacheTimes) {
 			cacheTime = c;
 			break;
 		}
 
 		Date cacheTimeDate;
-		SimpleDateFormat fecha = new SimpleDateFormat("HH:mm:ss");
+		final SimpleDateFormat fecha = new SimpleDateFormat("HH:mm:ss");
 
 		cacheTimeDate = fecha.parse(cacheTime.getTime());
 
-		Long cacheTimeHours = cacheTimeDate.getTime();
+		final Long cacheTimeHours = cacheTimeDate.getTime();
 
-		searchTemplate = searchTemplateService.findByPrincipal();
-		Date d = new Date(System.currentTimeMillis());
-		Long aux = d.getTime() - searchTemplate.getLastTimeSearched().getTime();
+		searchTemplate = this.searchTemplateService.findByPrincipal();
+		final Date d = new Date(System.currentTimeMillis());
+		final Long aux = d.getTime() - searchTemplate.getLastTimeSearched().getTime();
 		if (aux >= cacheTimeHours) {
-			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+			final Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 			searchTemplate.setChorbies(chorbies);
 		}
 		result = new ModelAndView("searchTemplate/display");
@@ -101,58 +101,56 @@ public class ChorbiSearchTemplateController extends AbstractController {
 	//Edition--------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int searchTemplateId) {
+	public ModelAndView edit(@RequestParam final int searchTemplateId) {
 
 		ModelAndView result;
 		SearchTemplate searchTemplate;
 
-		searchTemplate = searchTemplateService.findOne(searchTemplateId);
-		SearchTemplateForm searchTemplateForm = searchTemplateService.transform(searchTemplate);
-		Collection<Genre>genres=genreService.findAll();
-		Collection<KindRelationship>kindRelationships=kindRelationshipService.findAll();
+		searchTemplate = this.searchTemplateService.findOne(searchTemplateId);
+		final SearchTemplateForm searchTemplateForm = this.searchTemplateService.transform(searchTemplate);
+		final Collection<Genre> genres = this.genreService.findAll();
+		final Collection<KindRelationship> kindRelationships = this.kindRelationshipService.findAll();
 		Assert.notNull(searchTemplateForm);
-		result = createEditModelAndView(searchTemplateForm);
+		result = this.createEditModelAndView(searchTemplateForm);
 		result.addObject("genres", genres);
-		result.addObject("kindRelationships",kindRelationships);
+		result.addObject("kindRelationships", kindRelationships);
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid SearchTemplateForm searchTemplateForm, BindingResult binding) {
+	public ModelAndView save(@Valid final SearchTemplateForm searchTemplateForm, final BindingResult binding) {
 
 		ModelAndView result;
 		SearchTemplate searchTemplate;
-		if (binding.hasErrors()) {
-			result = createEditModelAndView(searchTemplateForm);
-		} else {
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(searchTemplateForm);
+		else
 			try {
-				searchTemplate = searchTemplateService.reconstruct(searchTemplateForm, binding);
-				if (searchTemplateService.compareSearch(searchTemplate) == false) {
-					searchTemplate.setChorbies(chorbiService.findBySearchTemplate(searchTemplate));
-					searchTemplateService.save(searchTemplate);
-				}
-				result = display();
+				searchTemplate = this.searchTemplateService.reconstruct(searchTemplateForm, binding);
+				searchTemplate.setChorbies(this.chorbiService.findBySearchTemplate(searchTemplate));
+				this.searchTemplateService.save(searchTemplate);
+
+				result = this.display();
 				result.addObject("chorbies", searchTemplate.getChorbies());
-			} catch (Throwable oops) {
-				result = createEditModelAndView(searchTemplateForm, "master.page.commit.error");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(searchTemplateForm, "master.page.commit.error");
 			}
-		}
 		return result;
 	}
 
 	//Ancillary Methods---------------------------
 
-	protected ModelAndView createEditModelAndView(SearchTemplateForm searchTemplateForm) {
+	protected ModelAndView createEditModelAndView(final SearchTemplateForm searchTemplateForm) {
 
 		ModelAndView result;
 
-		result = createEditModelAndView(searchTemplateForm, null);
+		result = this.createEditModelAndView(searchTemplateForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(SearchTemplateForm searchTemplateForm, String message) {
+	protected ModelAndView createEditModelAndView(final SearchTemplateForm searchTemplateForm, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("searchTemplate/edit");

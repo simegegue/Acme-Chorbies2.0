@@ -74,7 +74,7 @@
 			<display:column title="${birthDateHeader}"	sortable="true"><fmt:formatDate value="${row.birthDate }" pattern="dd/MM/yyyy" /></display:column>
 			
 			<display:column>
-				<a href="chorbi/display.do?chorbiId=${row.id}"><spring:message code="searchTemplate.chorbi.display" /></a>
+				<a href="chorbi/displayById.do?chorbiId=${row.id}"><spring:message code="searchTemplate.chorbi.display" /></a>
 			</display:column>
 			
 		</display:table>

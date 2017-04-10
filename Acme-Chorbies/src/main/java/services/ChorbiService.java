@@ -174,7 +174,7 @@ public class ChorbiService {
 		au.setAuthority("ADMIN");
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-		if (chorbi.getBanned()==true) {
+		if (chorbi.getBanned() == true) {
 			chorbi.setBanned(false);
 		} else {
 			chorbi.setBanned(true);
@@ -479,14 +479,14 @@ public class ChorbiService {
 		result.setPicture(chorbiForm.getPicture());
 		result.setDescription(chorbiForm.getDescription());
 		result.setBirthDate(chorbiForm.getBirthDate());
-		if (chorbiForm.getCreditCard().getBrandName() == "" && chorbiForm.getCreditCard().getHolderName() == "" && chorbiForm.getCreditCard().getNumber() == ""
-			&& chorbiForm.getCreditCard().getCvv() == 0 && chorbiForm.getCreditCard().getExpirationMonth() == 0 && chorbiForm.getCreditCard().getExpirationYear() == 0) {
+		if (chorbiForm.getCreditCard().getBrandName() == "" && chorbiForm.getCreditCard().getHolderName() == "" && chorbiForm.getCreditCard().getNumber() == "" && chorbiForm.getCreditCard().getCvv() == 0
+			&& chorbiForm.getCreditCard().getExpirationMonth() == 0 && chorbiForm.getCreditCard().getExpirationYear() == 0) {
 			result.setCreditCard(null);
 		} else {
-			if (chorbiForm.getCreditCard().getBrandName() == "" || chorbiForm.getCreditCard().getHolderName() == "" || chorbiForm.getCreditCard().getNumber() == ""
-				|| chorbiForm.getCreditCard().getCvv() == 0 || chorbiForm.getCreditCard().getExpirationMonth() == 0 || chorbiForm.getCreditCard().getExpirationYear() == 0) {
+			if (chorbiForm.getCreditCard().getBrandName() == "" || chorbiForm.getCreditCard().getHolderName() == "" || chorbiForm.getCreditCard().getNumber() == "" || chorbiForm.getCreditCard().getCvv() == 0
+				|| chorbiForm.getCreditCard().getExpirationMonth() == 0 || chorbiForm.getCreditCard().getExpirationYear() == 0) {
 				Assert.isTrue(false);
-			}else{
+			} else {
 				result.setCreditCard(chorbiForm.getCreditCard());
 			}
 		}
@@ -518,14 +518,15 @@ public class ChorbiService {
 
 		return result;
 	}
-	public void ageAndkey(Collection<Chorbi> chorbies,String key){
-		
-		for(Chorbi c:chorbies){
-			if(!(c.getName().contains(key) || c.getDescription().contains(key))){
-				chorbies.remove(c);
+	public Collection<Chorbi> ageAndkey(Collection<Chorbi> aux, String key) {
+		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		for (Chorbi c : aux) {
+			if ((c.getName().contains(key) || c.getDescription().contains(key))) {
+				chorbies.add(c);
 			}
 		}
-		
+		return chorbies;
+
 	}
 
 	public Collection<Chorbi> findByCoordinatesCountry(String keyword) {
@@ -552,18 +553,81 @@ public class ChorbiService {
 		return result;
 	}
 
+	public Collection<Chorbi> CoordinateSearch(Collection<Chorbi> aux, String country, String state, String province, String city) {
+		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+
+		for (Chorbi c : aux) {
+			if (c.getCoordinate().getCountry().compareTo(country) == 0) {
+				if ((c.getCoordinate().getState().compareTo(state) != 0) && (c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+
+				} else if ((c.getCoordinate().getState().compareTo(state) == 0) && (c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+
+				} else if ((c.getCoordinate().getState().compareTo(state) != 0) && (c.getCoordinate().getProvince().compareTo(province) == 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+
+				} else if ((c.getCoordinate().getState().compareTo(state) != 0) && (c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) == 0)) {
+					chorbies.add(c);
+
+				} else if ((c.getCoordinate().getState().compareTo(state) == 0) && (c.getCoordinate().getProvince().compareTo(province) == 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+				} else if ((c.getCoordinate().getState().compareTo(state) == 0) && (c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) == 0)) {
+					chorbies.add(c);
+				} else if ((c.getCoordinate().getState().compareTo(state) != 0) && (c.getCoordinate().getProvince().compareTo(province) == 0) && (c.getCoordinate().getCity().compareTo(city) == 0)) {
+					chorbies.add(c);
+				} else {
+					chorbies.add(c);
+				}
+			} else if (c.getCoordinate().getState().compareTo(state) == 0) {
+				if ((c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+				} else if ((c.getCoordinate().getProvince().compareTo(province) == 0) && (c.getCoordinate().getCity().compareTo(city) != 0)) {
+					chorbies.add(c);
+				} else if ((c.getCoordinate().getProvince().compareTo(province) != 0) && (c.getCoordinate().getCity().compareTo(city) == 0)) {
+					chorbies.add(c);
+				} else {
+					chorbies.add(c);
+				}
+			} else if (c.getCoordinate().getProvince().compareTo(province) == 0) {
+				if (c.getCoordinate().getCity().compareTo(city) != 0) {
+					chorbies.add(c);
+				} else {
+					chorbies.add(c);
+				}
+			} else if (c.getCoordinate().getCity().compareTo(city) == 0) {
+				chorbies.add(c);
+			}
+
+		}
+		return chorbies;
+
+	}
+
 	public Collection<Chorbi> findBySearchTemplate(SearchTemplate searchTemplate) {
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Collection<Chorbi> aux = new ArrayList<Chorbi>();
-		if(searchTemplate.getAge()==0){
-			aux=findAll();
-		}
-		else if (searchTemplate.getAge()!=0 && (searchTemplate.getKeyword() == null || searchTemplate.getKeyword().isEmpty())) {
+		Collection<Chorbi> aux2 = new ArrayList<Chorbi>();
+		aux = findAll();
+
+		//Parte de edad + keyword
+		if (searchTemplate.getAge() != 0 && (searchTemplate.getKeyword() == null || searchTemplate.getKeyword().isEmpty())) {
 			aux = minusPlusFive(searchTemplate.getAge());
-		} else {
+		} else if ((searchTemplate.getAge() == 0) && (searchTemplate.getKeyword() != null)) {
+			aux = ageAndkey(aux, searchTemplate.getKeyword());
+		} else if ((searchTemplate.getAge() != 0) && (searchTemplate.getKeyword() != null)) {
 			aux = minusPlusFive(searchTemplate.getAge());
-			ageAndkey(aux,searchTemplate.getKeyword());
+			aux = ageAndkey(aux, searchTemplate.getKeyword());
 		}
+		aux2 = aux;
+
+		//Parte de coordenadas
+
+		if (!(searchTemplate.getCoordinate().getCity().isEmpty()) || !(searchTemplate.getCoordinate().getCountry().isEmpty()) || !(searchTemplate.getCoordinate().getProvince().isEmpty()) || !(searchTemplate.getCoordinate().getState().isEmpty())) {
+			aux = CoordinateSearch(aux2, searchTemplate.getCoordinate().getCountry(), searchTemplate.getCoordinate().getState(), searchTemplate.getCoordinate().getProvince(), searchTemplate.getCoordinate().getCity());
+		}
+
+		//Parte de generos y tipos de relacion
 		if ((searchTemplate.getGenre().getValue().equals("none")) && (searchTemplate.getKindRelationship().getValue().equals("none"))) {
 			result = aux;
 		} else if (searchTemplate.getGenre().getValue().equals("none")) {
@@ -585,24 +649,11 @@ public class ChorbiService {
 				}
 			}
 		}
+
+		//Resultado final
 		searchTemplate.setChorbies(result);
 		return result;
 	}
-	/*
-	 * else if (!searchTemplate.getCoordinate().getCountry().isEmpty() && !findByCoordinatesCountry(searchTemplate.getCoordinate().getCountry()).contains(c)) {
-	 * aux.add(c);
-	 * break;
-	 * } else if (!searchTemplate.getCoordinate().getState().isEmpty() && !findByCoordinatesState(searchTemplate.getCoordinate().getState()).contains(c)) {
-	 * aux.add(c);
-	 * break;
-	 * } else if (!searchTemplate.getCoordinate().getProvince().isEmpty() && !findByCoordinatesProvince(searchTemplate.getCoordinate().getProvince()).contains(c)) {
-	 * aux.add(c);
-	 * break;
-	 * } else if (!searchTemplate.getCoordinate().getCity().isEmpty() && !findByCoordinatesCity(searchTemplate.getCoordinate().getCity()).contains(c)) {
-	 * aux.add(c);
-	 * break;
-	 * }
-	 */
 
 	public static boolean check(CreditCard creditCard) {
 		boolean validador = false;
