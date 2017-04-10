@@ -62,8 +62,10 @@
 				<fieldset>
 					<legend align="left"><spring:message code="chorbi.creditCard.info"/></legend>
 					<acme:textbox code="chorbi.creditCard.holderName" path="creditCard.holderName"/>
-					<br/>			
+					<br/>
+					<br/><spring:message code="chorbi.creditCard.brandName.check" /><br/>			
 					<acme:textbox code="chorbi.creditCard.brandName" path="creditCard.brandName"/>
+					
 					<br/>		
 					<acme:textbox code="chorbi.creditCard.number" path="creditCard.number"/>
 					<br/>			
@@ -128,7 +130,7 @@
 					<legend align="left"><spring:message code="chorbi.creditCard.info"/></legend>
 					<acme:textbox code="chorbi.creditCard.holderName" path="creditCard.holderName"/>
 					<br/>			
-					<acme:textbox code="chorbi.creditCard.brandName" path="creditCard.brandName"/>
+					<acme:textbox code="chorbi.creditCard.brandName" path="creditCard.brandName"/><spring:message code="chorbi.creditCard.brandName.check" />
 					<br/>		
 					<acme:textbox code="chorbi.creditCard.number" path="creditCard.number"/>
 					<br/>			
