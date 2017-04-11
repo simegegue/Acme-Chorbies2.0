@@ -108,6 +108,11 @@
 	</bean>
 	
 	<!-- Genre -->
+	
+	<bean id="genre3" class="domain.Genre">
+	<property name="value" value="none"/>
+	</bean>
+	
 	<bean id="genre1" class="domain.Genre">
 	<property name="value" value="man"/>
 	</bean>
@@ -116,13 +121,12 @@
 	<property name="value" value="woman"/>
 	</bean>
 	
-	<bean id="genre3" class="domain.Genre">
+	<!-- KindRelationShip -->
+	
+	<bean id="kindRelationship4" class="domain.KindRelationship">
 	<property name="value" value="none"/>
 	</bean>
 	
-	
-	
-	<!-- KindRelationShip -->
 	<bean id="kindRelationship1" class="domain.KindRelationship">
 	<property name="value" value="activities"/>
 	</bean>
@@ -135,12 +139,7 @@
 	<property name="value" value="love"/>
 	</bean>
 	
-	<bean id="kindRelationship4" class="domain.KindRelationship">
-	<property name="value" value="none"/>
-	</bean>
-	
-	
-	
+
 	<!-- Credit Card -->
 	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="Juan Vazquez" />
