@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -10,30 +11,32 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.GenreRepository;
-import domain.Chorbi;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Genre;
-import domain.SearchTemplate;
 import forms.GenreForm;
 
 @Service
 @Transactional
 public class GenreService {
-	
+
 	// Managed repository -----------------------------------------------------
-	
+
 	@Autowired
-	private GenreRepository genreRepository;
-	
+	private GenreRepository			genreRepository;
+
 	// Supporting services ----------------------------------------------------
-	
+
 	@Autowired
-	private ChorbiService chorbiService;
-	
+	private ChorbiService			chorbiService;
+
 	@Autowired
-	private SearchTemplateService searchTemplateService;
-	
+	private SearchTemplateService	searchTemplateService;
+
 	@Autowired
-	private Validator validator;
+	private Validator				validator;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -42,8 +45,15 @@ public class GenreService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
-			
+
 	public Genre create() {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
 		Genre result;
 		result = new Genre();
@@ -67,10 +77,17 @@ public class GenreService {
 
 	public Genre save(Genre genre) {
 
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
 		Assert.notNull(genre);
 		Genre result;
-		for(Genre g : genreRepository.findAll()){
-			Assert.isTrue(!g.getValue().equals(genre.getValue()),"usedGenre");
+		for (Genre g : genreRepository.findAll()) {
+			Assert.isTrue(!g.getValue().equals(genre.getValue()), "usedGenre");
 		}
 		result = genreRepository.save(genre);
 
@@ -79,62 +96,69 @@ public class GenreService {
 
 	public void delete(Genre genre) {
 
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
 		Assert.notNull(genre);
 		Assert.isTrue(genre.getId() != 0);
-		
+
 		//Genre aux = findGenreByValue("none");
-			
-	/*	Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
-		Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre.getId());
-		if(!chorbies.isEmpty()){
-			for(Chorbi c : chorbies){
-				c.setGenre(aux);
-				chorbiService.save(c);
-			}	
-		}
-		if(!searches.isEmpty()){
-			for(SearchTemplate s : searches){
-				s.setGenre(aux);
-				searchTemplateService.save(s);
-			}
-		}
-*/
+
+		/*
+		 * Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
+		 * Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre.getId());
+		 * if(!chorbies.isEmpty()){
+		 * for(Chorbi c : chorbies){
+		 * c.setGenre(aux);
+		 * chorbiService.save(c);
+		 * }
+		 * }
+		 * if(!searches.isEmpty()){
+		 * for(SearchTemplate s : searches){
+		 * s.setGenre(aux);
+		 * searchTemplateService.save(s);
+		 * }
+		 * }
+		 */
 		genreRepository.delete(genre);
 	}
-	
+
 	// Other bussiness methods ------------------------------------------------
-	
-	public Genre findGenreByValue(String value){
+
+	public Genre findGenreByValue(String value) {
 		return genreRepository.findGenreByValue(value);
 	}
-	
-	
+
 	// Form methods ----------------------------------------------------------
 
-		public GenreForm generateForm() {
-			GenreForm result = new GenreForm();
+	public GenreForm generateForm() {
+		GenreForm result = new GenreForm();
 
-			return result;
-		}
+		return result;
+	}
 
-		public Genre reconstruct(GenreForm genreForm, BindingResult binding) {
-			Genre result;
-			if (genreForm.getId() == 0)
-				result = create();
-			else {
-				result = genreRepository.findOne(genreForm.getId());
-			}
-			result.setValue(genreForm.getValue());
-			
-			validator.validate(result, binding);
-			return result;
+	public Genre reconstruct(GenreForm genreForm, BindingResult binding) {
+		Genre result;
+		if (genreForm.getId() == 0)
+			result = create();
+		else {
+			result = genreRepository.findOne(genreForm.getId());
 		}
+		result.setValue(genreForm.getValue());
 
-		public GenreForm transform(Genre genre) {
-			GenreForm result = generateForm();
-			result.setId(genre.getId());
-			result.setValue(genre.getValue());
-			return result;
-		}
+		validator.validate(result, binding);
+		return result;
+	}
+
+	public GenreForm transform(Genre genre) {
+		GenreForm result = generateForm();
+		result.setId(genre.getId());
+		result.setValue(genre.getValue());
+		return result;
+	}
 
 }
