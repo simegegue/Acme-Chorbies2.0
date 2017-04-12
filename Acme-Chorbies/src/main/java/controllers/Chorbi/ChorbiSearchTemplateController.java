@@ -127,12 +127,23 @@ public class ChorbiSearchTemplateController extends AbstractController {
 			result = this.createEditModelAndView(searchTemplateForm);
 		else
 			try {
-				searchTemplate = this.searchTemplateService.reconstruct(searchTemplateForm, binding);
-				searchTemplate.setChorbies(this.chorbiService.findBySearchTemplate(searchTemplate));
-				searchTemplateService.save(searchTemplate);
+				
+				if(searchTemplateService.compareSearch(searchTemplateForm)==true){
+					searchTemplate = this.searchTemplateService.reconstruct(searchTemplateForm, binding);
+					searchTemplateService.save(searchTemplate);
+					result = this.display();
+					result.addObject("advertisement","Loading cache data");
+					result.addObject("chorbies", searchTemplate.getChorbies());
+				}else{
+					searchTemplate = this.searchTemplateService.reconstruct(searchTemplateForm, binding);
+					searchTemplate.setChorbies(this.chorbiService.findBySearchTemplate(searchTemplate));
+					searchTemplateService.save(searchTemplate);
 
-				result = this.display();
-				result.addObject("chorbies", searchTemplate.getChorbies());
+					result = this.display();
+					result.addObject("chorbies", searchTemplate.getChorbies());
+				}
+				
+				
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(searchTemplateForm, "master.page.commit.error");
 			}

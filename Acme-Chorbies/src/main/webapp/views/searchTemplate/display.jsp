@@ -57,7 +57,7 @@
 </display:table>
 <jstl:choose>
 	<jstl:when test="${validatorCreditCard == true }">
-	
+		<p>${advertisement}</p>
 		<display:table pagesize="5" class="displaytag" keepStatus="true" name="chorbies" requestURI="${requestURI}" id="row">
 			
 			<!-- Action links -->

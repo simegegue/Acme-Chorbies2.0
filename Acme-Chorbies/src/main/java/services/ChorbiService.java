@@ -552,6 +552,83 @@ public class ChorbiService {
 		result = chorbiRepository.findByCoordinatesCity(keyword);
 		return result;
 	}
+	public Collection<Chorbi> searchCoordinate(Collection<Chorbi> aux, String country, String state, String province, String city){
+		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		for (Chorbi c : aux) {
+			if(country!=""){
+				if(state=="" && province=="" && city==""){
+					if(c.getCoordinate().getCountry().equals(country)){
+						chorbies.add(c);
+					}
+				}else if(state!="" && province=="" && city==""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state)){
+						chorbies.add(c);
+					}
+				}else if(state!="" && province!="" && city==""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)){
+						chorbies.add(c);
+					}
+				}else if(state!="" && province=="" && city!=""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+				}else if(state=="" && province!="" && city!=""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+				}else if(state=="" && province!="" && city==""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province)){
+						chorbies.add(c);
+					}
+				}else if(state=="" && province=="" && city!=""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+				}else if(state!="" && province!="" && city!=""){
+					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+				}
+			}else if(state!=""){
+				if(province!="" && city!=""){
+					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+				}else if(province!="" && city==""){
+					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)){
+						chorbies.add(c);
+					}
+				}else if(province=="" && city!=""){
+					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)){
+						chorbies.add(c);
+					}
+			
+				}else{
+					if(c.getCoordinate().getState().equals(state)){
+						chorbies.add(c);
+					}
+				}
+			}else if(province!=""){
+				if(city!=""){
+					if(c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getProvince().equals(province)){
+						chorbies.add(c);
+					}
+						
+				}else{
+					if(c.getCoordinate().getProvince().equals(province)){
+						chorbies.add(c);
+					}
+				}
+			
+			}else if(city!=""){
+				if(c.getCoordinate().getCity().equals(city)){
+					chorbies.add(c);
+			}
+			}
+		}
+	
+		return chorbies;
+	}
 
 	public Collection<Chorbi> CoordinateSearch(Collection<Chorbi> aux, String country, String state, String province, String city) {
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
@@ -624,7 +701,7 @@ public class ChorbiService {
 		//Parte de coordenadas
 
 		if (!(searchTemplate.getCoordinate().getCity().isEmpty()) || !(searchTemplate.getCoordinate().getCountry().isEmpty()) || !(searchTemplate.getCoordinate().getProvince().isEmpty()) || !(searchTemplate.getCoordinate().getState().isEmpty())) {
-			aux = CoordinateSearch(aux2, searchTemplate.getCoordinate().getCountry(), searchTemplate.getCoordinate().getState(), searchTemplate.getCoordinate().getProvince(), searchTemplate.getCoordinate().getCity());
+			aux = searchCoordinate(aux2, searchTemplate.getCoordinate().getCountry(), searchTemplate.getCoordinate().getState(), searchTemplate.getCoordinate().getProvince(), searchTemplate.getCoordinate().getCity());
 		}
 
 		//Parte de generos y tipos de relacion
