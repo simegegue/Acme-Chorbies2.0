@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SearchTemplateRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
@@ -32,12 +33,12 @@ public class SearchTemplateService {
 
 	@Autowired
 	private ChorbiService				chorbiService;
-	
+
 	@Autowired
 	private GenreService				genreService;
-	
+
 	@Autowired
-	private KindRelationshipService				kindRelationshipService;
+	private KindRelationshipService		kindRelationshipService;
 
 	@Autowired
 	private Validator					validator;
@@ -56,10 +57,10 @@ public class SearchTemplateService {
 		SearchTemplate result;
 		result = new SearchTemplate();
 
-		Date date = new Date(System.currentTimeMillis()-1000);
+		Date date = new Date(System.currentTimeMillis() - 1000);
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-		result.setGenre(genreService.findOne(51));
-		result.setKindRelationship(kindRelationshipService.findOne(55));
+		result.setGenre(genreService.findOne(49));
+		result.setKindRelationship(kindRelationshipService.findOne(52));
 		result.setLastTimeSearched(date);
 		result.setChorbies(chorbies);
 
@@ -87,6 +88,13 @@ public class SearchTemplateService {
 	}
 
 	public SearchTemplate save(SearchTemplate searchTemplate) {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
 		SearchTemplate result;
 		result = searchTemplateRepository.save(searchTemplate);
@@ -147,7 +155,7 @@ public class SearchTemplateService {
 		Chorbi chorbi = chorbiService.findByPrincipal();
 
 		SearchTemplate result = chorbi.getSearchTemplate();
-		if(searchTemplateForm.getAge()==null){
+		if (searchTemplateForm.getAge() == null) {
 			searchTemplateForm.setAge(0);
 		}
 		result.setAge(searchTemplateForm.getAge());
@@ -159,7 +167,7 @@ public class SearchTemplateService {
 		Date d = new Date(System.currentTimeMillis() - 10000);
 		result.setLastTimeSearched(d);
 		validator.validate(result, binding);
-		
+
 		return result;
 	}
 
