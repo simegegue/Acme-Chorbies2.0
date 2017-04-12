@@ -27,8 +27,9 @@ public class BannerServiceTest extends AbstractTest{
 	// Tests ---------------------------------------------------
 	
 	/*Test
-	 *  An actor who is authenticated as chorbi must be able to like another chorbi;
-	 *  a like may be cancelled at any time.
+	 *  An actor who is authenticated as an administrator must be able to change the banners
+		that are displayed on the welcome page and the time that the results
+		 of search templates are cached.
 	 * */
 	
 	@Test
@@ -62,6 +63,11 @@ public class BannerServiceTest extends AbstractTest{
 		checkExceptions(expected, caught);
 	}
 
+
+	/* An actor who is authenticated as an administrator must be able to change the banners
+		that are displayed on the welcome page and the time that the results
+		 of search templates are cached.
+	 */
 	
 	@Test
 	public void driverDeleteBanner(){
@@ -81,9 +87,9 @@ public class BannerServiceTest extends AbstractTest{
 		Class<?> caught = null;
 		try{
 			authenticate(user); // nos autenticamos como usuario.
-			Banner banner = bannerService.findOne(id); // Creamos un objeto bannerForm
+			Banner banner = bannerService.findOne(id); // Buscamos el banner
 			Assert.notNull(banner); // Comprobamos que banner no es nulo
-			bannerService.delete(banner); // Le asignamos la url
+			bannerService.delete(banner); // Eliminamos el banner
 			unauthenticate(); // Nos desautenticamos
 		}catch(Throwable oops){
 			caught = oops.getClass();
