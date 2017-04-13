@@ -3,6 +3,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -73,6 +75,7 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Collection<Chorbi> aux = new ArrayList<Chorbi>();
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		Map<Integer,String> descriptions = new HashMap<Integer, String>();
 		aux = chorbiService.findAll();
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -82,11 +85,13 @@ public class ChorbiController extends AbstractController {
 			chorbies.addAll(aux);
 		else
 			for (Chorbi c : aux)
-				if (c.getBanned() == false)
+				if (c.getBanned() == false){
 					chorbies.add(c);
-
+					descriptions.put(c.getId(),chorbiService.encript(c.getDescription()));
+				}
 		result = new ModelAndView("chorbi/browse");
 		result.addObject("chorbies", chorbies);
+		result.addObject("descriptions", descriptions);
 		result.addObject("requestURI", "chorbi/browse.do");
 
 		return result;
@@ -98,14 +103,17 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Collection<Chorbi> aux = new ArrayList<Chorbi>();
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		Map<Integer,String> descriptions = new HashMap<Integer, String>();
 		aux = relationLikeService.findByLikesSent(chorbiId);
 
 		for (Chorbi c : aux)
-			if (c.getBanned() == false)
+			if (c.getBanned() == false){
 				chorbies.add(c);
-
+				descriptions.put(c.getId(), chorbiService.encript(c.getDescription()));
+			}
 		result = new ModelAndView("chorbi/browse");
 		result.addObject("chorbies", chorbies);
+		result.addObject("descriptions", descriptions);
 		result.addObject("requestURI", "chorbi/browse.do");
 
 		return result;
