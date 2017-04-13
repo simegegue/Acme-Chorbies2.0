@@ -789,7 +789,7 @@ public class ChorbiService {
 		return b;
 	}
 
-	public String encript(String mensaje) {
+	public String encrypt(String mensaje) {
 		String result = mensaje;
 		result = mensaje.replaceAll("([+]?\\d{1,3})?([ ]?(\\d{3})){3}", "***");
 		result = result.replaceAll("[a-zA-Z_%.0-9-]+@[a-zA-Z]+.[a-zA-Z]{3}", "***");

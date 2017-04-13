@@ -33,6 +33,7 @@
 				<jstl:out value="${chorbi.surname }" />
 			</td>
 		</tr>
+		<jstl:if test="${chorbi.userAccount.username eq pageContext.request.remoteUser}">
 		<tr>
 			<th>
 				<spring:message code="chorbi.email" />
@@ -49,6 +50,7 @@
 				<jstl:out value="${chorbi.phone}" />
 			</td>
 		</tr>
+		</jstl:if>
 		<tr>
 			<th>
 				<spring:message code="chorbi.description" />

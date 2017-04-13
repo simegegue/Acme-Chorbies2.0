@@ -54,6 +54,22 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//Display----------------------------------------------------
+	@RequestMapping(value="/display", method=RequestMethod.GET)
+	public ModelAndView display() {
+			ModelAndView result;
+			Chorbi chorbi;
+			
+			chorbi = chorbiService.findByPrincipal();
+			result=new ModelAndView("chorbi/display");
+			result.addObject("chorbi", chorbi);
+			result.addObject("description", chorbi.getDescription());
+			result.addObject("likesReceived", chorbi.getLikesReceived());
+			result.addObject("requestURI", "chorbi/displayById.do");
+	
+			return result;
+		}
+	
+	
 	@RequestMapping(value="/displayById", method=RequestMethod.GET)
 	public ModelAndView display(@RequestParam int chorbiId) {
 			ModelAndView result;
@@ -62,7 +78,7 @@ public class ChorbiController extends AbstractController {
 			chorbi = chorbiService.findOne(chorbiId);
 			result=new ModelAndView("chorbi/display");
 			result.addObject("chorbi", chorbi);
-			result.addObject("description", chorbiService.encript(chorbi.getDescription()));
+			result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
 			result.addObject("likesReceived", chorbi.getLikesReceived());
 			result.addObject("requestURI", "chorbi/displayById.do");
 	
@@ -87,7 +103,7 @@ public class ChorbiController extends AbstractController {
 			for (Chorbi c : aux)
 				if (c.getBanned() == false){
 					chorbies.add(c);
-					descriptions.put(c.getId(),chorbiService.encript(c.getDescription()));
+					descriptions.put(c.getId(),chorbiService.encrypt(c.getDescription()));
 				}
 		result = new ModelAndView("chorbi/browse");
 		result.addObject("chorbies", chorbies);
@@ -109,7 +125,7 @@ public class ChorbiController extends AbstractController {
 		for (Chorbi c : aux)
 			if (c.getBanned() == false){
 				chorbies.add(c);
-				descriptions.put(c.getId(), chorbiService.encript(c.getDescription()));
+				descriptions.put(c.getId(), chorbiService.encrypt(c.getDescription()));
 			}
 		result = new ModelAndView("chorbi/browse");
 		result.addObject("chorbies", chorbies);
