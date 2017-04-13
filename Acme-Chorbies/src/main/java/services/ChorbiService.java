@@ -7,8 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +81,15 @@ public class ChorbiService {
 	}
 
 	public Collection<Chorbi> findAll() {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		Authority ai = new Authority();
+		au.setAuthority("ADMIN");
+		ai.setAuthority("CHORBI");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(ai));
 
 		Collection<Chorbi> result;
 
@@ -554,81 +561,81 @@ public class ChorbiService {
 		result = chorbiRepository.findByCoordinatesCity(keyword);
 		return result;
 	}
-	public Collection<Chorbi> searchCoordinate(Collection<Chorbi> aux, String country, String state, String province, String city){
+	public Collection<Chorbi> searchCoordinate(Collection<Chorbi> aux, String country, String state, String province, String city) {
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 		for (Chorbi c : aux) {
-			if(country!=""){
-				if(state=="" && province=="" && city==""){
-					if(c.getCoordinate().getCountry().equals(country)){
+			if (country != "") {
+				if (state == "" && province == "" && city == "") {
+					if (c.getCoordinate().getCountry().equals(country)) {
 						chorbies.add(c);
 					}
-				}else if(state!="" && province=="" && city==""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state)){
+				} else if (state != "" && province == "" && city == "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state)) {
 						chorbies.add(c);
 					}
-				}else if(state!="" && province!="" && city==""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)){
+				} else if (state != "" && province != "" && city == "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)) {
 						chorbies.add(c);
 					}
-				}else if(state!="" && province=="" && city!=""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)){
+				} else if (state != "" && province == "" && city != "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)) {
 						chorbies.add(c);
 					}
-				}else if(state=="" && province!="" && city!=""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
+				} else if (state == "" && province != "" && city != "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)) {
 						chorbies.add(c);
 					}
-				}else if(state=="" && province!="" && city==""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province)){
+				} else if (state == "" && province != "" && city == "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getProvince().equals(province)) {
 						chorbies.add(c);
 					}
-				}else if(state=="" && province=="" && city!=""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getCity().equals(city)){
+				} else if (state == "" && province == "" && city != "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getCity().equals(city)) {
 						chorbies.add(c);
 					}
-				}else if(state!="" && province!="" && city!=""){
-					if(c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
-						chorbies.add(c);
-					}
-				}
-			}else if(state!=""){
-				if(province!="" && city!=""){
-					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)){
-						chorbies.add(c);
-					}
-				}else if(province!="" && city==""){
-					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)){
-						chorbies.add(c);
-					}
-				}else if(province=="" && city!=""){
-					if(c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)){
-						chorbies.add(c);
-					}
-			
-				}else{
-					if(c.getCoordinate().getState().equals(state)){
+				} else if (state != "" && province != "" && city != "") {
+					if (c.getCoordinate().getCountry().equals(country) && c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)) {
 						chorbies.add(c);
 					}
 				}
-			}else if(province!=""){
-				if(city!=""){
-					if(c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getProvince().equals(province)){
+			} else if (state != "") {
+				if (province != "" && city != "") {
+					if (c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getCity().equals(city)) {
 						chorbies.add(c);
 					}
-						
-				}else{
-					if(c.getCoordinate().getProvince().equals(province)){
+				} else if (province != "" && city == "") {
+					if (c.getCoordinate().getState().equals(state) && c.getCoordinate().getProvince().equals(province)) {
+						chorbies.add(c);
+					}
+				} else if (province == "" && city != "") {
+					if (c.getCoordinate().getState().equals(state) && c.getCoordinate().getCity().equals(city)) {
+						chorbies.add(c);
+					}
+
+				} else {
+					if (c.getCoordinate().getState().equals(state)) {
 						chorbies.add(c);
 					}
 				}
-			
-			}else if(city!=""){
-				if(c.getCoordinate().getCity().equals(city)){
+			} else if (province != "") {
+				if (city != "") {
+					if (c.getCoordinate().getProvince().equals(province) && c.getCoordinate().getProvince().equals(province)) {
+						chorbies.add(c);
+					}
+
+				} else {
+					if (c.getCoordinate().getProvince().equals(province)) {
+						chorbies.add(c);
+					}
+				}
+
+			} else if (city != "") {
+				if (c.getCoordinate().getCity().equals(city)) {
 					chorbies.add(c);
-			}
+				}
 			}
 		}
-	
+
 		return chorbies;
 	}
 
@@ -782,11 +789,11 @@ public class ChorbiService {
 		return b;
 	}
 
-	public String encript(String mensaje){
+	public String encript(String mensaje) {
 		String result = mensaje;
 		result = mensaje.replaceAll("([+]?\\d{1,3})?([ ]?(\\d{3})){3}", "***");
 		result = result.replaceAll("[a-zA-Z_%.0-9-]+@[a-zA-Z]+.[a-zA-Z]{3}", "***");
-		
+
 		return result;
 	}
 

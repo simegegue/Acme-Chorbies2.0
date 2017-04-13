@@ -3,6 +3,7 @@ package services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import org.junit.Test;
@@ -144,6 +145,54 @@ public class ChorbiServiceTest extends AbstractTest {
 			Assert.isTrue(chorbi != null);
 			chorbiService.save(chorbi);
 
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		checkExceptions(expected, caught);
+	}
+
+	/*
+	 * Browse the list of chorbies who have registered to the system.
+	 * 
+	 * Vamos a logear como un chorbi/admin y listar los chorbis
+	 * y vamos a hacer lo mismo como usuario no autenticado
+	 */
+	@Test
+	public void driverList() {
+		Object testingData[][] = {
+			{
+				"chorbi1", 62, null
+			}, // Obtenedremos la lista de chorbies al ser un chorbi y navegaremos hacia un chorbi que existe.
+			{
+				"chorbi1", 61, IllegalArgumentException.class
+			}, // Obtenedremos la lista de chorbies al ser un chorbi pero luego navegaremos hacia un chorbi que no existe.
+			{
+				"admin", 62, null
+			}, // Obtendremos todas los chorbies como admin y navegaremos hacia un chorbi que existe.
+			{
+				"admin", 61, IllegalArgumentException.class
+			}, // Obtendremos todas los chorbies como admin pero luego navegaremos hacia un chorbi que no existe.
+			{
+				null, 62, IllegalArgumentException.class
+			}
+		// Y tambien lo haremos como usuario no autenticado.
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			templateList((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void templateList(String username, int id, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			authenticate(username); // Nos autenticamos como el usuario
+			Collection<Chorbi> chorbies = chorbiService.findAll(); // Obtenemos los chorbies.
+			Assert.isTrue(!chorbies.isEmpty()); // Comprobamos que la lista de chorbies no esta vacía
+			Chorbi chorbi = chorbiService.findOne(id);
+			Assert.notNull(chorbi);
+			unauthenticate();
 		} catch (Throwable oops) {
 			caught = oops.getClass();
 		}
