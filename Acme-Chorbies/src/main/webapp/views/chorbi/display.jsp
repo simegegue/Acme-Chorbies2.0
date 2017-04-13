@@ -128,7 +128,9 @@
 	<display:column title="${moment}" sortable="true"><fmt:formatDate value="${row.moment}" pattern="dd/MM/yyyy HH:mm" /></display:column>
 		
 	<spring:message code="chorbi.comment" var="comment"/>
-	<display:column title="${comment }" property="comment"/>
+	<display:column title="${comment }">
+	<jstl:out value="${comments[row.id]}"/>
+	</display:column>
 	
 	<display:column>
 		<a href="chorbi/displayById.do?chorbiId=${row.likeSender.id}"><spring:message code="chorbi.view.profile" /></a>

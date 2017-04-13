@@ -26,6 +26,7 @@ import services.RelationLikeService;
 import domain.Chorbi;
 import domain.Genre;
 import domain.KindRelationship;
+import domain.RelationLike;
 import forms.ChorbiForm;
 
 @Controller
@@ -58,12 +59,24 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView display() {
 			ModelAndView result;
 			Chorbi chorbi;
-			
+			Map<Integer,String> comments = new HashMap<Integer, String>();
+
 			chorbi = chorbiService.findByPrincipal();
+			
+			for(RelationLike r : chorbi.getLikesReceived()){
+				if(r.getComment()==null){
+					comments.put(r.getId(), "");
+				}else{
+					comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
+				}
+			}
+			
+			
 			result=new ModelAndView("chorbi/display");
 			result.addObject("chorbi", chorbi);
 			result.addObject("description", chorbi.getDescription());
 			result.addObject("likesReceived", chorbi.getLikesReceived());
+			result.addObject("comments", comments);
 			result.addObject("requestURI", "chorbi/displayById.do");
 	
 			return result;
@@ -74,12 +87,21 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView display(@RequestParam int chorbiId) {
 			ModelAndView result;
 			Chorbi chorbi;
-			
+			Map<Integer,String> comments = new HashMap<Integer, String>();
+
 			chorbi = chorbiService.findOne(chorbiId);
+
+			
+			for(RelationLike r : chorbi.getLikesReceived()){
+				comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
+			}
+			
+			
 			result=new ModelAndView("chorbi/display");
 			result.addObject("chorbi", chorbi);
 			result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
 			result.addObject("likesReceived", chorbi.getLikesReceived());
+			result.addObject("comments", comments);
 			result.addObject("requestURI", "chorbi/displayById.do");
 	
 			return result;
