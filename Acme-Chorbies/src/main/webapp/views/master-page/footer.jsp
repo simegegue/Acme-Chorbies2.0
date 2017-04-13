@@ -17,7 +17,7 @@
 
 <hr />
 
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Sample Co., Inc.</b>
+<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme-Chorbies Co., Inc.</b>
 
 <p style="text-align:center"><a href="misc/lopd.do"><spring:message code="master.page.lopd" /></a></p>
 

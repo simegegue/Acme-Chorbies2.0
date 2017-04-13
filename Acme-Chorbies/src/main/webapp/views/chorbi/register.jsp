@@ -59,6 +59,9 @@
 					<br/>
 					<acme:textbox code="chorbi.coordinate.city" path="coordinate.city"/>
 				</fieldset>
+				
+				<h3><spring:message code="chorbi.creditCard.optional"/></h3>
+				
 				<fieldset>
 					<legend align="left"><spring:message code="chorbi.creditCard.info"/></legend>
 					<acme:textbox code="chorbi.creditCard.holderName" path="creditCard.holderName"/>
@@ -126,6 +129,7 @@
 					<br/>
 					<acme:textbox code="chorbi.coordinate.city" path="coordinate.city"/>
 				</fieldset>
+				<h3><spring:message code="chorbi.creditCard.optional"/></h3>
 				<fieldset>
 					<legend align="left"><spring:message code="chorbi.creditCard.info"/></legend>
 					<acme:textbox code="chorbi.creditCard.holderName" path="creditCard.holderName"/>

@@ -16,6 +16,9 @@ import repositories.SearchTemplateRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
+import domain.Coordinate;
+import domain.Genre;
+import domain.KindRelationship;
 import domain.SearchTemplate;
 import forms.SearchTemplateForm;
 
@@ -117,6 +120,28 @@ public class SearchTemplateService {
 		SearchTemplate old = findByPrincipal();
 		if (st.getAge() == null) {
 			st.setAge(0);
+		}
+		if (old.getAge() == null) {
+			old.setAge(0);
+		}
+		if (old.getKeyword() == null) {
+			old.setKeyword("");
+		}
+		if (old.getCoordinate() == null) {
+			Coordinate aux = new Coordinate();
+			aux.setCity("");
+			aux.setCountry("");
+			aux.setProvince("");
+			aux.setState("");
+			old.setCoordinate(aux);
+		}
+		if (old.getGenre() == null) {
+			Genre aux = genreService.findOne(49);
+			old.setGenre(aux);
+		}
+		if (old.getKindRelationship() == null) {
+			KindRelationship aux = kindRelationshipService.findOne(52);
+			old.setKindRelationship(aux);
 		}
 		Boolean res = false;
 		if (old.getAge().compareTo(st.getAge()) == 0 && old.getKeyword().compareTo(st.getKeyword()) == 0 && old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) == 0

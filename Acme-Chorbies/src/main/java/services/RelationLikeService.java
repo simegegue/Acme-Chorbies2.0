@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -21,168 +22,166 @@ import forms.RelationLikeForm;
 @Service
 @Transactional
 public class RelationLikeService {
-	
+
 	// Managed repository -----------------------------------------------------
-	
-		@Autowired
-		private RelationLikeRepository relationLikeRepository;
-		
-		// Supporting services ----------------------------------------------------
 
-		@Autowired
-		private ChorbiService chorbiService;
-		
-		@Autowired
-		private Validator validator;
-		
-		
-		// Constructors -----------------------------------------------------------
+	@Autowired
+	private RelationLikeRepository	relationLikeRepository;
 
-		public RelationLikeService() {
-			super();
-		}
+	// Supporting services ----------------------------------------------------
 
-		// Simple CRUD methods ----------------------------------------------------
-				
-		public RelationLike create() {
+	@Autowired
+	private ChorbiService			chorbiService;
 
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("CHORBI");
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
-			
-			
-			
-			RelationLike result;
-			Date date = new Date(System.currentTimeMillis() - 1000);
-			
-			result = new RelationLike();
-			result.setLikeSender(chorbiService.findByPrincipal());
-			result.setMoment(date);
+	@Autowired
+	private Validator				validator;
 
-			return result;
-		}
 
-		public Collection<RelationLike> findAll() {
+	// Constructors -----------------------------------------------------------
 
-			Collection<RelationLike> result;
+	public RelationLikeService() {
+		super();
+	}
 
-			result = relationLikeRepository.findAll();
-			Assert.notNull(result);
+	// Simple CRUD methods ----------------------------------------------------
 
-			return result;
-		}
+	public RelationLike create() {
 
-		public RelationLike findOne(int relationLikeId) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
-			RelationLike result;
+		RelationLike result;
+		Date date = new Date(System.currentTimeMillis() - 1000);
 
-			result = relationLikeRepository.findOne(relationLikeId);
-			Assert.notNull(result);
+		result = new RelationLike();
+		result.setLikeSender(chorbiService.findByPrincipal());
+		result.setMoment(date);
 
-			return result;
-		}
+		return result;
+	}
 
-		public RelationLike save(RelationLike relationLike) {
+	public Collection<RelationLike> findAll() {
 
-			Assert.notNull(relationLike);
-			RelationLike result;
-			result = relationLikeRepository.save(relationLike);
+		Collection<RelationLike> result;
 
-			return result;
-		}
+		result = relationLikeRepository.findAll();
+		Assert.notNull(result);
 
-		public void delete(RelationLike relationLike) {
+		return result;
+	}
 
-			Assert.notNull(relationLike);
-					
-			Assert.isTrue(relationLike.getId() != 0);
+	public RelationLike findOne(int relationLikeId) {
 
-			relationLikeRepository.delete(relationLike);
-		}
-		
-		// Other bussiness methods ------------------------------------------------
-		public Collection<Chorbi> findByLikesSent(int id){
-			Collection<Chorbi>result;
-			result=relationLikeRepository.findByLikesSent(id);
-			return result;
-		}
-		public RelationLike giveLike(Chorbi likeSender,Chorbi likeRecipient){
-			
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("CHORBI");
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
-			
-			RelationLike res=create();
-			Boolean contains=false;
-			for(RelationLike l:likeSender.getLikesSent()){
-				if(l.getLikeRecipient().equals(likeRecipient)){
-					contains=true;
-				}
+		RelationLike result;
+
+		result = relationLikeRepository.findOne(relationLikeId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public RelationLike save(RelationLike relationLike) {
+
+		Assert.notNull(relationLike);
+		RelationLike result;
+		result = relationLikeRepository.save(relationLike);
+
+		return result;
+	}
+
+	public void delete(RelationLike relationLike) {
+
+		Assert.notNull(relationLike);
+
+		Assert.isTrue(relationLike.getId() != 0);
+
+		relationLikeRepository.delete(relationLike);
+	}
+
+	// Other bussiness methods ------------------------------------------------
+	public Collection<Chorbi> findByLikesSent(int id) {
+		Collection<Chorbi> result;
+		result = relationLikeRepository.findByLikesSent(id);
+		return result;
+	}
+	public RelationLike giveLike(Chorbi likeSender, Chorbi likeRecipient) {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		RelationLike res = create();
+		@SuppressWarnings("unused")
+		Boolean contains = false;
+		for (RelationLike l : likeSender.getLikesSent()) {
+			if (l.getLikeRecipient().equals(likeRecipient)) {
+				contains = true;
 			}
-			if(contains=false){
-				if(!likeSender.equals(likeRecipient)){
-					RelationLike rl=create();
-					
-					rl.setLikeSender(likeSender);
-					rl.setLikeRecipient(likeRecipient);
-					likeSender.getLikesSent().add(rl);
-					likeRecipient.getLikesReceived().add(rl);
-					res=rl;
-					
-				}
-				
+		}
+		if (contains = false) {
+			if (!likeSender.equals(likeRecipient)) {
+				RelationLike rl = create();
+
+				rl.setLikeSender(likeSender);
+				rl.setLikeRecipient(likeRecipient);
+				likeSender.getLikesSent().add(rl);
+				likeRecipient.getLikesReceived().add(rl);
+				res = rl;
+
 			}
-			return res;
-			
+
 		}
-		
-		public RelationLike unLike(Chorbi likeSender, Chorbi likeRecipient){
-			UserAccount userAccount;
-			userAccount = LoginService.getPrincipal();
-			Authority au = new Authority();
-			au.setAuthority("CHORBI");
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
-			
-			RelationLike res=create();
-			
-			for(RelationLike r:likeRecipient.getLikesReceived()){
-				if(r.getLikeSender().equals(likeSender)){
-					delete(r);
-				}
+		return res;
+
+	}
+
+	public RelationLike unLike(Chorbi likeSender, Chorbi likeRecipient) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		RelationLike res = create();
+
+		for (RelationLike r : likeRecipient.getLikesReceived()) {
+			if (r.getLikeSender().equals(likeSender)) {
+				delete(r);
 			}
-			return res;
 		}
-		
-		// Form methods ----------------------------------------------------------
+		return res;
+	}
 
-				public RelationLikeForm generateForm() {
-					RelationLikeForm result = new RelationLikeForm();
+	// Form methods ----------------------------------------------------------
 
-					return result;
-				}
+	public RelationLikeForm generateForm() {
+		RelationLikeForm result = new RelationLikeForm();
 
-				public RelationLike reconstruct(RelationLikeForm relationLikeForm, BindingResult binding) {
-					RelationLike result;
-					result = create();
-					result.setComment(relationLikeForm.getcomment());
-					result.setLikeRecipient(chorbiService.findOne(relationLikeForm.getchorbiId()));
-					validator.validate(result, binding);
-					return result;
-				}
-				
-		// Encrypt
-				
-		public String encrypt(String mensaje) {
-			String result = mensaje;
-			result = mensaje.replaceAll("([+]?\\d{1,3})?([ ]?(\\d{3})){3}", "***");
-			result = result.replaceAll("[a-zA-Z_%.0-9-]+@[a-zA-Z]+.[a-zA-Z]{3}", "***");
+		return result;
+	}
 
-			return result;
-		}
+	public RelationLike reconstruct(RelationLikeForm relationLikeForm, BindingResult binding) {
+		RelationLike result;
+		result = create();
+		result.setComment(relationLikeForm.getcomment());
+		result.setLikeRecipient(chorbiService.findOne(relationLikeForm.getchorbiId()));
+		validator.validate(result, binding);
+		return result;
+	}
 
+	// Encrypt
+
+	public String encrypt(String mensaje) {
+		String result = mensaje;
+		result = mensaje.replaceAll("([+]?\\d{1,3})?([ ]?(\\d{3})){3}", "***");
+		result = result.replaceAll("[a-zA-Z_%.0-9-]+@[a-zA-Z]+.[a-zA-Z]{3}", "***");
+
+		return result;
+	}
 
 }
