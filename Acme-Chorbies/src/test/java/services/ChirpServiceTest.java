@@ -126,8 +126,8 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driverForward() {
 		Object testingData[][] = {
-			{"chorbi1", 65, null}, // Reenviamos el chirp con id 65 del cual customer 1 es sender o recipient.
-			{"chorbi3", 65, IllegalArgumentException.class}//Probamos a reenviar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi1", 67, null}, // Reenviamos el chirp con id 65 del cual customer 1 es sender o recipient.
+			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a reenviar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -155,8 +155,8 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driverReply() {
 		Object testingData[][] = {
-			{"chorbi2", 65, null}, // Respondemos el chirp con id 65 del cual customer 2 es recipient.
-			{"chorbi3", 55, IllegalArgumentException.class}//Probamos a responder un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi2", 67, null}, // Respondemos el chirp con id 65 del cual customer 2 es recipient.
+			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a responder un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -184,8 +184,8 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driverErase() {
 		Object testingData[][] = {
-			{"chorbi2", 65, null}, // Eliminamos el chirp con id 55 del cual customer 2 es recipient.
-			{"chorbi3", 65, IllegalArgumentException.class}//Probamos a eliminar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi2", 67, null}, // Eliminamos el chirp con id 55 del cual customer 2 es recipient.
+			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a eliminar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
 		};
 
 		for (int i = 0; i < testingData.length; i++)
