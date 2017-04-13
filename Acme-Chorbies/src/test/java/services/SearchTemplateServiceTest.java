@@ -37,7 +37,7 @@ public class SearchTemplateServiceTest extends AbstractTest {
 			{
 				"chorbi1", null
 			}, {
-				null, IllegalArgumentException.class
+				"admin", NullPointerException.class
 			}
 		};
 
