@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SearchTemplateRepository;
-import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
@@ -89,13 +88,6 @@ public class SearchTemplateService {
 
 	public SearchTemplate save(SearchTemplate searchTemplate) {
 
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("CHORBI");
-
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
-
 		SearchTemplate result;
 		result = searchTemplateRepository.save(searchTemplate);
 
@@ -123,7 +115,7 @@ public class SearchTemplateService {
 
 	public Boolean compareSearch(SearchTemplateForm st) {
 		SearchTemplate old = findByPrincipal();
-		if(st.getAge()==null){
+		if (st.getAge() == null) {
 			st.setAge(0);
 		}
 		Boolean res = false;

@@ -29,12 +29,6 @@ public class KindRelationshipService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ChorbiService				chorbiService;
-
-	@Autowired
-	private SearchTemplateService		searchTemplateService;
-
-	@Autowired
 	private Validator					validator;
 
 

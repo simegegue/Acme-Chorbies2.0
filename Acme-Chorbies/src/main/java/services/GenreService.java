@@ -24,18 +24,12 @@ public class GenreService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private GenreRepository			genreRepository;
+	private GenreRepository	genreRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ChorbiService			chorbiService;
-
-	@Autowired
-	private SearchTemplateService	searchTemplateService;
-
-	@Autowired
-	private Validator				validator;
+	private Validator		validator;
 
 
 	// Constructors -----------------------------------------------------------
