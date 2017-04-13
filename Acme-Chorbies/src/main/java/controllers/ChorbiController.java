@@ -60,6 +60,7 @@ public class ChorbiController extends AbstractController {
 			chorbi = chorbiService.findOne(chorbiId);
 			result=new ModelAndView("chorbi/display");
 			result.addObject("chorbi", chorbi);
+			result.addObject("description", chorbiService.encript(chorbi.getDescription()));
 			result.addObject("likesReceived", chorbi.getLikesReceived());
 			result.addObject("requestURI", "chorbi/displayById.do");
 	

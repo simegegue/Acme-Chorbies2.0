@@ -779,5 +779,36 @@ public class ChorbiService {
 		}
 		return b;
 	}
+	
+	public String encript(String mensaje){
+		//Pattern pat = Pattern.compile(@)
+		//Matcher mat = pat.matcher(mensaje);
+		String result, aux="";
+		Boolean contiene=false;
+		
+		result = mensaje;
+		
+		char letras[] = mensaje.toCharArray(); 
+		
+		for(int i = 0; i<letras.length;i++){
+			if(letras[i]=='@'){
+				contiene=true;
+			}
+			
+			if(letras[i]!=' '){
+				aux+=letras[i];
+			}else if(contiene){
+				System.out.println("Antes: "+result);
+				System.out.println("Aux: "+aux);
+				result.replace(aux, "***");
+				System.out.println("Despues: "+result);
+				contiene = false;
+			}else{
+				aux = "";
+			}
+		}
+		
+		return result;
+	}
 
 }

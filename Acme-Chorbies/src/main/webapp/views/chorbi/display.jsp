@@ -54,7 +54,7 @@
 				<spring:message code="chorbi.description" />
 			</th>
 			<td>
-				<jstl:out value="${chorbi.description}" />
+				<jstl:out value="${description}" />
 			</td>
 		</tr>
 		<tr>
