@@ -87,6 +87,9 @@ public class ChirpController extends AbstractController {
 
 		ChirpForm chirpForm = chirpService.generate();
 		Collection<Chorbi> chorbies = chorbiService.findAll();
+		
+		chorbies.remove(chorbiService.findByPrincipal());
+
 
 		result = new ModelAndView("chirp/write");
 		result.addObject("chirpForm", chirpForm);
@@ -106,6 +109,8 @@ public class ChirpController extends AbstractController {
 		} else {
 			try {
 				chirp = chirpService.reconstruct(chirpForm, binding);
+				chirp.setSubject(chirpService.encrypt(chirp.getSubject()));
+				chirp.setText(chirpService.encrypt(chirp.getText()));
 				chirpService.save(chirp);
 				result = new ModelAndView("redirect:/chirp/sent.do");
 			} catch (Throwable oops) {
@@ -168,12 +173,13 @@ public class ChirpController extends AbstractController {
 	public ModelAndView forward(@RequestParam int chirpId) {
 
 		ModelAndView result;
-		ChirpForm xhirpForm = chirpService.forward(chirpId);
+		ChirpForm chirpForm = chirpService.forward(chirpId);
 
 		Collection<Chorbi> chorbies = chorbiService.findAll();
+		chorbies.remove(chorbiService.findByPrincipal());
 
 		result = new ModelAndView("chirp/forward");
-		result.addObject("chirpForm", xhirpForm);
+		result.addObject("chirpForm", chirpForm);
 		result.addObject("chorbies", chorbies);
 
 		return result;
