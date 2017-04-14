@@ -35,11 +35,6 @@
 	<spring:message code="chorbi.surname" var="surnameHeader" />
 	<display:column property="surname" title="${surnameHeader}"/>
 	
-	<spring:message code="chorbi.description" var="description" />
-	<display:column title="${description}">
-		<jstl:out value="${descriptions[row.id]}"/>
-	</display:column>
-	
 	<spring:message code="chorbi.birthDate" var="birthDate" />
 	<display:column title="${birthDate}"	sortable="false"><fmt:formatDate value="${row.birthDate }" pattern="dd/MM/yyyy" /></display:column>
 	
