@@ -11,4 +11,7 @@ public interface KindRelationshipRepository extends JpaRepository<KindRelationsh
 
 	@Query("select k from KindRelationship k where k.value like '?1'")
 	KindRelationship findKindRelationshipByValue(String value);
+	
+	@Query("select k from KindRelationship k where k.value='none'")
+	KindRelationship findDefault();
 }

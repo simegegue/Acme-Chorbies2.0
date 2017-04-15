@@ -125,6 +125,9 @@ public class KindRelationshipService {
 	public KindRelationship findKindRelationshipByValue(String value) {
 		return kindRelationshipRepository.findKindRelationshipByValue(value);
 	}
+	public KindRelationship findDefault() {
+		return kindRelationshipRepository.findDefault();
+	}
 
 	// Form methods ----------------------------------------------------------
 

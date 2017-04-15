@@ -126,6 +126,9 @@ public class GenreService {
 	public Genre findGenreByValue(String value) {
 		return genreRepository.findGenreByValue(value);
 	}
+	public Genre findDefault() {
+		return genreRepository.findDefault();
+	}
 
 	// Form methods ----------------------------------------------------------
 

@@ -62,8 +62,8 @@ public class SearchTemplateService {
 
 		Date date = new Date(System.currentTimeMillis() - 1000);
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-		result.setGenre(genreService.findOne(49));
-		result.setKindRelationship(kindRelationshipService.findOne(52));
+		result.setGenre(genreService.findDefault());
+		result.setKindRelationship(kindRelationshipService.findDefault());
 		result.setLastTimeSearched(date);
 		result.setChorbies(chorbies);
 
@@ -91,13 +91,6 @@ public class SearchTemplateService {
 	}
 
 	public SearchTemplate save(SearchTemplate searchTemplate) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		Authority ai = new Authority();
-		au.setAuthority("CHORBI");
-		ai.setAuthority(null);
-		Assert.isTrue(userAccount.getAuthorities().contains(au)|| userAccount.getAuthorities().contains(ai));
 		SearchTemplate result;
 		result = searchTemplateRepository.save(searchTemplate);
 

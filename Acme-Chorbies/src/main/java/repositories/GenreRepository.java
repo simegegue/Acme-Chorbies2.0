@@ -11,4 +11,7 @@ public interface GenreRepository extends JpaRepository<Genre, Integer>{
 	
 	@Query("select g from Genre g where g.value like '?1'")
 	Genre findGenreByValue(String value);
+	
+	@Query("select g from Genre g where g.value='none'")
+	Genre findDefault();
 }
