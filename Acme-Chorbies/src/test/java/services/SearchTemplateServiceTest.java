@@ -27,17 +27,19 @@ public class SearchTemplateServiceTest extends AbstractTest {
 	// Tests --------------------------------------------------
 
 	/*
-	 * Create a SearchTemplate
+	 * Change his or her search template
 	 * 
-	 * Para ello vamos a probar crear un searchTemplate como administrador, estando registrado en el sistema y sin estar registrado en el sistema.
+	 * Para ello vamos a editar una search template como chorbi, como administrador y sin estar registrado en el sistema.
 	 */
 	@Test
 	public void driverSave() {
 		Object testingData[][] = {
-			{
+			{//Guardaremos un search template como un chorbi
 				"chorbi1", null
-			}, {
+			}, {//Como un administrador (No tiene)
 				"admin", NullPointerException.class
+			}, {//Como un usuario no registrado (No puede)
+				null, IllegalArgumentException.class
 			}
 		};
 
@@ -52,7 +54,9 @@ public class SearchTemplateServiceTest extends AbstractTest {
 		try {
 			authenticate(username); // Nos autenticamos como el usuario
 			SearchTemplate searchTemplate = searchTemplateService.findByPrincipal(); // Buscamos la searchTemplate del usuario logueado
-			searchTemplateService.save(searchTemplate); // Guardamos la search template.
+			searchTemplate.setAge(23); // Modificamos la edad
+			searchTemplateService.searchTemplateNull(searchTemplate); //Si la search template que recibe esta vacia (Campos a null) los pasa a vacios
+			searchTemplateService.save(searchTemplate); // Guardamos la search template
 			unauthenticate();
 		} catch (Throwable oops) {
 			caught = oops.getClass();

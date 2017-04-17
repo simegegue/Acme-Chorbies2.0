@@ -100,24 +100,6 @@ public class GenreService {
 		Assert.notNull(genre);
 		Assert.isTrue(genre.getId() != 0);
 
-		//Genre aux = findGenreByValue("none");
-
-		/*
-		 * Collection<Chorbi> chorbies = chorbiService.findChorbiesByGenre(genre.getId());
-		 * Collection<SearchTemplate> searches = searchTemplateService.findSearchTemplateByGenre(genre.getId());
-		 * if(!chorbies.isEmpty()){
-		 * for(Chorbi c : chorbies){
-		 * c.setGenre(aux);
-		 * chorbiService.save(c);
-		 * }
-		 * }
-		 * if(!searches.isEmpty()){
-		 * for(SearchTemplate s : searches){
-		 * s.setGenre(aux);
-		 * searchTemplateService.save(s);
-		 * }
-		 * }
-		 */
 		genreRepository.delete(genre);
 	}
 

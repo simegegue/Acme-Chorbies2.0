@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SearchTemplateRepository;
-import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chorbi;
@@ -116,11 +115,8 @@ public class SearchTemplateService {
 		return searchTemplateRepository.findSearchTemplateByKindRelationship(kindRelationship);
 	}
 
-	public Boolean compareSearch(SearchTemplateForm st) {
-		SearchTemplate old = findByPrincipal();
-		if (st.getAge() == null) {
-			st.setAge(0);
-		}
+	public SearchTemplate searchTemplateNull(SearchTemplate old) {
+
 		if (old.getAge() == null) {
 			old.setAge(0);
 		}
@@ -143,6 +139,16 @@ public class SearchTemplateService {
 			KindRelationship aux = kindRelationshipService.findOne(52);
 			old.setKindRelationship(aux);
 		}
+
+		return old;
+
+	}
+
+	public Boolean compareSearch(SearchTemplateForm st) {
+		SearchTemplate old = findByPrincipal();
+
+		searchTemplateNull(old);
+
 		Boolean res = false;
 		if (old.getAge().compareTo(st.getAge()) == 0 && old.getKeyword().compareTo(st.getKeyword()) == 0 && old.getCoordinate().getCity().compareTo(st.getCoordinate().getCity()) == 0
 			&& old.getCoordinate().getCountry().compareTo(st.getCoordinate().getCountry()) == 0 && old.getCoordinate().getProvince().compareTo(st.getCoordinate().getProvince()) == 0
