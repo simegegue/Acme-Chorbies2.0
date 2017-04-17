@@ -72,8 +72,11 @@ public class KindRelationshipServiceTest extends AbstractTest {
 			}, // En este primer caso intentaremos borrar un kindRelationship que ningun actor tiene.
 			{
 				"chorbi1", 52, IllegalArgumentException.class
-			}
+			},
 		// Probamos ahora a borrar un kindRelationship que no tiene un actor como chorbi.
+			{
+				null, 52, IllegalArgumentException.class
+			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)

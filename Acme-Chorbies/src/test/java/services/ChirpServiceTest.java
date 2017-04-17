@@ -39,9 +39,9 @@ public class ChirpServiceTest extends AbstractTest {
 	@Test
 	public void driverCreate() {
 		Object testingData[][] = {
-			{
-				"chorbi1", null}, 
-				{null, IllegalArgumentException.class}
+			{"chorbi1", null}, 
+			{null, IllegalArgumentException.class},
+			{"admin", IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -69,7 +69,8 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driverListSent() {
 		Object testingData[][] = {
 			{"chorbi1", null}, // En este primer caso obtenemos los mensajes enviados por el chorbi 1.
-			{null, IllegalArgumentException.class}// Probamos ahora a solicitar los mensajes de un usuario no registrado y no debería permitirnoslo.
+			{null, IllegalArgumentException.class},// Probamos ahora a solicitar los mensajes de un usuario no registrado y no debería permitirnoslo.
+			{"admin", IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -98,7 +99,8 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driverListRecieved() {
 		Object testingData[][] = {
 			{"chorbi1", null}, // En este primer caso obtenemos los chirp recibidos por el customer 1.
-			{null, IllegalArgumentException.class}// Probamos ahora a solicitar los chirp de un usuario no registrado y no debería permitirnoslo.
+			{null, IllegalArgumentException.class},// Probamos ahora a solicitar los chirp de un usuario no registrado y no debería permitirnoslo.
+			{"admin", IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -127,7 +129,8 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driverForward() {
 		Object testingData[][] = {
 			{"chorbi1", 67, null}, // Reenviamos el chirp con id 65 del cual customer 1 es sender o recipient.
-			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a reenviar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi3", 67, IllegalArgumentException.class},//Probamos a reenviar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"admin", 67, IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -156,7 +159,8 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driverReply() {
 		Object testingData[][] = {
 			{"chorbi2", 67, null}, // Respondemos el chirp con id 65 del cual customer 2 es recipient.
-			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a responder un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi3", 67, IllegalArgumentException.class},//Probamos a responder un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"admin", 67, IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -185,7 +189,8 @@ public class ChirpServiceTest extends AbstractTest {
 	public void driverErase() {
 		Object testingData[][] = {
 			{"chorbi2", 67, null}, // Eliminamos el chirp con id 55 del cual customer 2 es recipient.
-			{"chorbi3", 67, IllegalArgumentException.class}//Probamos a eliminar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"chorbi3", 67, IllegalArgumentException.class},//Probamos a eliminar un el chirp con id 65 que no ha sido enviado o recibido por el customer 3.
+			{"admin", 67, IllegalArgumentException.class}
 		};
 
 		for (int i = 0; i < testingData.length; i++)

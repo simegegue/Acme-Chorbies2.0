@@ -72,8 +72,11 @@ public class GenreServiceTest extends AbstractTest {
 			}, // En este primer caso intentaremos borrar un genero que ningun actor tiene.
 			{
 				"chorbi1", 49, IllegalArgumentException.class
-			}
+			},
 		// Probamos ahora a borrar un genero que no tiene un actor como chorbi.
+			{
+				null, 49, IllegalArgumentException.class
+			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
