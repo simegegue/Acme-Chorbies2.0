@@ -147,6 +147,10 @@ public class SearchTemplateService {
 	public Boolean compareSearch(SearchTemplateForm st) {
 		SearchTemplate old = findByPrincipal();
 
+		if (st.getAge() == null) {
+			st.setAge(0);
+		}
+
 		searchTemplateNull(old);
 
 		Boolean res = false;

@@ -55,57 +55,57 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//Display----------------------------------------------------
-	@RequestMapping(value="/display", method=RequestMethod.GET)
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
-			ModelAndView result;
-			Chorbi chorbi;
-			Map<Integer,String> comments = new HashMap<Integer, String>();
+		ModelAndView result;
+		Chorbi chorbi;
+		Map<Integer, String> comments = new HashMap<Integer, String>();
 
-			chorbi = chorbiService.findByPrincipal();
-			
-			for(RelationLike r : chorbi.getLikesReceived()){
-				if(r.getComment()==null){
-					comments.put(r.getId(), "");
-				}else{
-					comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
-				}
-			}
-			
-			
-			result=new ModelAndView("chorbi/display");
-			result.addObject("chorbi", chorbi);
-			result.addObject("description", chorbi.getDescription());
-			result.addObject("likesReceived", chorbi.getLikesReceived());
-			result.addObject("comments", comments);
-			result.addObject("requestURI", "chorbi/displayById.do");
-	
-			return result;
-		}
-	
-	
-	@RequestMapping(value="/displayById", method=RequestMethod.GET)
-	public ModelAndView display(@RequestParam int chorbiId) {
-			ModelAndView result;
-			Chorbi chorbi;
-			Map<Integer,String> comments = new HashMap<Integer, String>();
+		chorbi = chorbiService.findByPrincipal();
 
-			chorbi = chorbiService.findOne(chorbiId);
-
-			
-			for(RelationLike r : chorbi.getLikesReceived()){
+		for (RelationLike r : chorbi.getLikesReceived()) {
+			if (r.getComment() == null) {
+				comments.put(r.getId(), "");
+			} else {
 				comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
 			}
-			
-			
-			result=new ModelAndView("chorbi/display");
-			result.addObject("chorbi", chorbi);
-			result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
-			result.addObject("likesReceived", chorbi.getLikesReceived());
-			result.addObject("comments", comments);
-			result.addObject("requestURI", "chorbi/displayById.do");
-	
-			return result;
 		}
+
+		result = new ModelAndView("chorbi/display");
+		result.addObject("chorbi", chorbi);
+		result.addObject("description", chorbi.getDescription());
+		result.addObject("likesReceived", chorbi.getLikesReceived());
+		result.addObject("comments", comments);
+		result.addObject("requestURI", "chorbi/displayById.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/displayById", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int chorbiId) {
+		ModelAndView result;
+		Chorbi chorbi;
+		Map<Integer, String> comments = new HashMap<Integer, String>();
+
+		chorbi = chorbiService.findOne(chorbiId);
+
+		for (RelationLike r : chorbi.getLikesReceived()) {
+			if (r.getComment() == null) {
+				comments.put(r.getId(), "");
+			} else {
+				comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
+			}
+		}
+
+		result = new ModelAndView("chorbi/display");
+		result.addObject("chorbi", chorbi);
+		result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
+		result.addObject("likesReceived", chorbi.getLikesReceived());
+		result.addObject("comments", comments);
+		result.addObject("requestURI", "chorbi/displayById.do");
+
+		return result;
+	}
 	//Browse ----------------------------------------------------
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
@@ -122,7 +122,7 @@ public class ChorbiController extends AbstractController {
 			chorbies.addAll(aux);
 		else
 			for (Chorbi c : aux)
-				if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())){
+				if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
 					chorbies.add(c);
 				}
 		result = new ModelAndView("chorbi/browse");
@@ -141,7 +141,7 @@ public class ChorbiController extends AbstractController {
 		aux = relationLikeService.findByLikesSent(chorbiId);
 
 		for (Chorbi c : aux)
-			if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())){
+			if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
 				chorbies.add(c);
 			}
 		result = new ModelAndView("chorbi/browse");
