@@ -215,6 +215,33 @@
 	  <property name="cvv" value="220" />
 	 </bean>
 	 
+	 <bean id="creditCard5" class="domain.CreditCard">
+	  <property name="holderName" value="Pedro Almodovar" />
+	  <property name="brandName" value="Visa" />
+	  <property name="number" value="4735179919208401" />
+	  <property name="expirationMonth" value="4" />
+	  <property name="expirationYear" value="2019" />
+	  <property name="cvv" value="666" />
+	 </bean>
+	 
+	 <bean id="creditCard6" class="domain.CreditCard">
+	  <property name="holderName" value="Montse Caballet" />
+	  <property name="brandName" value="MasterCard" />
+	  <property name="number" value="5901769379901779" />
+	  <property name="expirationMonth" value="9" />
+	  <property name="expirationYear" value="2020" />
+	  <property name="cvv" value="232" />
+	 </bean>
+	 
+	 <bean id="creditCard7" class="domain.CreditCard">
+	  <property name="holderName" value="Chunk Corris" />
+	  <property name="brandName" value="Amex" />
+	  <property name="number" value="371773256613913" />
+	  <property name="expirationMonth" value="11" />
+	  <property name="expirationYear" value="2021" />
+	  <property name="cvv" value="456" />
+	 </bean>
+	 
 	
 	 
 	 
@@ -481,6 +508,10 @@
 	<property name="vat" value="ES-78787878" />
 	<property name="creditCard" ref="creditCard5" />
 	<property name="feeAmount" value="20.0" />
+	<property name="events">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<!-- Chirps -->
