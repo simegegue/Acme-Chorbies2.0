@@ -89,6 +89,44 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="manager1" />
+		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="manager2" />
+		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="manager3" />
+		<property name="password" value="2d3a5db4a2a9717b43698520a8de57d0" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
 	<!-- Banners -->
 	<bean id="banner1" class="domain.Banner">
 	<property name="url" value="https://c1.staticflickr.com/3/2813/33640539192_f498ce27f2.jpg"/>
@@ -432,6 +470,19 @@
 	</property>
 	</bean>
 	
+	<!-- Manager -->
+	<bean id="manager1" class="domain.Manager">
+	<property name="name" value="Pedro" />
+	<property name="surname" value="Almodovar" />
+	<property name="email" value="pAlm@gmail.com" />
+	<property name="phone" value="+34 966122122" />
+	<property name="userAccount" ref="userAccount7"/>
+	<property name="company" value="Pedro's Company" />
+	<property name="vat" value="ES-78787878" />
+	<property name="creditCard" ref="creditCard5" />
+	<property name="feeAmount" value="20.0" />
+	</bean>
+	
 	<!-- Chirps -->
 	<bean id="chirp1" class="domain.Chirp">
 	<property name="moment" value="02/05/2017 17:44"/>
@@ -502,6 +553,7 @@
 	<bean id="relationLike1" class="domain.RelationLike">
 	<property name="moment" value="03/31/2017 12:45"/>
 	<property name="comment" value="Me pareces muy interesante"/>
+	<property name="stars" value="3"/>
 	<property name="likeSender" ref="chorbi1"/>
 	<property name="likeRecipient" ref="chorbi2"/>
 	
@@ -509,6 +561,7 @@
 	
 	<bean id="relationLike2" class="domain.RelationLike">
 	<property name="moment" value="03/31/2017 14:55"/>
+	<property name="stars" value="2"/>
 	<property name="likeSender" ref="chorbi1"/>
 	<property name="likeRecipient" ref="chorbi4"/>
 	
@@ -517,6 +570,7 @@
 	<bean id="relationLike3" class="domain.RelationLike">
 	<property name="moment" value="03/30/2017 15:55"/>
 	<property name="comment" value="Me pareces muy interesante"/>
+	<property name="stars" value="3"/>
 	<property name="likeSender" ref="chorbi2"/>
 	<property name="likeRecipient" ref="chorbi4"/>
 	
@@ -525,6 +579,7 @@
 	<bean id="relationLike4" class="domain.RelationLike">
 	<property name="moment" value="02/16/2017 12:15"/>
 	<property name="comment" value="Tienes mucha carisma"/>
+	<property name="stars" value="1"/>
 	<property name="likeSender" ref="chorbi3"/>
 	<property name="likeRecipient" ref="chorbi5"/>
 	
@@ -532,6 +587,7 @@
 	
 	<bean id="relationLike5" class="domain.RelationLike">
 	<property name="moment" value="03/14/2017 22:13"/>
+	<property name="stars" value="2"/>
 	<property name="likeSender" ref="chorbi2"/>
 	<property name="likeRecipient" ref="chorbi1"/>
 	
@@ -540,6 +596,7 @@
 	<bean id="relationLike6" class="domain.RelationLike">
 	<property name="moment" value="01/16/2017 19:45"/>
 	<property name="comment" value="Podriamos conectar :^)"/>
+	<property name="stars" value="3"/>
 	<property name="likeSender" ref="chorbi4"/>
 	<property name="likeRecipient" ref="chorbi2"/>
 	
