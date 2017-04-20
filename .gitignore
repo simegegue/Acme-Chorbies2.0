@@ -3,5 +3,4 @@
 Acme-CnG/src/main/webapp/images/logo2.png
 *.lock
 *.bak
-/.settings/
-/target/
+*/.settings

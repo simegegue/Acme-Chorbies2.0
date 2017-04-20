@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +25,7 @@ public class RelationLike extends DomainEntity {
 
 	private Date	moment;
 	private String	comment;
+	private Integer stars;
 
 
 	// Getters and Setters -----------------------------
@@ -65,5 +69,14 @@ public class RelationLike extends DomainEntity {
 		this.likeRecipient = likeRecipient;
 	}
 
+	@NotNull
+	@Min(0)
+	@Digits(fraction = 2, integer = 3)
+	public Integer getStarts() {
+		return this.stars;
+	}
+	public void setStarts(Integer stars) {
+		this.stars = stars;
+	}
 	
 }

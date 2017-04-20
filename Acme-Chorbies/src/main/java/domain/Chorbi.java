@@ -13,6 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,6 +34,7 @@ public class Chorbi extends Actor {
 	private CreditCard	creditCard;
 	private Coordinate	coordinate;
 	private Boolean		banned;
+	private Double		feeAmount;
 
 
 	// Getters and Setters ------------------------------------
@@ -83,6 +87,16 @@ public class Chorbi extends Actor {
 	public void setBanned(Boolean banned) {
 		this.banned = banned;
 	}
+	
+	@NotNull
+	@Min(0)
+	@Digits(fraction = 2, integer = 3)
+	public Double getFeeAmount() {
+		return this.feeAmount;
+	}
+	public void setFeeAmount(Double feeAmount) {
+		this.feeAmount = feeAmount;
+	}
 
 
 	// Relationships -----------------------------------
@@ -93,6 +107,8 @@ public class Chorbi extends Actor {
 	private Collection<RelationLike>	likesSent;
 	private Collection<RelationLike>	likesReceived;
 	private SearchTemplate				searchTemplate;
+	private Collection<RelationEvent> relationEvent;
+
 
 
 	@Valid
@@ -154,6 +170,15 @@ public class Chorbi extends Actor {
 	}
 	public void setSearchTemplate(SearchTemplate searchTemplate) {
 		this.searchTemplate = searchTemplate;
+	}
+	
+	@Valid
+	@OneToMany(mappedBy = "chorbi")
+	public Collection<RelationEvent> getRelationEvents() {
+		return relationEvent;
+	}
+	public void setRelationEvents(Collection<RelationEvent> relationEvent) {
+		this.relationEvent = relationEvent;
 	}
 
 }
