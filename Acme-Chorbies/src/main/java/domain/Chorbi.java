@@ -65,7 +65,6 @@ public class Chorbi extends Actor {
 		this.birthDate = birthDate;
 	}
 
-	
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
@@ -87,7 +86,7 @@ public class Chorbi extends Actor {
 	public void setBanned(Boolean banned) {
 		this.banned = banned;
 	}
-	
+
 	@NotNull
 	@Min(0)
 	@Digits(fraction = 2, integer = 3)
@@ -107,8 +106,7 @@ public class Chorbi extends Actor {
 	private Collection<RelationLike>	likesSent;
 	private Collection<RelationLike>	likesReceived;
 	private SearchTemplate				searchTemplate;
-	private Collection<RelationEvent> relationEvent;
-
+	private Collection<RelationEvent>	relationEvents;
 
 
 	@Valid
@@ -171,14 +169,14 @@ public class Chorbi extends Actor {
 	public void setSearchTemplate(SearchTemplate searchTemplate) {
 		this.searchTemplate = searchTemplate;
 	}
-	
+
 	@Valid
 	@OneToMany(mappedBy = "chorbi")
 	public Collection<RelationEvent> getRelationEvents() {
-		return relationEvent;
+		return relationEvents;
 	}
-	public void setRelationEvents(Collection<RelationEvent> relationEvent) {
-		this.relationEvent = relationEvent;
+	public void setRelationEvents(Collection<RelationEvent> relationEvents) {
+		this.relationEvents = relationEvents;
 	}
 
 }

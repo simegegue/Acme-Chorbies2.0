@@ -1,7 +1,6 @@
 
 package domain;
 
-
 import java.util.Collection;
 
 import javax.persistence.Access;
@@ -30,7 +29,7 @@ public class Manager extends Actor {
 	// Getters and Setters ------------------------------------
 
 	@NotBlank
-	public String getComapny() {
+	public String getCompany() {
 		return this.company;
 	}
 	public void setCompany(String company) {
@@ -45,14 +44,13 @@ public class Manager extends Actor {
 		this.vat = vat;
 	}
 
-	
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
 	public void setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
-	
+
 	@NotNull
 	@Min(0)
 	@Digits(fraction = 2, integer = 3)
@@ -65,9 +63,10 @@ public class Manager extends Actor {
 
 
 	// Relationships -----------------------------------
-	
-	private Collection<Event> events;
-	
+
+	private Collection<Event>	events;
+
+
 	@Valid
 	@OneToMany(mappedBy = "manager")
 	public Collection<Event> getEvents() {
@@ -76,5 +75,5 @@ public class Manager extends Actor {
 	public void setEvents(Collection<Event> events) {
 		this.events = events;
 	}
-	
+
 }

@@ -145,6 +145,16 @@
 	<property name="time" value="12:00:00"/>
 	</bean>
 	
+	<!-- Chorbi Fee -->
+	<bean id="chorbiFee" class="domain.ChorbiFee">
+	<property name="value" value="1.00"/>
+	</bean>
+	
+	<!-- Manager Fee -->
+	<bean id="managerFee" class="domain.ManagerFee">
+	<property name="value" value="1.00"/>
+	</bean>
+	
 	<!-- Genre -->
 	
 	<bean id="genre3" class="domain.Genre">
@@ -323,6 +333,7 @@
 	<property name="creditCard" ref="creditCard1"/>
 	<property name="genre" ref="genre1"/>
 	<property name="kindRelationship" ref="kindRelationship1"/>
+	<property name="feeAmount" value="5.0" />
 	<property name="coordinate" ref="coordinate1"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount2"/>
@@ -345,6 +356,11 @@
 			<ref bean="chirp4"/>
 		</list>
 	</property>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent1"/>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi2" class="domain.Chorbi">
@@ -358,6 +374,7 @@
 	<property name="creditCard" ref="creditCard2"/>
 	<property name="genre" ref="genre2"/>
 	<property name="kindRelationship" ref="kindRelationship2"/>
+	<property name="feeAmount" value="23.0" />
 	<property name="coordinate" ref="coordinate2"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount3"/>
@@ -385,6 +402,10 @@
 			<ref bean="chirp4"/>
 		</list>
 	</property>
+	<property name="relationEvents">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi3" class="domain.Chorbi">
@@ -398,6 +419,7 @@
 	<property name="creditCard" ref="creditCard3"/>
 	<property name="genre" ref="genre1"/>
 	<property name="kindRelationship" ref="kindRelationship3"/>
+	<property name="feeAmount" value="5.0" />
 	<property name="coordinate" ref="coordinate3"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount4"/>
@@ -422,6 +444,10 @@
 			
 		</list>
 	</property>
+	<property name="relationEvents">
+		<list>
+		</list>
+	</property>
 	</bean>
 
 	
@@ -436,6 +462,7 @@
 	<property name="creditCard" ref="creditCard4"/>
 	<property name="genre" ref="genre2"/>
 	<property name="kindRelationship" ref="kindRelationship2"/>
+	<property name="feeAmount" value="10.0" />
 	<property name="coordinate" ref="coordinate4"/>
 	<property name="banned" value="false"/>
 	<property name="userAccount" ref="userAccount5"/>
@@ -458,6 +485,10 @@
 			<ref bean="chirp3"/>
 		</list>
 	</property>
+	<property name="relationEvents">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="chorbi5" class="domain.Chorbi">
@@ -469,7 +500,7 @@
 	<property name="description" value="description5"/>
 	<property name="birthDate" value="08/03/1975"/>
 	<property name="genre" ref="genre1"/>
-	
+	<property name="feeAmount" value="20.0" />
 	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate4"/>
 	<property name="banned" value="false"/>
@@ -495,6 +526,10 @@
 
 		</list>
 	</property>
+	<property name="relationEvents">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<!-- Manager -->
@@ -510,6 +545,55 @@
 	<property name="feeAmount" value="20.0" />
 	<property name="events">
 		<list>
+			<ref bean="event1"/>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="manager2" class="domain.Manager">
+	<property name="name" value="Montse" />
+	<property name="surname" value="Caballet" />
+	<property name="email" value="mCab@gmail.com" />
+	<property name="phone" value="+34 900122122" />
+	<property name="userAccount" ref="userAccount8"/>
+	<property name="company" value="El canto de Montse" />
+	<property name="vat" value="ES-23232323" />
+	<property name="creditCard" ref="creditCard6" />
+	<property name="feeAmount" value="15.0" />
+	<property name="events">
+		<list>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="manager3" class="domain.Manager">
+	<property name="name" value="Chunk" />
+	<property name="surname" value="Corris" />
+	<property name="email" value="RealNorris@gmail.com" />
+	<property name="phone" value="+34 666111666" />
+	<property name="userAccount" ref="userAccount9"/>
+	<property name="company" value="Club Chunk" />
+	<property name="vat" value="ES-66611666" />
+	<property name="creditCard" ref="creditCard7" />
+	<property name="feeAmount" value="100.0" />
+	<property name="events">
+		<list>
+		</list>
+	</property>
+	</bean>
+	
+	<!-- Event -->
+	
+	<bean id="event1" class="domain.Event">
+	<property name="title" value="Evento de cine" />
+	<property name="moment" value="09/09/2016" />
+	<property name="description" value="Evento de cine superchulo organizado por el mejor del cine, Peeeedro" />
+	<property name="picture" value="http://www.eventosregionxv.cl/wp-content/uploads/2015/03/ciclo-de-cine-Almodovar-Arica.jpg" />
+	<property name="seatsOffered" value="50" />
+	<property name="manager" ref="manager1"/>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent1"/>
 		</list>
 	</property>
 	</bean>
@@ -578,6 +662,12 @@
 	<property name="recipient" ref="chorbi2"/>
 	<property name="deleteSender" value="false"/>
 	<property name="deleteRecipient" value="false"/>
+	</bean>
+	
+	<!-- RelationEvent -->
+	<bean id="relationEvent1" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi1"/>
+	<property name="event" ref="event1"/>
 	</bean>
 	
 	<!-- RelationLike -->

@@ -14,7 +14,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -22,16 +21,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Event extends Actor {
+public class Event extends DomainEntity {
 
 	// Attributes ---------------------------------------------
 
-	private String		title;
-	private Date		moment;
-	private String		description;
-	private String		picture;
-	private Integer		siteOffered;
-
+	private String	title;
+	private Date	moment;
+	private String	description;
+	private String	picture;
+	private Integer	seatsOffered;
 
 
 	// Getters and Setters ------------------------------------
@@ -52,7 +50,7 @@ public class Event extends Actor {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -61,7 +59,6 @@ public class Event extends Actor {
 		this.title = title;
 	}
 
-	@Past
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
@@ -73,19 +70,20 @@ public class Event extends Actor {
 
 	@NotNull
 	@Min(1)
-	public Integer getSiteOffered() {
-		return this.siteOffered;
+	public Integer getSeatsOffered() {
+		return this.seatsOffered;
 	}
-	public void setFeeAmount(Integer siteOffered) {
-		this.siteOffered = siteOffered;
+	public void setSeatsOffered(Integer seatsOffered) {
+		this.seatsOffered = seatsOffered;
 	}
 
 
 	// Relationships -----------------------------------
-	
-	private Manager manager;
-	private Collection<RelationEvent> relationEvent;
-	
+
+	private Manager						manager;
+	private Collection<RelationEvent>	relationEvents;
+
+
 	@Valid
 	@ManyToOne(optional = false)
 	public Manager getManager() {
@@ -94,14 +92,14 @@ public class Event extends Actor {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
-	
+
 	@Valid
 	@OneToMany(mappedBy = "event")
 	public Collection<RelationEvent> getRelationEvents() {
-		return relationEvent;
+		return relationEvents;
 	}
-	public void setRelationEvents(Collection<RelationEvent> relationEvent) {
-		this.relationEvent = relationEvent;
+	public void setRelationEvents(Collection<RelationEvent> relationEvents) {
+		this.relationEvents = relationEvents;
 	}
-	
+
 }

@@ -6,21 +6,21 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
+
 @Entity
 @Access(AccessType.PROPERTY)
-public class RelationEvent extends Actor {
+public class RelationEvent extends DomainEntity {
 
 	// Attributes ---------------------------------------------
 
-
 	// Getters and Setters ------------------------------------
 
-
 	// Relationships -----------------------------------
-	
-	private Event event;
-	private Chorbi chorbi;
-	
+
+	private Event	event;
+	private Chorbi	chorbi;
+
+
 	@Valid
 	@ManyToOne(optional = false)
 	public Event getEvent() {
@@ -29,7 +29,7 @@ public class RelationEvent extends Actor {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-	
+
 	@Valid
 	@ManyToOne(optional = false)
 	public Chorbi getChorbi() {
