@@ -359,6 +359,7 @@
 	<property name="relationEvents">
 		<list>
 			<ref bean="relationEvent1"/>
+			<ref bean="relationEvent6"/>
 		</list>
 	</property>
 	</bean>
@@ -404,6 +405,7 @@
 	</property>
 	<property name="relationEvents">
 		<list>
+			<ref bean="relationEvent2"/>
 		</list>
 	</property>
 	</bean>
@@ -446,6 +448,7 @@
 	</property>
 	<property name="relationEvents">
 		<list>
+			<ref bean="relationEvent3"/>
 		</list>
 	</property>
 	</bean>
@@ -487,6 +490,7 @@
 	</property>
 	<property name="relationEvents">
 		<list>
+			<ref bean="relationEvent4"/>
 		</list>
 	</property>
 	</bean>
@@ -528,6 +532,7 @@
 	</property>
 	<property name="relationEvents">
 		<list>
+			<ref bean="relationEvent5"/>
 		</list>
 	</property>
 	</bean>
@@ -546,6 +551,7 @@
 	<property name="events">
 		<list>
 			<ref bean="event1"/>
+			<ref bean="event2"/>
 		</list>
 	</property>
 	</bean>
@@ -562,6 +568,8 @@
 	<property name="feeAmount" value="15.0" />
 	<property name="events">
 		<list>
+			<ref bean="event3"/>
+			<ref bean="event4"/>
 		</list>
 	</property>
 	</bean>
@@ -578,6 +586,7 @@
 	<property name="feeAmount" value="100.0" />
 	<property name="events">
 		<list>
+			<ref bean="event5"/>
 		</list>
 	</property>
 	</bean>
@@ -594,6 +603,63 @@
 	<property name="relationEvents">
 		<list>
 			<ref bean="relationEvent1"/>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="event2" class="domain.Event">
+	<property name="title" value="Evento de pelis" />
+	<property name="moment" value="10/08/2016" />
+	<property name="description" value="Evento de pelis de risa" />
+	<property name="picture" value="https://www.findelahistoria.com/web/wp-content/uploads/2015/01/banne.bmp" />
+	<property name="seatsOffered" value="30" />
+	<property name="manager" ref="manager1"/>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent2"/>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="event3" class="domain.Event">
+	<property name="title" value="Evento de karaoke" />
+	<property name="moment" value="02/10/2016" />
+	<property name="description" value="Karaok3" />
+	<property name="picture" value="http://2.bp.blogspot.com/_W-1r3mo-nXE/TRPCDxIdVPI/AAAAAAAAAXQ/5iWUFbc5jfU/s1600/Karaoke%2BFront-1.jpg" />
+	<property name="seatsOffered" value="16" />
+	<property name="manager" ref="manager2"/>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent3"/>
+			<ref bean="relationEvent6"/>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="event4" class="domain.Event">
+	<property name="title" value="Evento de lecciones de canto" />
+	<property name="moment" value="11/04/2016" />
+	<property name="description" value="Lecciones de canto para que chorbies aprendan juntos y echen unos jajas" />
+	<property name="picture" value="http://caracas.afvenezuela.org/wp-content/uploads/2016/01/ganadores-canta-en-frances.jpg" />
+	<property name="seatsOffered" value="20" />
+	<property name="manager" ref="manager2"/>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent4"/>
+		</list>
+	</property>
+	</bean>
+	
+	<bean id="event5" class="domain.Event">
+	<property name="title" value="Evento de Chunk" />
+	<property name="moment" value="06/06/2017" />
+	<property name="description" value="Evento grandioso de chunk, no te arrepentiras ;)" />
+	<property name="picture" value="https://i.ytimg.com/vi/7ZJaa2jOwCo/hqdefault.jpg" />
+	<property name="seatsOffered" value="999" />
+	<property name="manager" ref="manager3"/>
+	<property name="relationEvents">
+		<list>
+			<ref bean="relationEvent5"/>
 		</list>
 	</property>
 	</bean>
@@ -668,6 +734,31 @@
 	<bean id="relationEvent1" class="domain.RelationEvent">
 	<property name="chorbi" ref="chorbi1"/>
 	<property name="event" ref="event1"/>
+	</bean>
+	
+	<bean id="relationEvent2" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi2"/>
+	<property name="event" ref="event2"/>
+	</bean>
+	
+	<bean id="relationEvent3" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi3"/>
+	<property name="event" ref="event3"/>
+	</bean>
+	
+	<bean id="relationEvent4" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi4"/>
+	<property name="event" ref="event4"/>
+	</bean>
+	
+	<bean id="relationEvent5" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi5"/>
+	<property name="event" ref="event5"/>
+	</bean>
+	
+	<bean id="relationEvent6" class="domain.RelationEvent">
+	<property name="chorbi" ref="chorbi1"/>
+	<property name="event" ref="event3"/>
 	</bean>
 	
 	<!-- RelationLike -->
