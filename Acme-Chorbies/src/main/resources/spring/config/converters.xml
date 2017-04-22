@@ -37,14 +37,29 @@
 		<bean class="converters.ChirpToStringConverter" /> 
 		<bean class="converters.StringToChirpConverter" />
 		
+		<bean class="converters.ChorbiFeeToStringConverter" /> 
+		<bean class="converters.StringToChorbiFeeConverter" />
+		
 		<bean class="converters.ChorbiToStringConverter" /> 
 		<bean class="converters.StringToChorbiConverter" />
+		
+		<bean class="converters.EventToStringConverter" /> 
+		<bean class="converters.StringToEventConverter" />
 		
 		<bean class="converters.GenreToStringConverter" /> 
 		<bean class="converters.StringToGenreConverter" />
 		
 		<bean class="converters.KindRelationshipToStringConverter" /> 
 		<bean class="converters.StringToKindRelationshipConverter" />
+		
+		<bean class="converters.ManagerFeeToStringConverter" /> 
+		<bean class="converters.StringToManagerFeeConverter" />
+		
+		<bean class="converters.ManagerToStringConverter" /> 
+		<bean class="converters.StringToManagerConverter" />
+		
+		<bean class="converters.RelationEventToStringConverter" />
+		<bean class="converters.StringToRelationEventConverter" />
 		
 		<bean class="converters.RelationLikeToStringConverter" />
 		<bean class="converters.StringToRelationLikeConverter" />
