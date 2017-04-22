@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/chorbi/browse.jsp" />
 	</definition>
 	
+	<definition name="chorbi/browseLike" extends="master.page">	
+		<put-attribute name="title" value="List chorbies who liked me" />
+		<put-attribute name="body" value="/views/chorbi/browseLike.jsp" />
+	</definition>
+	
 	<definition name="chorbi/display" extends="master.page">	
 		<put-attribute name="title" value="Display chorbi" />
 		<put-attribute name="body" value="/views/chorbi/display.jsp" />

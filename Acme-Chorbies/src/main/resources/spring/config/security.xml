@@ -46,6 +46,7 @@
 		<security:intercept-url pattern="/chorbi/displayById.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/display.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/browse.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/chorbi/browseLike.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/chorbi/register.do" access="permitAll" />
 		<security:intercept-url pattern="/chorbi/edit.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/chorbieswholikethem.do" access="isAuthenticated()" /> 

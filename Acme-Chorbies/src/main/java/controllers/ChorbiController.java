@@ -132,6 +132,28 @@ public class ChorbiController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/browseLike", method = RequestMethod.GET)
+	public ModelAndView browseLike() {
+		ModelAndView result;
+		Collection<Chorbi> aux = new ArrayList<Chorbi>();
+		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		int chorbiId = chorbi.getId();
+		aux = relationLikeService.findByLikesSent(chorbiId);
+		Boolean b = chorbiService.principalCheckCreditCard();
+
+		for (Chorbi c : aux)
+			if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
+				chorbies.add(c);
+			}
+		result = new ModelAndView("chorbi/browseLike");
+		result.addObject("chorbies", chorbies);
+		result.addObject("requestURI", "chorbi/browseLike.do");
+		result.addObject("validatorCreditCard", b);
+
+		return result;
+	}
+
 	//Browse
 	@RequestMapping(value = "/chorbieswholikethem", method = RequestMethod.GET)
 	public ModelAndView chorbieswholikethem(@RequestParam int chorbiId) {

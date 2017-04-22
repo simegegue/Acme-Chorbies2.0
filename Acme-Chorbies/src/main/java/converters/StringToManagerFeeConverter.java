@@ -11,7 +11,7 @@ import domain.ManagerFee;
 
 @Component
 @Transactional
-public class StringToMangerFeeConverter implements Converter<String, ManagerFee>{
+public class StringToManagerFeeConverter implements Converter<String, ManagerFee>{
 	
 	@Autowired
 	ManagerFeeRepository	 managerFeeRepository;
