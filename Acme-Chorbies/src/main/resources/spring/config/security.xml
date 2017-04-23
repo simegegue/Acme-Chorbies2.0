@@ -71,6 +71,7 @@
 		
 		
 		<security:intercept-url pattern="/event/browse.do" access="permitAll" />
+		<security:intercept-url pattern="/event/browseAvailable.do" access="permitAll" />
 		<security:intercept-url pattern="/event/display.do" access="permitAll" />
 		
 	

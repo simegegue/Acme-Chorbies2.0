@@ -35,12 +35,29 @@ public class EventController extends AbstractController {
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public ModelAndView browse() {
 		ModelAndView result;
-		Collection<Event> events = new ArrayList<Event>();
-		events = eventService.findAll();
+
+		Collection<Event> eventsOneMonth = eventService.eventsInLessOneMonth();
+		Collection<Event> pastEvents = eventService.pastEvents();
+		Collection<Event> events = eventService.findAll();
 
 		result = new ModelAndView("event/browse");
 		result.addObject("events", events);
+		result.addObject("pastEvents", pastEvents);
+		result.addObject("eventsOneMonth", eventsOneMonth);
 		result.addObject("requestURI", "event/browse.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/browseAvailable", method = RequestMethod.GET)
+	public ModelAndView browseAvailable() {
+		ModelAndView result;
+		Collection<Event> events = new ArrayList<Event>();
+		events = eventService.eventsInLessOneMonth();
+
+		result = new ModelAndView("event/browseAvailable");
+		result.addObject("events", events);
+		result.addObject("requestURI", "event/browseAvailable.do");
 
 		return result;
 	}

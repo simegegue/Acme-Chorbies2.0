@@ -3,6 +3,9 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,4 +104,57 @@ public class EventService {
 		eventRepository.delete(event);
 	}
 
+	//Other Services -----
+
+	public Map<Event, Integer> map() {
+		Map<Event, Integer> map = new HashMap<Event, Integer>();
+		List<Object[]> aux = eventRepository.eventsInLessOneMonth();
+		for (Object[] o : aux) {
+			map.put((Event) o[0], (Integer) o[1]);
+		}
+		return map;
+	}
+	public Collection<Event> eventsInLessOneMonth() {
+		Collection<Event> result = new ArrayList<Event>();
+		Map<Event, Integer> oneMonth = map();
+		for (Event e : oneMonth.keySet()) {
+			if ((oneMonth.get(e) == 0) && (hasSeats(e) == true)) {
+				result.add(e);
+			}
+		}
+
+		return result;
+	}
+
+	public Collection<Event> pastEvents() {
+		Collection<Event> result = new ArrayList<Event>();
+		Map<Event, Integer> pastEvents = map();
+		for (Event e : pastEvents.keySet()) {
+			if ((pastEvents.get(e) < 0)) {
+				result.add(e);
+			}
+		}
+
+		return result;
+	}
+
+	public Integer seats(Event event) {
+		Integer result = event.getRelationEvents().size();
+
+		return result;
+	}
+
+	public Boolean hasSeats(Event event) {
+
+		Boolean result = false;
+
+		Integer seats = seats(event);
+
+		if (event.getSeatsOffered() - seats > 0) {
+			result = true;
+		}
+
+		return result;
+
+	}
 }
