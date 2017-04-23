@@ -595,7 +595,7 @@
 	
 	<bean id="event1" class="domain.Event">
 	<property name="title" value="Evento de cine" />
-	<property name="moment" value="09/09/2016" />
+	<property name="moment" value="09/09/2016 18:00" />
 	<property name="description" value="Evento de cine superchulo organizado por el mejor del cine, Peeeedro" />
 	<property name="picture" value="http://www.eventosregionxv.cl/wp-content/uploads/2015/03/ciclo-de-cine-Almodovar-Arica.jpg" />
 	<property name="seatsOffered" value="50" />
@@ -609,7 +609,7 @@
 	
 	<bean id="event2" class="domain.Event">
 	<property name="title" value="Evento de pelis" />
-	<property name="moment" value="10/08/2016" />
+	<property name="moment" value="10/08/2016 22:30" />
 	<property name="description" value="Evento de pelis de risa" />
 	<property name="picture" value="https://www.findelahistoria.com/web/wp-content/uploads/2015/01/banne.bmp" />
 	<property name="seatsOffered" value="30" />
@@ -623,7 +623,7 @@
 	
 	<bean id="event3" class="domain.Event">
 	<property name="title" value="Evento de karaoke" />
-	<property name="moment" value="02/10/2016" />
+	<property name="moment" value="02/10/2016 18:00" />
 	<property name="description" value="Karaok3" />
 	<property name="picture" value="http://2.bp.blogspot.com/_W-1r3mo-nXE/TRPCDxIdVPI/AAAAAAAAAXQ/5iWUFbc5jfU/s1600/Karaoke%2BFront-1.jpg" />
 	<property name="seatsOffered" value="16" />
@@ -638,7 +638,7 @@
 	
 	<bean id="event4" class="domain.Event">
 	<property name="title" value="Evento de lecciones de canto" />
-	<property name="moment" value="11/04/2016" />
+	<property name="moment" value="11/04/2016 12:30" />
 	<property name="description" value="Lecciones de canto para que chorbies aprendan juntos y echen unos jajas" />
 	<property name="picture" value="http://caracas.afvenezuela.org/wp-content/uploads/2016/01/ganadores-canta-en-frances.jpg" />
 	<property name="seatsOffered" value="20" />
@@ -652,7 +652,7 @@
 	
 	<bean id="event5" class="domain.Event">
 	<property name="title" value="Evento de Chunk" />
-	<property name="moment" value="06/06/2017" />
+	<property name="moment" value="06/06/2017 15:00" />
 	<property name="description" value="Evento grandioso de chunk, no te arrepentiras ;)" />
 	<property name="picture" value="https://i.ytimg.com/vi/7ZJaa2jOwCo/hqdefault.jpg" />
 	<property name="seatsOffered" value="999" />

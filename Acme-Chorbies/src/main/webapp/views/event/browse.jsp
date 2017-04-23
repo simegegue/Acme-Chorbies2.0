@@ -26,7 +26,7 @@
 	<display:column property="title" title="${titleHeader}"/>
 	
 	<spring:message code="event.moment" var="momentHeader" />
-	<display:column title="${momentHeader}"	sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy hh:mm" /></display:column>
+	<display:column title="${momentHeader}"	sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
 	
 	<display:column>
 		<a href="event/display.do?eventId=${row.id}"><spring:message code="event.display" /></a>

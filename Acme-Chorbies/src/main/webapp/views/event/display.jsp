@@ -30,7 +30,7 @@
 				<spring:message code="event.moment" />
 			</th>
 			<td>
-				<fmt:formatDate value="${event.moment }" pattern="dd/MM/yyyy hh:mm" />
+				<fmt:formatDate value="${event.moment }" pattern="dd/MM/yyyy HH:mm" />
 			</td>
 		</tr>
 		<tr>
