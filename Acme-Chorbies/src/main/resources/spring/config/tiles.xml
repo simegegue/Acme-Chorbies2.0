@@ -35,6 +35,8 @@
 		<value>/views/relationLike/tiles.xml</value>
 		<value>/views/searchTemplate/tiles.xml</value>
 		
+		<value>/views/event/tiles.xml</value>
+		
 		
 	</util:list>
 

@@ -34,6 +34,8 @@
 		<value>/views/chorbi/messages</value>
 		<value>/views/relationLike/messages</value>
 		<value>/views/searchTemplate/messages</value>
+		
+		<value>/views/event/messages</value>
 	</util:list>
 
 </beans>
