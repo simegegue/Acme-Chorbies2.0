@@ -652,7 +652,7 @@
 	
 	<bean id="event5" class="domain.Event">
 	<property name="title" value="Evento de Chunk" />
-	<property name="moment" value="05/22/2017 15:00" />
+	<property name="moment" value="06/22/2017 15:00" />
 	<property name="description" value="Evento grandioso de chunk, no te arrepentiras ;)" />
 	<property name="picture" value="https://i.ytimg.com/vi/7ZJaa2jOwCo/hqdefault.jpg" />
 	<property name="seatsOffered" value="999" />

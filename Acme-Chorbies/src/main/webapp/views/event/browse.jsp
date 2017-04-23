@@ -21,16 +21,48 @@
 	class="displaytag"
 	pagesize="5"
 	requestURI="${requestURI}" >
+
+	<jstl:choose>
+		<jstl:when test="${eventsOneMonth.contains(row)}">
+			<spring:message code="event.title" var="titleHeader" />
+			<display:column property="title" title="${titleHeader}" style="background-color:lightblue; font-weight:bold"/>
+			
+			<spring:message code="event.seats" var="seatsHeader" />
+			<display:column title="${seatsHeader}" style="background-color:lightblue; font-weight:bold"><jstl:out value="${seats.get(row)}"/></display:column>
 	
-	<spring:message code="event.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}"/>
+			<spring:message code="event.moment" var="momentHeader" />
+			<display:column title="${momentHeader}" style="background-color:lightblue; font-weight:bold" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
+		
+		</jstl:when>
+		<jstl:when test="${pastEvents.contains(row)}">
+			<spring:message code="event.title" var="titleHeader" />
+			<display:column property="title" title="${titleHeader}" style="background-color:grey"/>
+			
+			<spring:message code="event.seats" var="seatsHeader" />
+			<display:column title="${seatsHeader}" style="background-color:grey"><jstl:out value="${seats.get(row)}"/></display:column>
 	
-	<spring:message code="event.moment" var="momentHeader" />
-	<display:column title="${momentHeader}"	sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
+			<spring:message code="event.moment" var="momentHeader" />
+			<display:column title="${momentHeader}" style="background-color:grey" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
+		
+		</jstl:when>
+		<jstl:when test="${not pastEvents.contains(row) && not eventsOneMonth.contains(row)}">
+			<spring:message code="event.title" var="titleHeader" />
+			<display:column property="title" title="${titleHeader}" style="none"/>
+			
+			<spring:message code="event.seats" var="seatsHeader" />
+			<display:column title="${seatsHeader}" style="none"><jstl:out value="${seats.get(row)}"/></display:column>
+	
+			<spring:message code="event.moment" var="momentHeader" />
+			<display:column title="${momentHeader}" style="none" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
+			
+		</jstl:when>
+	</jstl:choose>
 	
 	<display:column>
 		<a href="event/display.do?eventId=${row.id}"><spring:message code="event.display" /></a>
 	</display:column>
+	
+	
 	
 </display:table>
 

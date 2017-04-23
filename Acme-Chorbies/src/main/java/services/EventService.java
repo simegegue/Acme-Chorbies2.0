@@ -144,17 +144,31 @@ public class EventService {
 		return result;
 	}
 
+	public Integer availableSeats(Event event) {
+		Integer result = event.getSeatsOffered() - seats(event);
+		return result;
+	}
+
 	public Boolean hasSeats(Event event) {
 
 		Boolean result = false;
 
-		Integer seats = seats(event);
-
-		if (event.getSeatsOffered() - seats > 0) {
+		if (availableSeats(event) > 0) {
 			result = true;
 		}
 
 		return result;
 
+	}
+
+	public Map<Event, Integer> mapSeats() {
+		Map<Event, Integer> map = new HashMap<Event, Integer>();
+		Collection<Event> aux = findAll();
+		Integer seats;
+		for (Event e : aux) {
+			seats = availableSeats(e);
+			map.put(e, seats);
+		}
+		return map;
 	}
 }

@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,10 +39,12 @@ public class EventController extends AbstractController {
 
 		Collection<Event> eventsOneMonth = eventService.eventsInLessOneMonth();
 		Collection<Event> pastEvents = eventService.pastEvents();
+		Map<Event, Integer> map = eventService.mapSeats();
 		Collection<Event> events = eventService.findAll();
 
 		result = new ModelAndView("event/browse");
 		result.addObject("events", events);
+		result.addObject("seats", map);
 		result.addObject("pastEvents", pastEvents);
 		result.addObject("eventsOneMonth", eventsOneMonth);
 		result.addObject("requestURI", "event/browse.do");
