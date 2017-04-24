@@ -19,6 +19,8 @@ import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
 import domain.Event;
+import domain.RelationEvent;
+import domain.Senders;
 import forms.ChirpForm;
 
 @Service
@@ -62,13 +64,18 @@ public class ChirpService {
 
 			Chirp result;
 			result = new Chirp();
-
-			Chorbi chorbi;
-			chorbi = chorbiService.findByPrincipal();
+			Senders sender;
+			
+			if(userAccount.getAuthorities().contains(au)){
+				sender = chorbiService.findByPrincipal();
+			}else{
+				sender = managerService.findByPrincipal();
+			}
+			
 			Date moment = new Date(System.currentTimeMillis() - 10);
 			Collection<String> attachments = new ArrayList<String>();
 
-			result.setSender(chorbi);
+			result.setSender(sender);
 			result.setMoment(moment);
 			result.setAttachment(attachments);
 			result.setDeleteRecipient(false);
@@ -216,10 +223,10 @@ public class ChirpService {
 
 			Assert.isTrue(chirp.getRecipient().equals(chorbi));
 
-			Chorbi sender = chirp.getSender();
+			Senders sender = chirp.getSender();
 			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 
-			chorbies.add(sender);
+			chorbies.add((Chorbi)sender);
 
 			return chorbies;
 		}
@@ -333,8 +340,19 @@ public class ChirpService {
 	
 	//  Chirp to chorbies register to an event --------------------------------------
 	
-	public void chirpToChorbies(Event event){
+	public void chirpToChorbies(Event event, ChirpForm chirpForm, BindingResult binding){
+		Collection<RelationEvent> relationEvents = event.getRelationEvents();
 		
+		for(RelationEvent re : relationEvents){
+			Chirp chirp = create();
+			chirp.setRecipient(re.getChorbi());
+			chirp.setText(chirpForm.getText());
+			chirp.setAttachment(chirpForm.getAttachment());
+			chirp.setSubject(chirpForm.getSubject());
+			
+			validator.validate(chirp, binding);
+			save(chirp);
+		}
 	}
 	
 }

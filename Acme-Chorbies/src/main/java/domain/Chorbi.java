@@ -24,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Chorbi extends Actor {
+public class Chorbi extends Senders {
 
 	// Attributes ---------------------------------------------
 
@@ -101,7 +101,6 @@ public class Chorbi extends Actor {
 	// Relationships -----------------------------------
 	private Genre						genre;
 	private KindRelationship			kindRelationship;
-	private Collection<Chirp>			sent;
 	private Collection<Chirp>			received;
 	private Collection<RelationLike>	likesSent;
 	private Collection<RelationLike>	likesReceived;
@@ -127,14 +126,6 @@ public class Chorbi extends Actor {
 		this.kindRelationship = kindRelationship;
 	}
 
-	@Valid
-	@OneToMany(mappedBy = "sender")
-	public Collection<Chirp> getSent() {
-		return sent;
-	}
-	public void setSent(Collection<Chirp> sent) {
-		this.sent = sent;
-	}
 	@Valid
 	@OneToMany(mappedBy = "recipient")
 	public Collection<Chirp> getReceived() {
