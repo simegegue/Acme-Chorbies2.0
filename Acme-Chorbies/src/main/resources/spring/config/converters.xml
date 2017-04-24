@@ -37,9 +37,6 @@
 		<bean class="converters.ChirpToStringConverter" /> 
 		<bean class="converters.StringToChirpConverter" />
 		
-		<bean class="converters.ChorbiFeeToStringConverter" /> 
-		<bean class="converters.StringToChorbiFeeConverter" />
-		
 		<bean class="converters.ChorbiToStringConverter" /> 
 		<bean class="converters.StringToChorbiConverter" />
 		
@@ -52,8 +49,8 @@
 		<bean class="converters.KindRelationshipToStringConverter" /> 
 		<bean class="converters.StringToKindRelationshipConverter" />
 		
-		<bean class="converters.ManagerFeeToStringConverter" /> 
-		<bean class="converters.StringToManagerFeeConverter" />
+		<bean class="converters.FeeToStringConverter" /> 
+		<bean class="converters.StringToFeeConverter" />
 		
 		<bean class="converters.ManagerToStringConverter" /> 
 		<bean class="converters.StringToManagerConverter" />

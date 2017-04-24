@@ -1,11 +1,12 @@
+
 package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.ManagerFee;
+import domain.Fee;
 
 @Repository
-public interface ManagerFeeRepository extends JpaRepository<ManagerFee, Integer>{
+public interface FeeRepository extends JpaRepository<Fee, Integer> {
 
 }

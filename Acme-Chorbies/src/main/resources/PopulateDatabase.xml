@@ -145,14 +145,10 @@
 	<property name="time" value="12:00:00"/>
 	</bean>
 	
-	<!-- Chorbi Fee -->
-	<bean id="chorbiFee" class="domain.ChorbiFee">
-	<property name="value" value="1.00"/>
-	</bean>
-	
-	<!-- Manager Fee -->
-	<bean id="managerFee" class="domain.ManagerFee">
-	<property name="value" value="1.00"/>
+	<!-- Fee -->
+	<bean id="fee" class="domain.Fee">
+	<property name="chorbiValue" value="1.00"/>
+	<property name="managerValue" value="1.00"/>
 	</bean>
 	
 	<!-- Genre -->

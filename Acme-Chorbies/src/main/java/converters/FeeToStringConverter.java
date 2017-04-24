@@ -1,23 +1,24 @@
+
 package converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.ManagerFee;
+import domain.Fee;
 
 @Component
 @Transactional
-public class ManagerFeeToStringConverter implements Converter<ManagerFee, String>{
-	
+public class FeeToStringConverter implements Converter<Fee, String> {
+
 	@Override
-	public String convert(final ManagerFee managerFee) {
+	public String convert(final Fee fee) {
 		String result;
 
-		if (managerFee == null)
+		if (fee == null)
 			result = null;
 		else
-			result = String.valueOf(managerFee.getId());
+			result = String.valueOf(fee.getId());
 
 		return result;
 	}
