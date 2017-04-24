@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ChirpService;
 import services.ChorbiService;
+import services.EventService;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.Event;
 import forms.ChirpForm;
 
 @Controller
@@ -30,6 +32,9 @@ public class ChirpController extends AbstractController {
 
 	@Autowired
 	private ChorbiService	chorbiService;
+	
+	@Autowired
+	private EventService eventService;
 
 
 	// Constructor -----------------------------------------
@@ -227,6 +232,34 @@ public class ChirpController extends AbstractController {
 
 		return result;
 
+	}
+	
+	// Broadcast --------------------------------------------
+	
+	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
+	public ModelAndView createBroadcast(@RequestParam int eventId){
+		ModelAndView result;
+		ChirpForm chirpForm = chirpService.generate();
+				
+		result = new ModelAndView("chirp/broadcast");
+		result.addObject("chirpForm", chirpForm);
+		result.addObject("eventId", eventId);
+				
+		return result;
+	}
+			
+	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveBroadcast(@RequestParam int eventId, ChirpForm chirpForm, BindingResult binding){
+		ModelAndView result;
+		Event event = eventService.findOne(eventId);
+		try{
+			chirpService.chirpToChorbies(event, chirpForm, binding);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}catch(Throwable oops){
+			String message = "chirp.error";
+			result = createEditModelAndView(chirpForm, message);
+		}		
+		return result;		
 	}
 
 	// Ancillary methods ---------------------------------------
