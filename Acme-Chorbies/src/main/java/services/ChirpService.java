@@ -18,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.Event;
 import forms.ChirpForm;
 
 @Service
@@ -37,6 +38,9 @@ public class ChirpService {
 	@Autowired
 	private Validator			validator;
 	
+	@Autowired
+	private ManagerService 		managerService;
+	
 	// Constructors -----------------------------------------------------------
 	
 	public ChirpService(){
@@ -51,8 +55,10 @@ public class ChirpService {
 			userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
+			Authority au2 = new Authority();
+			au.setAuthority("MANAGER");
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
 			Chirp result;
 			result = new Chirp();
@@ -296,5 +302,39 @@ public class ChirpService {
 
 			return result;
 		}
-
+		
+	// Chirp update, delete event ----------------------------------------------------
+		
+	public Chirp chirpUpdateEvent(Event event){
+		Chirp chirp = create();
+		String message = "El evento "+ event.getTitle() + "ha sufrido modifciaciones. Compurebe dichas modifcaciones en el evento.";
+		String subject = "Modificaciones en el evento "+ event.getTitle();
+			
+		chirp.setSubject(subject);
+		chirp.setText(message);
+		
+		save(chirp);
+			
+		return chirp;
+	}
+	
+	public Chirp chirpDeleteEvent(Event event){
+		Chirp chirp = create();
+		String message = "El evento "+ event.getTitle() + "ha sido eliminado por su creador";
+		String subject = "El evento "+ event.getTitle()+ "ha sido eliminado.";
+			
+		chirp.setSubject(subject);
+		chirp.setText(message);
+		
+		save(chirp);
+			
+		return chirp;
+	}
+	
+	//  Chirp to chorbies register to an event --------------------------------------
+	
+	public void chirpToChorbies(Event event){
+		
+	}
+	
 }
