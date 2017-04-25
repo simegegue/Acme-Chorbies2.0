@@ -8,6 +8,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <table id="row" class="table">
 	
@@ -50,3 +52,6 @@
 			</td>
 		</tr>
 </table>
+<security:authorize access="hasRole('MANAGER')">
+	<a href="chirp/broadcast.do?eventId=${event.id }"><spring:message code = "event.broadcast" /></a>
+</security:authorize>

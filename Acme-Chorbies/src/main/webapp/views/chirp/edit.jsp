@@ -17,10 +17,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<security:authorize access="hasRole('CHORBI')">
+<security:authorize access="hasAnyRole('CHORBI','MANAGER')">
 
 	<form:form action="${requestURI}"	modelAttribute="chirpForm">
-	
+		<form:hidden path="eventId"/>
 		<acme:textbox code="chirp.sender" path="sender.userAccount.username" readonly="true" />
 		<br/>
 		<acme:select items="${chorbies }" itemLabel="userAccount.username" code="chirp.recipient" path="recipient" />

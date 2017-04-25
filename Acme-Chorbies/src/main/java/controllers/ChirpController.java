@@ -239,19 +239,18 @@ public class ChirpController extends AbstractController {
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public ModelAndView createBroadcast(@RequestParam int eventId){
 		ModelAndView result;
-		ChirpForm chirpForm = chirpService.generate();
+		ChirpForm chirpForm = chirpService.generate(eventId);
 				
 		result = new ModelAndView("chirp/broadcast");
 		result.addObject("chirpForm", chirpForm);
-		result.addObject("eventId", eventId);
 				
 		return result;
 	}
 			
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveBroadcast(@RequestParam int eventId, ChirpForm chirpForm, BindingResult binding){
+	public ModelAndView saveBroadcast(ChirpForm chirpForm, BindingResult binding){
 		ModelAndView result;
-		Event event = eventService.findOne(eventId);
+		Event event = eventService.findOne(chirpForm.getEventId());
 		try{
 			chirpService.chirpToChorbies(event, chirpForm, binding);
 			result = new ModelAndView("redirect:/welcome/index.do");

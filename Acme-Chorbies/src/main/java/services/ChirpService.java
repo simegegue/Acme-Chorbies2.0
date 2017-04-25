@@ -58,7 +58,7 @@ public class ChirpService {
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
 			Authority au2 = new Authority();
-			au.setAuthority("MANAGER");
+			au2.setAuthority("MANAGER");
 
 			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
@@ -124,8 +124,10 @@ public class ChirpService {
 			userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
+			Authority au2 = new Authority();
+			au2.setAuthority("MANAGER");
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
 			Assert.notNull(chirp);
 			Chirp result;
@@ -263,13 +265,46 @@ public class ChirpService {
 			userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
+			Authority au2 = new Authority();
+			au2.setAuthority("MANAGER");
 
-			Assert.isTrue(userAccount.getAuthorities().contains(au));
+			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
 			ChirpForm result = new ChirpForm();
+			Senders sender;
+			
+			if(userAccount.getAuthorities().contains(au)){
+				sender = chorbiService.findByPrincipal();
+			}else{
+				sender = managerService.findByPrincipal();
+			}
+			
+			result.setSender(sender);
+			return result;
+		}
+		
+		public ChirpForm generate(int eventId) {
 
-			result.setSender(chorbiService.findByPrincipal());
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			Authority au2 = new Authority();
+			au2.setAuthority("MANAGER");
 
+			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
+
+			ChirpForm result = new ChirpForm();
+			Senders sender;
+			
+			if(userAccount.getAuthorities().contains(au)){
+				sender = chorbiService.findByPrincipal();
+			}else{
+				sender = managerService.findByPrincipal();
+			}
+			
+			result.setSender(sender);
+			result.setEventId(eventId);
 			return result;
 		}
 
@@ -342,9 +377,11 @@ public class ChirpService {
 	
 	public void chirpToChorbies(Event event, ChirpForm chirpForm, BindingResult binding){
 		Collection<RelationEvent> relationEvents = event.getRelationEvents();
+		Senders sender = managerService.findByPrincipal();
 		
 		for(RelationEvent re : relationEvents){
 			Chirp chirp = create();
+			chirp.setSender(sender);
 			chirp.setRecipient(re.getChorbi());
 			chirp.setText(chirpForm.getText());
 			chirp.setAttachment(chirpForm.getAttachment());
@@ -353,6 +390,7 @@ public class ChirpService {
 			validator.validate(chirp, binding);
 			save(chirp);
 		}
+
 	}
 	
 }
