@@ -550,6 +550,10 @@
 			<ref bean="event2"/>
 		</list>
 	</property>
+	<property name="sent">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="manager2" class="domain.Manager">
@@ -568,6 +572,10 @@
 			<ref bean="event4"/>
 		</list>
 	</property>
+	<property name="sent">
+		<list>
+		</list>
+	</property>
 	</bean>
 	
 	<bean id="manager3" class="domain.Manager">
@@ -583,6 +591,10 @@
 	<property name="events">
 		<list>
 			<ref bean="event5"/>
+		</list>
+	</property>
+	<property name="sent">
+		<list>
 		</list>
 	</property>
 	</bean>

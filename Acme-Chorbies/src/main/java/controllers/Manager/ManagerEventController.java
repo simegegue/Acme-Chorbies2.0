@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CacheTimeService;
+import services.ChirpService;
 import services.ChorbiService;
 import services.EventService;
 import services.GenreService;
@@ -44,6 +45,9 @@ public class ManagerEventController extends AbstractController {
 
 	@Autowired
 	private KindRelationshipService	kindRelationshipService;
+	
+	@Autowired
+	private ChirpService			chirpService;
 
 
 	//Constructor----------------------
@@ -112,7 +116,8 @@ public class ManagerEventController extends AbstractController {
 		else
 			try {
 				event = eventService.reconstruct(event, binding);
-				eventService.save(event);
+				Event event2 = eventService.save(event);
+				chirpService.chirpUpdateEvent(event2);
 				result = list();
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
@@ -132,6 +137,7 @@ public class ManagerEventController extends AbstractController {
 		else
 			try {
 				eventService.delete(event);
+				chirpService.chirpDeleteEvent(event.getId());
 				result = list();
 			} catch (Throwable oops) {
 				result = createEditModelAndView(event);

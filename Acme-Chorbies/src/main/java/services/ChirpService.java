@@ -19,6 +19,7 @@ import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
 import domain.Event;
+import domain.Manager;
 import domain.RelationEvent;
 import domain.Senders;
 import forms.ChirpForm;
@@ -42,6 +43,9 @@ public class ChirpService {
 	
 	@Autowired
 	private ManagerService 		managerService;
+	
+	@Autowired
+	private EventService		eventService;
 	
 	// Constructors -----------------------------------------------------------
 	
@@ -347,30 +351,44 @@ public class ChirpService {
 		
 	// Chirp update, delete event ----------------------------------------------------
 		
-	public Chirp chirpUpdateEvent(Event event){
-		Chirp chirp = create();
+	public void chirpUpdateEvent(Event event){
 		String message = "El evento "+ event.getTitle() + "ha sufrido modifciaciones. Compurebe dichas modifcaciones en el evento.";
 		String subject = "Modificaciones en el evento "+ event.getTitle();
-			
-		chirp.setSubject(subject);
-		chirp.setText(message);
+		Collection<RelationEvent> relationEvents = event.getRelationEvents();
+		Manager manager = managerService.findByPrincipal();
 		
-		save(chirp);
+		for(RelationEvent re : relationEvents){
+			Collection<String> attachement = new ArrayList<String>();
+			Chirp chirp = create();
+			chirp.setSender(manager);
+			chirp.setRecipient(re.getChorbi());
+			chirp.setText(message);
+			chirp.setAttachment(attachement);
+			chirp.setSubject(subject);
 			
-		return chirp;
+			save(chirp);
+		}
 	}
 	
-	public Chirp chirpDeleteEvent(Event event){
-		Chirp chirp = create();
+	public void chirpDeleteEvent(int eventId){
+		Event event = eventService.findOne(eventId);
 		String message = "El evento "+ event.getTitle() + "ha sido eliminado por su creador";
 		String subject = "El evento "+ event.getTitle()+ "ha sido eliminado.";
-			
-		chirp.setSubject(subject);
-		chirp.setText(message);
+		Collection<RelationEvent> relationEvents = event.getRelationEvents();
+		Manager manager = managerService.findByPrincipal();
 		
-		save(chirp);
+		for(RelationEvent re : relationEvents){
+			Collection<String> attachement = new ArrayList<String>();
+			Chirp chirp = create();
+			chirp.setSender(manager);
+			chirp.setRecipient(re.getChorbi());
+			chirp.setText(message);
+			chirp.setAttachment(attachement);
+			chirp.setSubject(subject);
 			
-		return chirp;
+			save(chirp);
+		}
+			
 	}
 	
 	//  Chirp to chorbies register to an event --------------------------------------
