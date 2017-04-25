@@ -44,9 +44,6 @@ public class ChirpService {
 	@Autowired
 	private ManagerService 		managerService;
 	
-	@Autowired
-	private EventService		eventService;
-	
 	// Constructors -----------------------------------------------------------
 	
 	public ChirpService(){
@@ -370,18 +367,18 @@ public class ChirpService {
 		}
 	}
 	
-	public void chirpDeleteEvent(int eventId){
-		Event event = eventService.findOne(eventId);
-		String message = "El evento "+ event.getTitle() + "ha sido eliminado por su creador";
-		String subject = "El evento "+ event.getTitle()+ "ha sido eliminado.";
-		Collection<RelationEvent> relationEvents = event.getRelationEvents();
+	public void chirpDeleteEvent(String eventTitle, Collection<Chorbi> chorbies){
+		
+		String message = "El evento "+ eventTitle + "ha sido eliminado por su creador";
+		String subject = "El evento "+ eventTitle+ "ha sido eliminado.";
+		
 		Manager manager = managerService.findByPrincipal();
 		
-		for(RelationEvent re : relationEvents){
+		for(Chorbi re : chorbies){
 			Collection<String> attachement = new ArrayList<String>();
 			Chirp chirp = create();
 			chirp.setSender(manager);
-			chirp.setRecipient(re.getChorbi());
+			chirp.setRecipient(re);
 			chirp.setText(message);
 			chirp.setAttachment(attachement);
 			chirp.setSubject(subject);

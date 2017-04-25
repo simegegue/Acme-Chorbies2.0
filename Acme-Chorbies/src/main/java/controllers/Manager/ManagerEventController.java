@@ -1,6 +1,7 @@
 
 package controllers.Manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ import services.EventService;
 import services.GenreService;
 import services.KindRelationshipService;
 import controllers.AbstractController;
+import domain.Chorbi;
 import domain.Event;
+import domain.RelationEvent;
 import forms.EventForm;
 
 @Controller
@@ -136,8 +139,13 @@ public class ManagerEventController extends AbstractController {
 			result = createEditModelAndView(event);
 		else
 			try {
+				String title = event.getTitle();
+				Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+				for(RelationEvent re: event.getRelationEvents()){
+					chorbies.add(re.getChorbi());
+				}
 				eventService.delete(event);
-				chirpService.chirpDeleteEvent(event.getId());
+				chirpService.chirpDeleteEvent(title,chorbies);
 				result = list();
 			} catch (Throwable oops) {
 				result = createEditModelAndView(event);

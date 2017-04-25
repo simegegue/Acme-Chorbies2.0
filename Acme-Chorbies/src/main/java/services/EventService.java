@@ -216,8 +216,9 @@ public class EventService {
 			result.setSeatsOffered(event.getSeatsOffered());
 			result.setTitle(event.getTitle());
 		} else {
+			Event event2 = findOne(event.getId());
 			result = eventRepository.findOne(event.getId());
-			result.setRelationEvents(relationEvents);
+			result.setRelationEvents(event2.getRelationEvents());
 			result.setDescription(event.getDescription());
 			result.setMoment(event.getMoment());
 			result.setPicture(event.getPicture());
