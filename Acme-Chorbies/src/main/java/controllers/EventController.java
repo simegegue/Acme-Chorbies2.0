@@ -57,9 +57,11 @@ public class EventController extends AbstractController {
 		ModelAndView result;
 		Collection<Event> events = new ArrayList<Event>();
 		events = eventService.eventsInLessOneMonth();
+		Map<Event, Integer> map = eventService.mapSeats();
 
 		result = new ModelAndView("event/browseAvailable");
 		result.addObject("events", events);
+		result.addObject("seats", map);
 		result.addObject("requestURI", "event/browseAvailable.do");
 
 		return result;

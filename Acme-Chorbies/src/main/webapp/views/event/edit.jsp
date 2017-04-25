@@ -19,11 +19,13 @@
 
 <security:authorize access="hasRole('MANAGER')">
 
-	<form:form action="${requestURI}"	modelAttribute="eventForm">
+	<form:form action="manager/event/edit.do"	modelAttribute="event">
+	
+		<form:hidden path="id"/>
 	
 		<acme:textbox code="event.title" path="title" />
 		<br/>
-		<acme:textbox code="event.description" path="description" />
+		<acme:textarea code="event.description" path="description" />
 		<br/>
 		<acme:textbox code="event.picture" path="picture" />
 		<br/>
@@ -32,7 +34,7 @@
 		<acme:textbox code="event.seatsOffered" path="seatsOffered" />
 		<br/>
 		<acme:submit name="save" code="event.save"/>
-		<jstl:if test="${eventForm.id != 0}">
+		<jstl:if test="${event.id != 0}">
 			<input type="submit" name="delete" value="<spring:message code="event.delete" />" onclick="return confirm('<spring:message code="event.confirm.delete" />')" />
 		</jstl:if>
 		<acme:cancel code="event.cancel" url="manager/event/list.do" />

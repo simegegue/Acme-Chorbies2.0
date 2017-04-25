@@ -2,6 +2,7 @@
 package controllers.Manager;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -58,9 +59,11 @@ public class ManagerEventController extends AbstractController {
 		ModelAndView result;
 		Collection<Event> events;
 		events = eventService.findByPrincipal();
+		Map<Event, Integer> map = eventService.mapSeats();
 
 		result = new ModelAndView("event/list");
 		result.addObject("events", events);
+		result.addObject("seats", map);
 		result.addObject("requestURI", "manager/event/list.do");
 
 		return result;
@@ -90,48 +93,48 @@ public class ManagerEventController extends AbstractController {
 		Event event;
 
 		event = eventService.findOne(eventId);
-		EventForm eventForm = eventService.transform(event);
+		//EventForm eventForm = eventService.transform(event);
 		Assert.notNull(event);
 		result = new ModelAndView("event/edit");
-		result.addObject("eventForm", eventForm);
+		result.addObject("event", event);
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid EventForm eventForm, BindingResult binding) {
+	public ModelAndView save(@Valid Event event, BindingResult binding) {
 
 		ModelAndView result = new ModelAndView();
 
 		if (binding.hasErrors())
-			result = createEditModelAndView(eventForm, null);
+			result = createEditModelAndView(event);
 		else
 			try {
-				Event event = eventService.reconstruct(eventForm, binding);
+				event = eventService.reconstruct(event, binding);
 				eventService.save(event);
 				result = list();
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
-				result = createEditModelAndView(eventForm, msgCode);
+				result = createEditModelAndView(event, msgCode);
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(EventForm eventForm, BindingResult binding) {
+	public ModelAndView delete(Event event, BindingResult binding) {
 
 		ModelAndView result;
 
-		Event event = eventService.reconstruct(eventForm, binding);
+		event = eventService.reconstruct(event, binding);
 		if (binding.hasErrors())
-			result = createEditModelAndView(event, null);
+			result = createEditModelAndView(event);
 		else
 			try {
 				eventService.delete(event);
 				result = list();
 			} catch (Throwable oops) {
-				result = createEditModelAndView(event, null);
+				result = createEditModelAndView(event);
 			}
 		return result;
 	}
@@ -148,22 +151,22 @@ public class ManagerEventController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final EventForm eventForm) {
-
-		ModelAndView result;
-
-		result = this.createEditModelAndView(eventForm, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(final EventForm eventForm, final String message) {
+	protected ModelAndView createEditModelAndView(EventForm event, String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("event/edit");
-		result.addObject("eventForm", eventForm);
+		result.addObject("event", event);
 
 		result.addObject("message", message);
+
+		return result;
+
+	}
+
+	protected ModelAndView createEditModelAndView(Event event) {
+		ModelAndView result;
+
+		result = createEditModelAndView(event, null);
 
 		return result;
 

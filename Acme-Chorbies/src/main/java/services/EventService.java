@@ -184,7 +184,12 @@ public class EventService {
 	}
 
 	public Event reconstruct(EventForm eventForm, BindingResult binding) {
+
+		Manager manager = managerService.findByPrincipal();
+
 		Event result = create();
+		result.setId(eventForm.getId());
+		result.setManager(manager);
 		result.setDescription(eventForm.getDescription());
 		result.setMoment(eventForm.getMoment());
 		result.setPicture(eventForm.getPicture());
@@ -195,9 +200,38 @@ public class EventService {
 		return result;
 	}
 
+	public Event reconstruct(Event event, BindingResult binding) {
+		Event result;
+		Collection<RelationEvent> relationEvents = new ArrayList<RelationEvent>();
+
+		if (event.getId() == 0) {
+			Manager manager = managerService.findByPrincipal();
+
+			result = event;
+			result.setManager(manager);
+			result.setRelationEvents(relationEvents);
+			result.setDescription(event.getDescription());
+			result.setMoment(event.getMoment());
+			result.setPicture(event.getPicture());
+			result.setSeatsOffered(event.getSeatsOffered());
+			result.setTitle(event.getTitle());
+		} else {
+			result = eventRepository.findOne(event.getId());
+			result.setRelationEvents(relationEvents);
+			result.setDescription(event.getDescription());
+			result.setMoment(event.getMoment());
+			result.setPicture(event.getPicture());
+			result.setSeatsOffered(event.getSeatsOffered());
+			result.setTitle(event.getTitle());
+
+			validator.validate(result, binding);
+		}
+
+		return result;
+	}
+
 	public EventForm transform(Event event) {
 		EventForm result = generateForm();
-		result.setId(event.getId());
 		result.setDescription(event.getDescription());
 		result.setMoment(event.getMoment());
 		result.setPicture(event.getPicture());
