@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -51,7 +50,6 @@ public class Manager extends Senders {
 		this.creditCard = creditCard;
 	}
 
-	@NotNull
 	@Min(0)
 	@Digits(fraction = 2, integer = 3)
 	public Double getFeeAmount() {

@@ -4,8 +4,6 @@ package forms;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -37,7 +35,6 @@ public class ManagerForm {
 	private String		company;
 	private String		vat;
 	private CreditCard	creditCard;
-	private Double		feeAmount;
 
 
 	public int getId() {
@@ -143,16 +140,6 @@ public class ManagerForm {
 	}
 	public void setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
-	}
-
-	@NotNull
-	@Min(0)
-	@Digits(fraction = 2, integer = 3)
-	public Double getFeeAmount() {
-		return this.feeAmount;
-	}
-	public void setFeeAmount(Double feeAmount) {
-		this.feeAmount = feeAmount;
 	}
 
 }
