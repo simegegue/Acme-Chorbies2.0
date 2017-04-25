@@ -67,6 +67,11 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('MANAGER')">
+			<li><a class="fNiv" href="manager/event/list.do"><spring:message code="master.page.manager.list" /></a></li>
+			<li><a class="fNiv" href="manager/event/create.do"><spring:message code="master.page.manager.create" /></a></li>
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="chorbi/register.do"><spring:message code="master.page.register" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>

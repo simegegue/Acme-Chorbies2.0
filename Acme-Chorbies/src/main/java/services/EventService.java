@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.EventRepository;
@@ -20,6 +21,7 @@ import security.UserAccount;
 import domain.Event;
 import domain.Manager;
 import domain.RelationEvent;
+import forms.EventForm;
 
 @Service
 @Transactional
@@ -170,5 +172,52 @@ public class EventService {
 			map.put(e, seats);
 		}
 		return map;
+	}
+
+	// Form-------
+
+	public EventForm generateForm() {
+		EventForm result;
+
+		result = new EventForm();
+		return result;
+	}
+
+	public Event reconstruct(EventForm eventForm, BindingResult binding) {
+		Event result = create();
+		result.setDescription(eventForm.getDescription());
+		result.setMoment(eventForm.getMoment());
+		result.setPicture(eventForm.getPicture());
+		result.setSeatsOffered(eventForm.getSeatsOffered());
+		result.setTitle(eventForm.getTitle());
+		validator.validate(result, binding);
+
+		return result;
+	}
+
+	public EventForm transform(Event event) {
+		EventForm result = generateForm();
+		result.setId(event.getId());
+		result.setDescription(event.getDescription());
+		result.setMoment(event.getMoment());
+		result.setPicture(event.getPicture());
+		result.setSeatsOffered(event.getSeatsOffered());
+		result.setTitle(event.getTitle());
+		return result;
+	}
+
+	public Collection<Event> findByPrincipal() {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		Collection<Event> result = new ArrayList<Event>();
+		Manager manager = managerService.findByPrincipal();
+		result = eventRepository.eventByManagerId(manager.getId());
+		return result;
 	}
 }
