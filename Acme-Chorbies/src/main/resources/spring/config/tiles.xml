@@ -36,6 +36,7 @@
 		<value>/views/searchTemplate/tiles.xml</value>
 		
 		<value>/views/event/tiles.xml</value>
+		<value>/views/manager/tiles.xml</value>
 		
 		
 	</util:list>

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ManagerRepository;
@@ -19,6 +20,7 @@ import security.UserAccount;
 import domain.Chirp;
 import domain.Event;
 import domain.Manager;
+import forms.ManagerForm;
 
 @Service
 @Transactional
@@ -58,7 +60,6 @@ public class ManagerService {
 		result.setUserAccount(userAccount);
 		result.setEvents(events);
 		result.setSent(sent);
-
 		return result;
 	}
 
@@ -131,6 +132,100 @@ public class ManagerService {
 		result = managerRepository.findByUserAccountId(userAccountId);
 
 		Assert.notNull(result);
+
+		return result;
+	}
+
+	// Form methods -----------------------------------------------------------
+
+	public ManagerForm generateForm(Manager manager) {
+		ManagerForm result = new ManagerForm();
+
+		result.setId(manager.getId());
+		result.setUsername(manager.getUserAccount().getUsername());
+		result.setPassword(manager.getUserAccount().getPassword());
+		result.setPassword2(manager.getUserAccount().getPassword());
+		result.setAgreed(true);
+
+		result.setCreditCard(manager.getCreditCard());
+
+		result.setEmail(manager.getEmail());
+		result.setName(manager.getName());
+		result.setPhone(manager.getPhone());
+		result.setVat(manager.getVat());
+		result.setCompany(manager.getCompany());
+		result.setSurname(manager.getSurname());
+
+		return result;
+	}
+
+	public Manager reconstructEditPersonalData(ManagerForm managerForm, BindingResult binding) {
+		Manager result;
+
+		result = managerRepository.findOne(managerForm.getId());
+
+		result.setName(managerForm.getName());
+		result.setSurname(managerForm.getSurname());
+		result.setEmail(managerForm.getEmail());
+		result.setPhone(managerForm.getPhone());
+		result.setVat(managerForm.getVat());
+		result.setCompany(managerForm.getCompany());
+		if (managerForm.getCreditCard().getBrandName() == null) {
+			result.setCreditCard(null);
+		} else {
+			result.setCreditCard(managerForm.getCreditCard());
+		}
+
+		validator.validate(result, binding);
+
+		return result;
+	}
+
+	public ManagerForm generate() {
+		ManagerForm result;
+		result = new ManagerForm();
+
+		return result;
+	}
+
+	public Manager reconstruct(ManagerForm managerForm, BindingResult binding) {
+		Manager result = create();
+
+		String password = managerForm.getPassword();
+
+		Assert.isTrue(managerForm.getPassword2().equals(password), "notEqualPassword");
+		Assert.isTrue(managerForm.getAgreed(), "agreedNotAccepted");
+
+		UserAccount userAccount = new UserAccount();
+		List<Authority> authorities = new ArrayList<Authority>();
+		Authority a = new Authority();
+		a.setAuthority(Authority.MANAGER);
+		authorities.add(a);
+		userAccount.addAuthority(a);
+		userAccount.setPassword(password);
+		userAccount.setUsername(managerForm.getUsername());
+
+		result.setUserAccount(userAccount);
+		result.setName(managerForm.getName());
+		result.setSurname(managerForm.getSurname());
+		result.setEmail(managerForm.getEmail());
+		result.setPhone(managerForm.getPhone());
+		result.setVat(managerForm.getVat());
+		result.setCompany(managerForm.getCompany());
+		result.setFeeAmount(0.0);
+		if (managerForm.getCreditCard().getBrandName() == "" && managerForm.getCreditCard().getHolderName() == "" && managerForm.getCreditCard().getNumber() == "" && managerForm.getCreditCard().getCvv() == 0
+			&& managerForm.getCreditCard().getExpirationMonth() == 0 && managerForm.getCreditCard().getExpirationYear() == 0) {
+			result.setCreditCard(null);
+		} else {
+			if (managerForm.getCreditCard().getBrandName() == "" || managerForm.getCreditCard().getHolderName() == "" || managerForm.getCreditCard().getNumber() == "" || managerForm.getCreditCard().getCvv() == 0
+				|| managerForm.getCreditCard().getExpirationMonth() == 0 || managerForm.getCreditCard().getExpirationYear() == 0) {
+				Assert.isTrue(false);
+			} else {
+				result.setCreditCard(managerForm.getCreditCard());
+			}
+		}
+
+		validator.validate(result, binding);
 
 		return result;
 	}
