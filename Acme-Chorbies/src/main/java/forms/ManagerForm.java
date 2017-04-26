@@ -4,6 +4,7 @@ package forms;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -135,6 +136,8 @@ public class ManagerForm {
 		this.vat = vat;
 	}
 
+	@Valid
+	@NotNull
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

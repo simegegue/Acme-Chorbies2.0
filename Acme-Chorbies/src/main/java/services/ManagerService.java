@@ -170,11 +170,14 @@ public class ManagerService {
 		result.setPhone(managerForm.getPhone());
 		result.setVat(managerForm.getVat());
 		result.setCompany(managerForm.getCompany());
-		if (managerForm.getCreditCard().getBrandName() == null) {
-			result.setCreditCard(null);
-		} else {
-			result.setCreditCard(managerForm.getCreditCard());
-		}
+		result.setCreditCard(managerForm.getCreditCard());
+		/*
+		 * if (managerForm.getCreditCard().getBrandName() == null) {
+		 * result.setCreditCard(null);
+		 * } else {
+		 * result.setCreditCard(managerForm.getCreditCard());
+		 * }
+		 */
 
 		validator.validate(result, binding);
 
@@ -213,17 +216,20 @@ public class ManagerService {
 		result.setVat(managerForm.getVat());
 		result.setCompany(managerForm.getCompany());
 		result.setFeeAmount(0.0);
-		if (managerForm.getCreditCard().getBrandName() == "" && managerForm.getCreditCard().getHolderName() == "" && managerForm.getCreditCard().getNumber() == "" && managerForm.getCreditCard().getCvv() == 0
-			&& managerForm.getCreditCard().getExpirationMonth() == 0 && managerForm.getCreditCard().getExpirationYear() == 0) {
-			result.setCreditCard(null);
-		} else {
-			if (managerForm.getCreditCard().getBrandName() == "" || managerForm.getCreditCard().getHolderName() == "" || managerForm.getCreditCard().getNumber() == "" || managerForm.getCreditCard().getCvv() == 0
-				|| managerForm.getCreditCard().getExpirationMonth() == 0 || managerForm.getCreditCard().getExpirationYear() == 0) {
-				Assert.isTrue(false);
-			} else {
-				result.setCreditCard(managerForm.getCreditCard());
-			}
-		}
+		result.setCreditCard(managerForm.getCreditCard());
+		/*
+		 * if (managerForm.getCreditCard().getBrandName() == "" && managerForm.getCreditCard().getHolderName() == "" && managerForm.getCreditCard().getNumber() == "" && managerForm.getCreditCard().getCvv() == 0
+		 * && managerForm.getCreditCard().getExpirationMonth() == 0 && managerForm.getCreditCard().getExpirationYear() == 0) {
+		 * result.setCreditCard(null);
+		 * } else {
+		 * if (managerForm.getCreditCard().getBrandName() == "" || managerForm.getCreditCard().getHolderName() == "" || managerForm.getCreditCard().getNumber() == "" || managerForm.getCreditCard().getCvv() == 0
+		 * || managerForm.getCreditCard().getExpirationMonth() == 0 || managerForm.getCreditCard().getExpirationYear() == 0) {
+		 * Assert.isTrue(false);
+		 * } else {
+		 * result.setCreditCard(managerForm.getCreditCard());
+		 * }
+		 * }
+		 */
 
 		validator.validate(result, binding);
 

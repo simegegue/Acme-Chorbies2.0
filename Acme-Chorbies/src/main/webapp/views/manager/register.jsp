@@ -96,7 +96,7 @@
 					<acme:textbox code="manager.vat" path="vat"/>
 					<br/>
 				</fieldset>
-				<h3><spring:message code="chorbi.creditCard.optional"/></h3>
+				
 				<fieldset>
 					<legend align="left"><spring:message code="manager.creditCard.info"/></legend>
 					<acme:textbox code="manager.creditCard.holderName" path="creditCard.holderName"/>
