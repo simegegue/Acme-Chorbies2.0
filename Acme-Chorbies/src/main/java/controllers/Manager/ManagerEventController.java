@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CacheTimeService;
 import services.ChirpService;
-import services.ChorbiService;
 import services.EventService;
-import services.GenreService;
-import services.KindRelationshipService;
+import services.FeeService;
+import services.ManagerService;
 import controllers.AbstractController;
 import domain.Chorbi;
 import domain.Event;
+import domain.Manager;
 import domain.RelationEvent;
 import forms.EventForm;
 
@@ -35,22 +34,16 @@ public class ManagerEventController extends AbstractController {
 	//Services-------------------------
 
 	@Autowired
-	private EventService			eventService;
+	private EventService	eventService;
 
 	@Autowired
-	private ChorbiService			chorbiService;
+	private ManagerService	managerService;
 
 	@Autowired
-	private CacheTimeService		cacheTimeService;
+	private ChirpService	chirpService;
 
 	@Autowired
-	private GenreService			genreService;
-
-	@Autowired
-	private KindRelationshipService	kindRelationshipService;
-	
-	@Autowired
-	private ChirpService			chirpService;
+	private FeeService		feeService;
 
 
 	//Constructor----------------------
@@ -83,9 +76,11 @@ public class ManagerEventController extends AbstractController {
 
 		ModelAndView result;
 		EventForm eventForm;
+		Boolean b = managerService.principalCheckCreditCard();
 
 		eventForm = eventService.generateForm();
 		result = createEditModelAndView(eventForm, null);
+		result.addObject("validatorCreditCard", b);
 
 		return result;
 
@@ -98,12 +93,14 @@ public class ManagerEventController extends AbstractController {
 
 		ModelAndView result;
 		Event event;
+		Boolean b = managerService.principalCheckCreditCard();
 
 		event = eventService.findOne(eventId);
 		//EventForm eventForm = eventService.transform(event);
 		Assert.notNull(event);
 		result = new ModelAndView("event/edit");
 		result.addObject("event", event);
+		result.addObject("validatorCreditCard", b);
 
 		return result;
 
@@ -119,9 +116,18 @@ public class ManagerEventController extends AbstractController {
 		else
 			try {
 				event = eventService.reconstruct(event, binding);
-				Event event2 = eventService.save(event);
-				chirpService.chirpUpdateEvent(event2);
-				result = list();
+				if (event.getId() == 0) {
+					Manager m = managerService.findByPrincipal();
+					Double f = m.getFeeAmount() + feeService.find().getManagerValue();
+					m.setFeeAmount(f);
+					Event event2 = eventService.save(event);
+					chirpService.chirpUpdateEvent(event2);
+					result = list();
+				} else {
+					Event event2 = eventService.save(event);
+					chirpService.chirpUpdateEvent(event2);
+					result = list();
+				}
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
 				result = createEditModelAndView(event, msgCode);
@@ -141,11 +147,11 @@ public class ManagerEventController extends AbstractController {
 			try {
 				String title = event.getTitle();
 				Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-				for(RelationEvent re: event.getRelationEvents()){
+				for (RelationEvent re : event.getRelationEvents()) {
 					chorbies.add(re.getChorbi());
 				}
 				eventService.delete(event);
-				chirpService.chirpDeleteEvent(title,chorbies);
+				chirpService.chirpDeleteEvent(title, chorbies);
 				result = list();
 			} catch (Throwable oops) {
 				result = createEditModelAndView(event);

@@ -39,11 +39,12 @@ public class ManagerController extends AbstractController {
 		String tipe = "edit";
 
 		ManagerForm managerForm = managerService.generateForm(manager);
-
+		Double d = manager.getFeeAmount();
 		result = new ModelAndView("manager/edit");
 
 		result.addObject("managerForm", managerForm);
 		result.addObject("tipe", tipe);
+		result.addObject("fee", d);
 
 		return result;
 	}

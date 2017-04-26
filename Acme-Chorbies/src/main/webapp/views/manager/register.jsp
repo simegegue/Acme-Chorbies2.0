@@ -41,6 +41,9 @@
 					<br/>
 					<acme:textbox code="manager.vat" path="vat"/>
 					<br/>
+					<spring:message code="manager.feeAmount" />
+					<jstl:out value="${fee }" />
+					<br/>
 				</fieldset>
 				
 				<h3><spring:message code="manager.creditCard.optional"/></h3>

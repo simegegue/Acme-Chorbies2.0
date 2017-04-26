@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
+import domain.CreditCard;
 import domain.Event;
 import domain.Manager;
 import forms.ManagerForm;
@@ -136,6 +138,54 @@ public class ManagerService {
 		return result;
 	}
 
+	public static boolean check(CreditCard creditCard) {
+		boolean validador = false;
+		int sum = 0;
+		Calendar fecha = Calendar.getInstance();
+		String numero = creditCard.getNumber();
+		int mes = fecha.get(Calendar.MONTH) + 1;
+		int año = fecha.get(Calendar.YEAR);
+
+		if (creditCard.getExpirationYear() > año) {
+			validador = true;
+		} else if (creditCard.getExpirationYear() == año) {
+			if (creditCard.getExpirationMonth() >= mes) {
+				validador = true;
+			}
+		}
+
+		if (validador) {
+			validador = false;
+			for (int i = numero.length() - 1; i >= 0; i--) {
+				int n = Integer.parseInt(numero.substring(i, i + 1));
+				if (validador) {
+					n *= 2;
+					if (n > 9) {
+						n = (n % 10) + 1;
+					}
+				}
+				sum += n;
+				validador = !validador;
+			}
+			if (sum % 10 == 0) {
+				validador = true;
+			}
+		}
+
+		return validador;
+	}
+
+	public Boolean principalCheckCreditCard() {
+		Manager m = findByPrincipal();
+		Boolean b;
+		if (m.getCreditCard() == null) {
+			b = false;
+		} else {
+			b = ChorbiService.check(m.getCreditCard());
+		}
+		return b;
+	}
+
 	// Form methods -----------------------------------------------------------
 
 	public ManagerForm generateForm(Manager manager) {
@@ -171,13 +221,6 @@ public class ManagerService {
 		result.setVat(managerForm.getVat());
 		result.setCompany(managerForm.getCompany());
 		result.setCreditCard(managerForm.getCreditCard());
-		/*
-		 * if (managerForm.getCreditCard().getBrandName() == null) {
-		 * result.setCreditCard(null);
-		 * } else {
-		 * result.setCreditCard(managerForm.getCreditCard());
-		 * }
-		 */
 
 		validator.validate(result, binding);
 
@@ -217,19 +260,6 @@ public class ManagerService {
 		result.setCompany(managerForm.getCompany());
 		result.setFeeAmount(0.0);
 		result.setCreditCard(managerForm.getCreditCard());
-		/*
-		 * if (managerForm.getCreditCard().getBrandName() == "" && managerForm.getCreditCard().getHolderName() == "" && managerForm.getCreditCard().getNumber() == "" && managerForm.getCreditCard().getCvv() == 0
-		 * && managerForm.getCreditCard().getExpirationMonth() == 0 && managerForm.getCreditCard().getExpirationYear() == 0) {
-		 * result.setCreditCard(null);
-		 * } else {
-		 * if (managerForm.getCreditCard().getBrandName() == "" || managerForm.getCreditCard().getHolderName() == "" || managerForm.getCreditCard().getNumber() == "" || managerForm.getCreditCard().getCvv() == 0
-		 * || managerForm.getCreditCard().getExpirationMonth() == 0 || managerForm.getCreditCard().getExpirationYear() == 0) {
-		 * Assert.isTrue(false);
-		 * } else {
-		 * result.setCreditCard(managerForm.getCreditCard());
-		 * }
-		 * }
-		 */
 
 		validator.validate(result, binding);
 

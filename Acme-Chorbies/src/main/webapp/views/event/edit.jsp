@@ -19,6 +19,9 @@
 
 <security:authorize access="hasRole('MANAGER')">
 
+<jstl:choose>
+	<jstl:when test="${validatorCreditCard == true }">
+
 	<form:form action="manager/event/edit.do"	modelAttribute="event">
 	
 		<form:hidden path="id"/>
@@ -40,5 +43,11 @@
 		<acme:cancel code="event.cancel" url="manager/event/list.do" />
 	
 	</form:form>
+	
+	</jstl:when>
+	<jstl:otherwise>
+		<h2><spring:message code="searchTemplate.creditCard.invalid"/></h2>
+	</jstl:otherwise>
+</jstl:choose>
 
 </security:authorize>
