@@ -55,3 +55,15 @@
 <security:authorize access="hasRole('MANAGER')">
 	<a href="chirp/broadcast.do?eventId=${event.id }"><spring:message code = "event.broadcast" /></a>
 </security:authorize>
+<jstl:if test="${not past }">
+	<security:authorize access="hasRole('CHORBI')">
+		<jstl:choose>
+			<jstl:when test="${ register eq 1}">
+				<a href="event/unRegister.do?eventId=${event.id }"><spring:message code = "event.unRegister" /></a>
+			</jstl:when>
+			<jstl:otherwise>
+				<a href="event/register.do?eventId=${event.id }"><spring:message code = "event.register" /></a>
+			</jstl:otherwise>
+		</jstl:choose>
+	</security:authorize>
+</jstl:if>

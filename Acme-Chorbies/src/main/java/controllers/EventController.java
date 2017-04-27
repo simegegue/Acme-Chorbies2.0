@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.EventService;
+import services.RelationEventService;
 import domain.Event;
 
 @Controller
@@ -23,6 +24,9 @@ public class EventController extends AbstractController {
 
 	@Autowired
 	private EventService	eventService;
+	
+	@Autowired
+	private RelationEventService relationEventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,14 +77,89 @@ public class EventController extends AbstractController {
 	public ModelAndView display(@RequestParam int eventId) {
 		ModelAndView result;
 		Event event;
+		int register = 0;
+		Collection<Event> pastEvents = eventService.pastEvents();
 
 		event = eventService.findOne(eventId);
+		boolean past = pastEvents.contains(event);
+
+		if(relationEventService.chorbiRegister(event)){
+			register = 1;
+		}
+		
+		result = new ModelAndView("event/display");
+		result.addObject("event", event);
+		result.addObject("requestURI", "event/display.do");
+		result.addObject("register", register);
+		result.addObject("past", past);
+
+		return result;
+	}
+	
+	// Register -------------------------------------------
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView register(@RequestParam int eventId){
+		ModelAndView result;
+		Event event = eventService.findOne(eventId);
+		
+		try{
+			relationEventService.register(event);
+			result = new ModelAndView("event/display");
+			result.addObject("event", event);
+			result.addObject("requestURI", "event/display.do");
+		}catch(Throwable oops){
+			String message = "event.no.register";
+			result = registerModelAndView(event,message);
+		}
+		
+		return result;
+	}
+	
+	// Register -------------------------------------------
+	
+		@RequestMapping(value = "/unRegister", method = RequestMethod.GET)
+		public ModelAndView unRegister(@RequestParam int eventId){
+			ModelAndView result;
+			Event event = eventService.findOne(eventId);
+			
+			try{
+				relationEventService.unRegister(event);
+				result = new ModelAndView("event/display");
+				result.addObject("event", event);
+				result.addObject("requestURI", "event/display.do");
+			}catch(Throwable oops){
+				String message = "event.no.unregister";
+				result = unRegisterModelAndView(event,message);
+			}
+			
+			return result;
+		}
+	
+	//Ancillary Methods---------------------------
+
+	protected ModelAndView registerModelAndView(Event event, String message) {
+		ModelAndView result;
 
 		result = new ModelAndView("event/display");
 		result.addObject("event", event);
 		result.addObject("requestURI", "event/display.do");
+		result.addObject("message", message);
 
 		return result;
+
+	}
+	
+	protected ModelAndView unRegisterModelAndView(Event event, String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("event/display");
+		result.addObject("event", event);
+		result.addObject("requestURI", "event/display.do");
+		result.addObject("message", message);
+
+		return result;
+
 	}
 
 }

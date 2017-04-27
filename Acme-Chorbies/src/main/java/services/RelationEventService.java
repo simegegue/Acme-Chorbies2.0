@@ -130,4 +130,25 @@ public class RelationEventService {
 		delete(relationEvent);
 		
 	}
+	
+	public boolean chorbiRegister(Event event){
+		UserAccount userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		
+		boolean result = false;
+		
+		for(RelationEvent re : event.getRelationEvents()){
+			result = re.getChorbi().equals(chorbi);
+			if(result){
+				break;
+			}
+		}
+		
+		return result;
+	}
 }
