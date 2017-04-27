@@ -47,6 +47,14 @@ public class RelationLike extends DomainEntity {
 		this.comment = comment;
 	}
 
+	@NotNull
+	@Min(0)
+	public Integer getStars() {
+		return this.stars;
+	}
+	public void setStars(Integer stars) {
+		this.stars = stars;
+	}
 
 	// Relationships -----------------------------------
 	private Chorbi	likeSender;
@@ -70,14 +78,6 @@ public class RelationLike extends DomainEntity {
 		this.likeRecipient = likeRecipient;
 	}
 
-	@NotNull
-	@Min(0)
-	@Digits(fraction = 2, integer = 3)
-	public Integer getStars() {
-		return this.stars;
-	}
-	public void setStars(Integer stars) {
-		this.stars = stars;
-	}
+
 
 }
