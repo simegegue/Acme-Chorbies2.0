@@ -18,6 +18,7 @@ import repositories.EventRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Chorbi;
 import domain.Event;
 import domain.Manager;
 import domain.RelationEvent;
@@ -36,9 +37,15 @@ public class EventService {
 
 	@Autowired
 	private ManagerService	managerService;
+	
+	@Autowired
+	private ChorbiService chorbiService;
 
 	@Autowired
 	private Validator		validator;
+	
+	@Autowired
+	private RelationEventService relationEventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -102,6 +109,12 @@ public class EventService {
 		Assert.notNull(event);
 
 		Assert.isTrue(event.getId() != 0);
+		
+		if(!event.getRelationEvents().isEmpty()){
+			for(RelationEvent re : event.getRelationEvents()){
+				relationEventService.delete(re);
+			}
+		}
 
 		eventRepository.delete(event);
 	}
@@ -116,6 +129,7 @@ public class EventService {
 		}
 		return map;
 	}
+	
 	public Collection<Event> eventsInLessOneMonth() {
 		Collection<Event> result = new ArrayList<Event>();
 		Map<Event, Integer> oneMonth = map();
@@ -253,6 +267,28 @@ public class EventService {
 		Collection<Event> result = new ArrayList<Event>();
 		Manager manager = managerService.findByPrincipal();
 		result = eventRepository.eventByManagerId(manager.getId());
+		return result;
+	}
+	
+	public Collection<Event> findByChorbiRegister(){
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
+		Collection<Event> result = new ArrayList<Event>();
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		
+		for(Event e : findAll()){
+			for(RelationEvent re : e.getRelationEvents()){
+				if(re.getChorbi().equals(chorbi)){
+					result.add(e);
+				}
+			}
+		}
+		
 		return result;
 	}
 }

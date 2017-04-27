@@ -73,6 +73,7 @@
 		<security:intercept-url pattern="/chirp/broadcast.do" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/chirp/**" access="hasRole('CHORBI')" />
 		
+		<security:intercept-url pattern="/event/browseRegistered.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/event/register.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/event/unRegister.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/event/browse.do" access="permitAll" />

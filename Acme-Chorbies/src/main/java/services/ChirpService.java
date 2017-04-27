@@ -369,8 +369,8 @@ public class ChirpService {
 	
 	public void chirpDeleteEvent(String eventTitle, Collection<Chorbi> chorbies){
 		
-		String message = "El evento "+ eventTitle + "ha sido eliminado por su creador";
-		String subject = "El evento "+ eventTitle+ "ha sido eliminado.";
+		String message = "El evento "+ eventTitle + " ha sido eliminado por su creador";
+		String subject = "El evento "+ eventTitle+ " ha sido eliminado.";
 		
 		Manager manager = managerService.findByPrincipal();
 		

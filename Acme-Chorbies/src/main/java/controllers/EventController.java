@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import services.EventService;
 import services.RelationEventService;
 import domain.Event;
@@ -70,6 +73,23 @@ public class EventController extends AbstractController {
 
 		return result;
 	}
+	
+	// Browse registered -------------------------------------
+	
+	@RequestMapping(value = "/browseRegistered", method = RequestMethod.GET)
+	public ModelAndView browseRegistered(){
+		ModelAndView result;
+		
+		Collection<Event> events = eventService.findByChorbiRegister();
+		Map<Event, Integer> map = eventService.mapSeats();
+		
+		result = new ModelAndView("event/browseAvailable");
+		result.addObject("events", events);
+		result.addObject("seats", map);
+		result.addObject("requestURI", "event/browseRegistered.do");
+		
+		return result;
+	}
 
 	// Display ----------------------------------
 
@@ -83,8 +103,14 @@ public class EventController extends AbstractController {
 		event = eventService.findOne(eventId);
 		boolean past = pastEvents.contains(event);
 
-		if(relationEventService.chorbiRegister(event)){
-			register = 1;
+		UserAccount userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		
+		if(userAccount.getAuthorities().contains(au)){
+			if(relationEventService.chorbiRegister(event)){
+				register = 1;
+			}
 		}
 		
 		result = new ModelAndView("event/display");
