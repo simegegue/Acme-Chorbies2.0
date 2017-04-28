@@ -21,7 +21,7 @@ import domain.Chorbi;
 import domain.Event;
 import domain.Manager;
 import domain.RelationEvent;
-import domain.Senders;
+import domain.Mailer;
 import forms.ChirpForm;
 
 @Service
@@ -65,7 +65,7 @@ public class ChirpService {
 
 			Chirp result;
 			result = new Chirp();
-			Senders sender;
+			Mailer sender;
 			
 			if(userAccount.getAuthorities().contains(au)){
 				sender = chorbiService.findByPrincipal();
@@ -226,7 +226,7 @@ public class ChirpService {
 
 			Assert.isTrue(chirp.getRecipient().equals(chorbi));
 
-			Senders sender = chirp.getSender();
+			Mailer sender = chirp.getSender();
 			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 
 			chorbies.add((Chorbi)sender);
@@ -272,7 +272,7 @@ public class ChirpService {
 			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
 			ChirpForm result = new ChirpForm();
-			Senders sender;
+			Mailer sender;
 			
 			if(userAccount.getAuthorities().contains(au)){
 				sender = chorbiService.findByPrincipal();
@@ -296,7 +296,7 @@ public class ChirpService {
 			Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 
 			ChirpForm result = new ChirpForm();
-			Senders sender;
+			Mailer sender;
 			
 			if(userAccount.getAuthorities().contains(au)){
 				sender = chorbiService.findByPrincipal();
@@ -392,7 +392,7 @@ public class ChirpService {
 	
 	public void chirpToChorbies(Event event, ChirpForm chirpForm, BindingResult binding){
 		Collection<RelationEvent> relationEvents = event.getRelationEvents();
-		Senders sender = managerService.findByPrincipal();
+		Mailer sender = managerService.findByPrincipal();
 		
 		for(RelationEvent re : relationEvents){
 			Chirp chirp = create();

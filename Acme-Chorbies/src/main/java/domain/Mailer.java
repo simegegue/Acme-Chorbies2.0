@@ -10,7 +10,7 @@ import javax.validation.Valid;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Senders extends Actor{
+public class Mailer extends Actor{
 	
 	// Attributes -------------------------------------------
 	

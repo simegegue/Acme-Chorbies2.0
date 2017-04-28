@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Manager extends Senders {
+public class Manager extends Mailer {
 
 	// Attributes ---------------------------------------------
 

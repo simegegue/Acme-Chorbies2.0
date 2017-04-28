@@ -738,6 +738,21 @@
 	<property name="deleteRecipient" value="false"/>
 	</bean>
 	
+	<bean id="chirp5" class="domain.Chirp">
+	<property name="moment" value="01/05/2017 10:45"/>
+	<property name="subject" value="subject4"/>
+	<property name="text" value="text4"/>
+	<property name="attachment">
+			<set>
+				
+			</set>
+		</property>
+	<property name="sender" ref="manager1"/>
+	<property name="recipient" ref="chorbi1"/>
+	<property name="deleteSender" value="false"/>
+	<property name="deleteRecipient" value="false"/>
+	</bean>
+	
 	<!-- RelationEvent -->
 	<bean id="relationEvent1" class="domain.RelationEvent">
 	<property name="chorbi" ref="chorbi1"/>

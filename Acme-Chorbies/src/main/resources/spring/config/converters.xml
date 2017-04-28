@@ -67,8 +67,8 @@
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
 		
-		<bean class="converters.SendersToStringConverter" />
-		<bean class="converters.StringToSendersConverter" />
+		<bean class="converters.MailerToStringConverter" />
+		<bean class="converters.StringToMailerConverter" />
 		
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />

@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.SendersRepository;
-import domain.Senders;
+import repositories.MailerRepository;
+import domain.Mailer;
 
 @Service
 @Transactional
-public class SendersService {
+public class MailerService {
 	
 	// Managed repository -----------------------------------------------------
 
 		@Autowired
-		private SendersRepository	sendersRepository;
+		private MailerRepository	mailerRepository;
 
 
 		// Supporting services ----------------------------------------------------
@@ -26,38 +26,38 @@ public class SendersService {
 
 		// Simple CRUD methods ----------------------------------------------------
 
-		public Collection<Senders> findAll() {
-			Collection<Senders> result;
+		public Collection<Mailer> findAll() {
+			Collection<Mailer> result;
 
-			result = sendersRepository.findAll();
+			result = mailerRepository.findAll();
 			Assert.notNull(result);
 
 			return result;
 		}
 
-		public Senders findOne(int sendersId) {
-			Assert.isTrue(sendersId != 0);
+		public Mailer findOne(int mailerId) {
+			Assert.isTrue(mailerId != 0);
 
-			Senders result;
+			Mailer result;
 
-			result = sendersRepository.findOne(sendersId);
+			result = mailerRepository.findOne(mailerId);
 			Assert.notNull(result);
 
 			return result;
 		}
 
-		public void save(Senders senders) {
-			Assert.notNull(senders);
+		public void save(Mailer mailer) {
+			Assert.notNull(mailer);
 
-			sendersRepository.save(senders);
+			mailerRepository.save(mailer);
 		}
 
-		public void delete(Senders senders) {
-			Assert.notNull(senders);
-			Assert.isTrue(senders.getId() != 0);
-			Assert.isTrue(sendersRepository.exists(senders.getId()));
+		public void delete(Mailer mailer) {
+			Assert.notNull(mailer);
+			Assert.isTrue(mailer.getId() != 0);
+			Assert.isTrue(mailerRepository.exists(mailer.getId()));
 
-			sendersRepository.delete(senders);
+			mailerRepository.delete(mailer);
 		}
 
 		// Other business methods -------------------------------------------------

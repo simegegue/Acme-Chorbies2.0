@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -85,16 +87,17 @@ public class Chirp extends DomainEntity {
 	}
 
 	// Relationships -----------------------------------
-	private Senders	sender;
+	private Mailer	sender;
 	private Chorbi	recipient;
 
 
 	@Valid
 	@ManyToOne(optional = false)
-	public Senders getSender() {
+	@NotFound(action = NotFoundAction.IGNORE)
+	public Mailer getSender() {
 		return sender;
 	}
-	public void setSender(Senders sender) {
+	public void setSender(Mailer sender) {
 		this.sender = sender;
 	}
 	@Valid

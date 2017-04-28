@@ -6,20 +6,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.SendersRepository;
-import domain.Senders;
+import repositories.MailerRepository;
+import domain.Mailer;
 
 @Component
 @Transactional
-public class StringToSendersConverter implements Converter<String, Senders>{
+public class StringToMailerConverter implements Converter<String, Mailer>{
 	
 	@Autowired
-	SendersRepository	sendersRepository;
+	MailerRepository	sendersRepository;
 
 
 	@Override
-	public Senders convert(final String text) {
-		Senders result;
+	public Mailer convert(final String text) {
+		Mailer result;
 		int id;
 
 		try {
@@ -27,9 +27,9 @@ public class StringToSendersConverter implements Converter<String, Senders>{
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.sendersRepository.findOne(id);
+				result = sendersRepository.findOne(id);
 			}
-		} catch (final Exception oops) {
+		} catch (Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}
 

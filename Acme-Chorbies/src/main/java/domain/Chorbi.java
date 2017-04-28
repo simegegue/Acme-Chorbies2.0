@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Chorbi extends Senders {
+public class Chorbi extends Mailer {
 
 	// Attributes ---------------------------------------------
 

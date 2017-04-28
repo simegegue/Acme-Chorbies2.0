@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 import domain.Chorbi;
-import domain.Senders;
+import domain.Mailer;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -23,7 +23,7 @@ public class ChirpForm {
 	private String				subject;
 	private String				text;
 	private Collection<String>	attachment;
-	private Senders				sender;
+	private Mailer				sender;
 	private Chorbi				recipient;
 	private int					eventId;
 
@@ -54,10 +54,10 @@ public class ChirpForm {
 		this.attachment = attachement;
 	}
 
-	public Senders getSender() {
+	public Mailer getSender() {
 		return sender;
 	}
-	public void setSender(final Senders sender) {
+	public void setSender(final Mailer sender) {
 		this.sender = sender;
 	}
 

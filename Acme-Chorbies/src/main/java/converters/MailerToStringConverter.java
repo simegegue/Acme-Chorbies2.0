@@ -4,14 +4,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Senders;
+import domain.Mailer;
 
 @Component
 @Transactional
-public class SendersToStringConverter implements Converter<Senders, String>{
+public class MailerToStringConverter implements Converter<Mailer, String>{
 	
 	@Override
-	public String convert(final Senders senders) {
+	public String convert(final Mailer senders) {
 		String result;
 
 		if (senders == null)
