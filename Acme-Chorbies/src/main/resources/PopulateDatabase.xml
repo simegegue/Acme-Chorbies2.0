@@ -327,6 +327,7 @@
 	<property name="description" value="description1"/>
 	<property name="birthDate" value="02/06/1995"/>
 	<property name="creditCard" ref="creditCard1"/>
+	<property name="avgStars" value="2.0" />
 	<property name="genre" ref="genre1"/>
 	<property name="kindRelationship" ref="kindRelationship1"/>
 	<property name="feeAmount" value="5.0" />
@@ -370,6 +371,7 @@
 	<property name="birthDate" value="02/06/1992"/>
 	<property name="creditCard" ref="creditCard2"/>
 	<property name="genre" ref="genre2"/>
+	<property name="avgStars" value="3.0" />
 	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="feeAmount" value="23.0" />
 	<property name="coordinate" ref="coordinate2"/>
@@ -415,6 +417,7 @@
 	<property name="description" value="description3"/>
 	<property name="birthDate" value="02/05/1988"/>
 	<property name="creditCard" ref="creditCard3"/>
+	<property name="avgStars" value="0.0" />
 	<property name="genre" ref="genre1"/>
 	<property name="kindRelationship" ref="kindRelationship3"/>
 	<property name="feeAmount" value="5.0" />
@@ -459,6 +462,7 @@
 	<property name="description" value="description4"/>
 	<property name="birthDate" value="02/04/1980"/>
 	<property name="creditCard" ref="creditCard4"/>
+	<property name="avgStars" value="2.5" />
 	<property name="genre" ref="genre2"/>
 	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="feeAmount" value="10.0" />
@@ -500,6 +504,7 @@
 	<property name="description" value="description5"/>
 	<property name="birthDate" value="08/03/1975"/>
 	<property name="genre" ref="genre1"/>
+	<property name="avgStars" value="1.0" />
 	<property name="feeAmount" value="20.0" />
 	<property name="kindRelationship" ref="kindRelationship2"/>
 	<property name="coordinate" ref="coordinate4"/>

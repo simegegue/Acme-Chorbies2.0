@@ -34,6 +34,7 @@ public class Chorbi extends Mailer {
 	private Coordinate	coordinate;
 	private Boolean		banned;
 	private Double		feeAmount;
+	private Double		avgStars;
 
 
 	// Getters and Setters ------------------------------------
@@ -93,6 +94,14 @@ public class Chorbi extends Mailer {
 	}
 	public void setFeeAmount(Double feeAmount) {
 		this.feeAmount = feeAmount;
+	}
+
+	public Double getAvgStars() {
+		return avgStars;
+	}
+
+	public void setAvgStars(Double avgStars) {
+		this.avgStars = avgStars;
 	}
 
 

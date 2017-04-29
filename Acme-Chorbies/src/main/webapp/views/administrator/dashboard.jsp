@@ -117,7 +117,7 @@
 				<jstl:if test="${not empty mapChorbiesStars }">
 					<jstl:forEach var="X" items="${mapChorbiesStars}">
 					<tr>
-						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${mapS.get(X)} "/><td>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${X.avgStars} "/><td>
 					</tr>
 					</jstl:forEach>	
 				</jstl:if>

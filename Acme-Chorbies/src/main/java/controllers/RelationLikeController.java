@@ -63,6 +63,8 @@ public class RelationLikeController extends AbstractController {
 			try {
 				relationLike = relationLikeService.reconstruct(relationLikeForm, binding);
 				relationLike = relationLikeService.save(relationLike);
+				Chorbi c = relationLike.getLikeRecipient();
+				chorbiService.updateAvgStars(c);
 				int id = relationLike.getLikeRecipient().getId();
 
 				result = new ModelAndView("redirect:../displayById.do?chorbiId=" + id);

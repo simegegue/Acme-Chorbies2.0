@@ -61,6 +61,14 @@
 		</tr>
 		<tr>
 			<th>
+				<spring:message code="chorbi.stars" />
+			</th>
+			<td>
+				<jstl:out value="${chorbi.avgStars}" />
+			</td>
+		</tr>
+		<tr>
+			<th>
 				<spring:message code="chorbi.birthDate" />
 			</th>
 			<td>

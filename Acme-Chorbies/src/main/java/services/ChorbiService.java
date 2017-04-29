@@ -75,6 +75,7 @@ public class ChorbiService {
 		result.setLikesReceived(likesReceived);
 		result.setLikesSent(likesSent);
 		result.setReceived(received);
+		result.setAvgStars(0.0);
 		result.setSearchTemplate(search);
 
 		return result;
@@ -835,35 +836,29 @@ public class ChorbiService {
 		return result;
 	}
 
-	public Map<Chorbi, RelationLike> mapChorbiRL() {
-		Map<Chorbi, RelationLike> map = new HashMap<Chorbi, RelationLike>();
-		List<Object[]> aux = chorbiRepository.chorbiLikes();
+	public Map<Chorbi, Double> mapChorbiStars() {
+		Map<Chorbi, Double> map = new HashMap<Chorbi, Double>();
+		List<Object[]> aux = chorbiRepository.chorbiStars();
 		for (Object[] o : aux) {
-			map.put((Chorbi) o[0], (RelationLike) o[1]);
+			map.put((Chorbi) o[0], (Double) o[1]);
 		}
 		return map;
 	}
 
-	public Map<RelationLike, Integer> mapRLStars() {
-		Map<RelationLike, Integer> map = new HashMap<RelationLike, Integer>();
-		List<Object[]> aux = chorbiRepository.likesStars();
-		for (Object[] o : aux) {
-			map.put((RelationLike) o[0], (Integer) o[1]);
-		}
-		return map;
-	}
-
-	public Map<Chorbi, Integer> chorbiStars() {
-		Map<Chorbi, Integer> result = new HashMap<Chorbi, Integer>();
-
-		for (Chorbi c : mapChorbiRL().keySet()) {
-			for (RelationLike r : mapRLStars().keySet()) {
-				if (mapChorbiRL().get(c) == r) {
-					result.put(c, mapRLStars().get(r));
-				}
-			}
-		}
+	public Collection<Chorbi> chorbiesStars() {
+		Collection<Chorbi> result = chorbiRepository.chorbiStars2();
 		return result;
+	}
+
+	public Double findAvgStars(Chorbi chorbi) {
+		Double result;
+		result = chorbiRepository.fingAvgStars(chorbi);
+		return result;
+	}
+
+	public void updateAvgStars(Chorbi chorbi) {
+		chorbi.setAvgStars(chorbiRepository.fingAvgStars(chorbi));
+		save2(chorbi);
 	}
 
 }
