@@ -105,7 +105,14 @@ public class EventService {
 	}
 
 	public void delete(Event event) {
+		
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
 
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
 		Assert.notNull(event);
 
 		Assert.isTrue(event.getId() != 0);
@@ -191,6 +198,12 @@ public class EventService {
 	// Form-------
 
 	public EventForm generateForm() {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		EventForm result;
 
 		result = new EventForm();
@@ -198,6 +211,12 @@ public class EventService {
 	}
 
 	public Event reconstruct(EventForm eventForm, BindingResult binding) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 
 		Manager manager = managerService.findByPrincipal();
 
@@ -215,6 +234,12 @@ public class EventService {
 	}
 
 	public Event reconstruct(Event event, BindingResult binding) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		Event result;
 		Collection<RelationEvent> relationEvents = new ArrayList<RelationEvent>();
 
@@ -246,6 +271,12 @@ public class EventService {
 	}
 
 	public EventForm transform(Event event) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		EventForm result = generateForm();
 		result.setDescription(event.getDescription());
 		result.setMoment(event.getMoment());
