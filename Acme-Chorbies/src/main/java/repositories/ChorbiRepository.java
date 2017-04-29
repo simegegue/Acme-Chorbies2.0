@@ -122,4 +122,12 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c from Chorbi c where c.kindRelationship.value = ?1")
 	Collection<Chorbi> findByKindRelationship(String keyword);
 
+	//Dashboard
+
+	@Query("select c from Chorbi c order by c.relationEvents.size DESC")
+	Collection<Chorbi> chorbiesByEvents();
+
+	@Query("select m,m.feeAmount from Chorbi m")
+	List<Object[]> chorbiFeeAmount();
+
 }

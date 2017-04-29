@@ -17,6 +17,73 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasRole('ADMIN')">
+
+<!-- C2 -->
+<p>Dashboard 2.0</p>
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.managersByEvents" /></legend>
+		<table id="managersByEvents" class="table">
+			<tr>
+				<jstl:if test="${not empty managersByEvents }">
+					<jstl:forEach var="X" items="${managersByEvents}">
+					<tr>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${X.events.size()} "/><td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.managersFee" /></legend>
+		<table id="mapManager" class="table">
+			<tr>
+				<jstl:if test="${not empty mapManager }">
+					<jstl:forEach var="X" items="${mapManager}">
+					<tr>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${mapM.get(X)} "/><td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.chorbiesByEvents" /></legend>
+		<table id="chorbiesByEvents" class="table">
+			<tr>
+				<jstl:if test="${not empty chorbiesByEvents }">
+					<jstl:forEach var="X" items="${chorbiesByEvents}">
+					<tr>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${X.relationEvents.size()} "/><td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.mapChorbies" /></legend>
+		<table id="mapChorbies" class="table">
+			<tr>
+				<jstl:if test="${not empty mapChorbies }">
+					<jstl:forEach var="X" items="${mapChorbies}">
+					<tr>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${mapC.get(X)} "/><td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
 <!-- C -->
 <div>
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>
@@ -121,6 +188,7 @@
 		</table>
 	</fieldset>
 </div>
+
 
 <!-- B -->
 

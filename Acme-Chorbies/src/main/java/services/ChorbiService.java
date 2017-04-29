@@ -797,4 +797,20 @@ public class ChorbiService {
 		return result;
 	}
 
+	//Dashboard
+
+	public Collection<Chorbi> chorbiesByEvents() {
+		Collection<Chorbi> result = chorbiRepository.chorbiesByEvents();
+		return result;
+	}
+
+	public Map<Chorbi, Double> mapChorbiFee() {
+		Map<Chorbi, Double> map = new HashMap<Chorbi, Double>();
+		List<Object[]> aux = chorbiRepository.chorbiFeeAmount();
+		for (Object[] o : aux) {
+			map.put((Chorbi) o[0], (Double) o[1]);
+		}
+		return map;
+	}
+
 }

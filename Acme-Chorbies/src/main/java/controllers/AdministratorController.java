@@ -11,6 +11,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChorbiService;
+import services.ManagerService;
 import domain.Chorbi;
+import domain.Manager;
 
 @Controller
 @RequestMapping("/administrator")
@@ -29,6 +32,9 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	private ChorbiService	chorbiService;
+
+	@Autowired
+	private ManagerService	managerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -52,6 +58,13 @@ public class AdministratorController extends AbstractController {
 		Collection<Double> actFriLoveRatioRelationChorbi = chorbiService.actFriLoveRatioRelationChorbi();
 		Collection<String> auxCountry = chorbiService.auxCountry();
 		Collection<String> auxCity = chorbiService.auxCity();
+		//----------------------
+		Collection<Manager> managersByEvents = managerService.managersByEvents();
+		Collection<Manager> mapManager = managerService.mapManagerFee().keySet();
+		Map<Manager, Double> mapM = managerService.mapManagerFee();
+		Collection<Chorbi> chorbiesByEvents = chorbiService.chorbiesByEvents();
+		Collection<Chorbi> mapChorbies = chorbiService.mapChorbiFee().keySet();
+		Map<Chorbi, Double> mapC = chorbiService.mapChorbiFee();
 
 		//B
 		Collection<Chorbi> listChorbiesbyLikes = chorbiService.listChorbiesbyLikes();
@@ -73,6 +86,13 @@ public class AdministratorController extends AbstractController {
 		result.addObject("actFriLoveRatioRelationChorbi", actFriLoveRatioRelationChorbi);
 		result.addObject("auxCountry", auxCountry);
 		result.addObject("auxCity", auxCity);
+		//--------------------------------------
+		result.addObject("managersByEvents", managersByEvents);
+		result.addObject("mapManager", mapManager);
+		result.addObject("mapM", mapM);
+		result.addObject("chorbiesByEvents", chorbiesByEvents);
+		result.addObject("mapChorbies", mapChorbies);
+		result.addObject("mapC", mapC);
 
 		//B
 		result.addObject("listChorbiesbyLikes", listChorbiesbyLikes);

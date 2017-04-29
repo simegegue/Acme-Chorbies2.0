@@ -4,7 +4,9 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -264,6 +266,22 @@ public class ManagerService {
 		validator.validate(result, binding);
 
 		return result;
+	}
+
+	//Dashboard
+
+	public Collection<Manager> managersByEvents() {
+		Collection<Manager> result = managerRepository.managersByEvents();
+		return result;
+	}
+
+	public Map<Manager, Double> mapManagerFee() {
+		Map<Manager, Double> map = new HashMap<Manager, Double>();
+		List<Object[]> aux = managerRepository.managerFeeAmount();
+		for (Object[] o : aux) {
+			map.put((Manager) o[0], (Double) o[1]);
+		}
+		return map;
 	}
 
 }
