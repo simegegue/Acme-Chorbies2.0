@@ -33,7 +33,7 @@
 	<display:column property="title" title="${titleHeader}"/>
 			
 	<spring:message code="event.seats" var="seatsHeader" />
-	<display:column title="${seatsHeader}"><jstl:out value="${seats.get(row)}"/></display:column>
+	<display:column title="${seatsHeader}" sortable="true" ><jstl:out value="${seats.get(row)}"/></display:column>
 	
 	<spring:message code="event.moment" var="momentHeader" />
 	<display:column title="${momentHeader}" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>

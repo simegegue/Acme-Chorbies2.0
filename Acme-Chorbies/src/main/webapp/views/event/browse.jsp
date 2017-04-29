@@ -28,7 +28,7 @@
 			<display:column property="title" title="${titleHeader}" style="background-color:lightblue; font-weight:bold"/>
 			
 			<spring:message code="event.seats" var="seatsHeader" />
-			<display:column title="${seatsHeader}" style="background-color:lightblue; font-weight:bold"><jstl:out value="${seats.get(row)}"/></display:column>
+			<display:column title="${seatsHeader}" style="background-color:lightblue; font-weight:bold" sortable="true"><jstl:out value="${seats.get(row)}" /></display:column>
 	
 			<spring:message code="event.moment" var="momentHeader" />
 			<display:column title="${momentHeader}" style="background-color:lightblue; font-weight:bold" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
