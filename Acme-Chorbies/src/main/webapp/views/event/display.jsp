@@ -55,7 +55,7 @@
 <security:authorize access="hasRole('MANAGER')">
 	<a href="chirp/broadcast.do?eventId=${event.id }"><spring:message code = "event.broadcast" /></a>
 </security:authorize>
-<jstl:if test="${not past }">
+<jstl:if test="${not past and full}">
 	<security:authorize access="hasRole('CHORBI')">
 		<jstl:choose>
 			<jstl:when test="${ register eq 1}">

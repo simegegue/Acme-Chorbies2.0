@@ -106,6 +106,7 @@ public class EventController extends AbstractController {
 
 		event = eventService.findOne(eventId);
 		boolean past = pastEvents.contains(event);
+		boolean full = eventService.hasSeats(event);
 
 		UserAccount userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
@@ -122,6 +123,7 @@ public class EventController extends AbstractController {
 		result.addObject("requestURI", "event/display.do");
 		result.addObject("register", register);
 		result.addObject("past", past);
+		result.addObject("full", full);
 
 		return result;
 	}
