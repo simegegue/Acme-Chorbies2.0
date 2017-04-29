@@ -28,6 +28,14 @@
 		
 		<acme:textarea code="relationLike.comment" path="comment"/>
 		
+		<form:label path="stars">
+			<spring:message code="relationLike.stars" />
+		</form:label>	
+		<form:select path="stars">
+			<form:options items="${stars}" />
+		</form:select>
+		<form:errors cssClass="error" path="stars" />
+		
 		
 		<acme:submit name="save" code="relationLike.save"/>
 		<acme:cancel code="relationLike.cancel" url="welcome/index.do"/>

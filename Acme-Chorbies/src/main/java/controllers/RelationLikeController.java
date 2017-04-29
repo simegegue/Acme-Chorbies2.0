@@ -1,4 +1,8 @@
+
 package controllers;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -18,18 +22,20 @@ import forms.RelationLikeForm;
 
 @Controller
 @RequestMapping("/chorbi/relationLike")
-public class RelationLikeController extends AbstractController{
+public class RelationLikeController extends AbstractController {
+
 	@Autowired
-	private RelationLikeService relationLikeService;
-	
+	private RelationLikeService	relationLikeService;
+
 	@Autowired
-	private ChorbiService chorbiService;
-	
+	private ChorbiService		chorbiService;
+
+
 	//Constructor-----------------------------------
-	public RelationLikeController(){
+	public RelationLikeController() {
 		super();
 	}
-	
+
 	// Like ---------------------------------------------
 	//Creation-------------------------
 
@@ -51,50 +57,53 @@ public class RelationLikeController extends AbstractController{
 		ModelAndView result = new ModelAndView();
 		RelationLike relationLike;
 
-		if (binding.hasErrors()){
+		if (binding.hasErrors()) {
 			result = createEditModelAndView(relationLikeForm, null);
-		}else{
+		} else {
 			try {
 				relationLike = relationLikeService.reconstruct(relationLikeForm, binding);
 				relationLike = relationLikeService.save(relationLike);
 				int id = relationLike.getLikeRecipient().getId();
-				
+
 				result = new ModelAndView("redirect:../displayById.do?chorbiId=" + id);
-				
+
 			} catch (Throwable oops) {
 				String msgCode;
 				msgCode = "relationLike.err";
 				result = createEditModelAndView(relationLikeForm, msgCode);
-				}
 			}
-			return result;
+		}
+		return result;
 	}
-	@RequestMapping(value="/delete" , method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int chorbiId){
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int chorbiId) {
 		ModelAndView result = new ModelAndView();
-		Chorbi likeRecipient=chorbiService.findOne(chorbiId);
-		Chorbi likeSender=chorbiService.findByPrincipal();
-		
+		Chorbi likeRecipient = chorbiService.findOne(chorbiId);
+		Chorbi likeSender = chorbiService.findByPrincipal();
+
 		relationLikeService.unLike(likeSender, likeRecipient);
-		
+
 		result = new ModelAndView("redirect:../displayById.do?chorbiId=" + chorbiId);
 		return result;
-		
+
 	}
 	//Ancillary Methods---------------------------
 
-		protected ModelAndView createEditModelAndView(RelationLikeForm relationLikeForm, String message) {
-			ModelAndView result;
+	protected ModelAndView createEditModelAndView(RelationLikeForm relationLikeForm, String message) {
+		ModelAndView result;
+		Collection<Integer> stars = new ArrayList<Integer>();
+		stars.add(0);
+		stars.add(1);
+		stars.add(2);
+		stars.add(3);
 
-			result = new ModelAndView("relationLike/edit");
-			result.addObject("relationLikeForm", relationLikeForm);
-			result.addObject("message", message);
+		result = new ModelAndView("relationLike/edit");
+		result.addObject("relationLikeForm", relationLikeForm);
+		result.addObject("stars", stars);
+		result.addObject("message", message);
 
-			return result;
+		return result;
 
-		}
+	}
 
-		
-	
-				
 }

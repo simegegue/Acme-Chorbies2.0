@@ -126,6 +126,9 @@
 	
 	<spring:message code="chorbi.like.moment" var="moment"/>
 	<display:column title="${moment}" sortable="true"><fmt:formatDate value="${row.moment}" pattern="dd/MM/yyyy HH:mm" /></display:column>
+	
+	<spring:message code="chorbi.like.stars" var="stars"/>
+	<display:column title="${stars }" property="stars"/>
 		
 	<spring:message code="chorbi.comment" var="comment"/>
 	<display:column title="${comment }">

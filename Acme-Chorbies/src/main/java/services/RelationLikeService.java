@@ -169,6 +169,7 @@ public class RelationLikeService {
 		RelationLike result;
 		result = create();
 		result.setComment(relationLikeForm.getcomment());
+		result.setStars(relationLikeForm.getStars());
 		result.setLikeRecipient(chorbiService.findOne(relationLikeForm.getchorbiId()));
 		validator.validate(result, binding);
 		return result;

@@ -10,11 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -48,13 +47,14 @@ public class RelationLike extends DomainEntity {
 	}
 
 	@NotNull
-	@Min(0)
+	@Range(min = 0, max = 3)
 	public Integer getStars() {
 		return this.stars;
 	}
 	public void setStars(Integer stars) {
 		this.stars = stars;
 	}
+
 
 	// Relationships -----------------------------------
 	private Chorbi	likeSender;
@@ -77,7 +77,5 @@ public class RelationLike extends DomainEntity {
 	public void setLikeRecipient(Chorbi likeRecipient) {
 		this.likeRecipient = likeRecipient;
 	}
-
-
 
 }
