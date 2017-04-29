@@ -813,4 +813,57 @@ public class ChorbiService {
 		return map;
 	}
 
+	public Collection<Double> minMaxAvgStarsChorbi() {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+		Collection<Double> result = new ArrayList<Double>();
+		Double aux;
+
+		aux = chorbiRepository.minStars();
+		result.add(aux);
+
+		aux = chorbiRepository.maxStars();
+		result.add(aux);
+
+		aux = chorbiRepository.avgStars();
+		result.add(aux);
+
+		return result;
+	}
+
+	public Map<Chorbi, RelationLike> mapChorbiRL() {
+		Map<Chorbi, RelationLike> map = new HashMap<Chorbi, RelationLike>();
+		List<Object[]> aux = chorbiRepository.chorbiLikes();
+		for (Object[] o : aux) {
+			map.put((Chorbi) o[0], (RelationLike) o[1]);
+		}
+		return map;
+	}
+
+	public Map<RelationLike, Integer> mapRLStars() {
+		Map<RelationLike, Integer> map = new HashMap<RelationLike, Integer>();
+		List<Object[]> aux = chorbiRepository.likesStars();
+		for (Object[] o : aux) {
+			map.put((RelationLike) o[0], (Integer) o[1]);
+		}
+		return map;
+	}
+
+	public Map<Chorbi, Integer> chorbiStars() {
+		Map<Chorbi, Integer> result = new HashMap<Chorbi, Integer>();
+
+		for (Chorbi c : mapChorbiRL().keySet()) {
+			for (RelationLike r : mapRLStars().keySet()) {
+				if (mapChorbiRL().get(c) == r) {
+					result.put(c, mapRLStars().get(r));
+				}
+			}
+		}
+		return result;
+	}
+
 }

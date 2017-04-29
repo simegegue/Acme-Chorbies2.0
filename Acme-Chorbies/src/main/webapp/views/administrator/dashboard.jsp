@@ -19,7 +19,7 @@
 <security:authorize access="hasRole('ADMIN')">
 
 <!-- C2 -->
-<p>Dashboard 2.0</p>
+<p><spring:message code="administrator.dash2" /></p>
 <div>
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.managersByEvents" /></legend>
 		<table id="managersByEvents" class="table">
@@ -83,7 +83,50 @@
 		</table>
 	</fieldset>
 </div>
+<!-- B2 -->
 
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.minMaxAvgStars" /></legend>
+		<table id="minMaxAvgStars" class="table">
+			<tr>
+				<th><spring:message code="administrator.dashboard.min"/></th>
+				<jstl:if test="${not empty minMaxAvgStars }">
+					<td><jstl:out value="${minMaxAvgStars.get(0) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.max"/></th>
+				<jstl:if test="${not empty minMaxAvgStars }">
+					<td><jstl:out value="${minMaxAvgStars.get(1) }" /></td>
+				</jstl:if>
+			</tr>
+			<tr>
+				<th><spring:message code="administrator.dashboard.avg"/></th>
+				<jstl:if test="${not empty minMaxAvgStars }">
+					<td><jstl:out value="${minMaxAvgStars.get(2) }" /></td>
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<div>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.mapChorbiesStars" /></legend>
+		<table id="mapChorbiesStars" class="table">
+			<tr>
+				<jstl:if test="${not empty mapChorbiesStars }">
+					<jstl:forEach var="X" items="${mapChorbiesStars}">
+					<tr>
+						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${mapS.get(X)} "/><td>
+					</tr>
+					</jstl:forEach>	
+				</jstl:if>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+
+<p><spring:message code="administrator.dash" /></p>
 <!-- C -->
 <div>
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>

@@ -69,6 +69,10 @@ public class AdministratorController extends AbstractController {
 		//B
 		Collection<Chorbi> listChorbiesbyLikes = chorbiService.listChorbiesbyLikes();
 		Collection<Double> minMaxAvgReceivedLikeChorbi = chorbiService.minMaxAvgReceivedLikeChorbi();
+		//--------------------------
+		Collection<Double> minMaxAvgStars = chorbiService.minMaxAvgStarsChorbi();
+		Collection<Chorbi> mapChorbiesStars = chorbiService.chorbiStars().keySet();
+		Map<Chorbi, Integer> mapS = chorbiService.chorbiStars();
 
 		//A
 		Collection<Double> minMaxAvgReceivedChirpChorbi = chorbiService.minMaxAvgReceivedChirpChorbi();
@@ -97,6 +101,10 @@ public class AdministratorController extends AbstractController {
 		//B
 		result.addObject("listChorbiesbyLikes", listChorbiesbyLikes);
 		result.addObject("minMaxAvgReceivedLikeChorbi", minMaxAvgReceivedLikeChorbi);
+		//----------------------------------------
+		result.addObject("minMaxAvgStars", minMaxAvgStars);
+		result.addObject("mapChorbiesStars", mapChorbiesStars);
+		result.addObject("mapS", mapS);
 
 		//A
 		result.addObject("minMaxAvgReceivedChirpChorbi", minMaxAvgReceivedChirpChorbi);

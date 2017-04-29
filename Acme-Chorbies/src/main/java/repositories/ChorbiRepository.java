@@ -130,4 +130,19 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select m,m.feeAmount from Chorbi m")
 	List<Object[]> chorbiFeeAmount();
 
+	@Query("select min(r.stars) from Chorbi c join c.likesReceived r")
+	Double minStars();
+
+	@Query("select max(r.stars) from Chorbi c join c.likesReceived r")
+	Double maxStars();
+
+	@Query("select avg(r.stars) from Chorbi c join c.likesReceived r")
+	Double avgStars();
+
+	@Query("select c, c.likesReceived from Chorbi c")
+	List<Object[]> chorbiLikes();
+
+	@Query("select c, c.stars from RelationLike c")
+	List<Object[]> likesStars();
+
 }
