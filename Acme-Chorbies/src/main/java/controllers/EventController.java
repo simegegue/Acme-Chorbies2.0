@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import services.EventService;
+import services.FeeService;
 import services.RelationEventService;
 import domain.Event;
 
@@ -30,6 +31,9 @@ public class EventController extends AbstractController {
 	
 	@Autowired
 	private RelationEventService relationEventService;
+	
+	@Autowired
+	private FeeService 		feeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -83,7 +87,7 @@ public class EventController extends AbstractController {
 		Collection<Event> events = eventService.findByChorbiRegister();
 		Map<Event, Integer> map = eventService.mapSeats();
 		
-		result = new ModelAndView("event/browseAvailable");
+		result = new ModelAndView("event/browseRegistered");
 		result.addObject("events", events);
 		result.addObject("seats", map);
 		result.addObject("requestURI", "event/browseRegistered.do");
@@ -131,9 +135,15 @@ public class EventController extends AbstractController {
 		
 		try{
 			relationEventService.register(event);
-			result = new ModelAndView("event/display");
-			result.addObject("event", event);
-			result.addObject("requestURI", "event/display.do");
+			feeService.addFeeChorbi();
+			
+			Collection<Event> events = eventService.findByChorbiRegister();
+			Map<Event, Integer> map = eventService.mapSeats();
+			
+			result = new ModelAndView("event/browseAvailable");
+			result.addObject("events", events);
+			result.addObject("seats", map);
+			result.addObject("requestURI", "event/browseRegistered.do");
 		}catch(Throwable oops){
 			String message = "event.no.register";
 			result = registerModelAndView(event,message);

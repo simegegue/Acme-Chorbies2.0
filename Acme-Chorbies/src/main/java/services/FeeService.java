@@ -14,6 +14,7 @@ import repositories.FeeRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Chorbi;
 import domain.Fee;
 import forms.FeeForm;
 
@@ -30,6 +31,9 @@ public class FeeService {
 
 	@Autowired
 	private Validator		validator;
+	
+	@Autowired
+	private ChorbiService 	chorbiService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -132,6 +136,25 @@ public class FeeService {
 		validator.validate(result, binding);
 
 		return result;
+	}
+	
+	public void addFeeChorbi(){
+		
+		UserAccount userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		Fee fee = null;
+		Chorbi chorbi = chorbiService.findByPrincipal();
+		for(Fee f: findAll()){
+			fee = f;
+		}
+		
+		double feeAmount = chorbi.getFeeAmount();
+		feeAmount += fee.getChorbiValue();
+		
+		chorbi.setFeeAmount(feeAmount);
 	}
 
 }
