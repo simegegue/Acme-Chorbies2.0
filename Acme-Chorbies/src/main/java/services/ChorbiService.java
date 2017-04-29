@@ -865,5 +865,21 @@ public class ChorbiService {
 		}
 		return result;
 	}
+	
+	public void restartChorbiesFee(){
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
+		Collection<Chorbi> chorbies = findAll();
+		double restart = 0.0;
+		
+		for(Chorbi c : chorbies){
+			c.setFeeAmount(restart);
+			save2(c);
+		}
+	}
 
 }

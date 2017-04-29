@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ChorbiService;
 import services.FeeService;
 import controllers.AbstractController;
 import domain.Fee;
@@ -23,6 +24,9 @@ public class FeeController extends AbstractController {
 
 	@Autowired
 	private FeeService	feeService;
+	
+	@Autowired
+	private ChorbiService chorbiService;
 
 
 	//Constructor----------------------
@@ -64,6 +68,14 @@ public class FeeController extends AbstractController {
 			}
 		}
 
+		return result;
+	}
+	
+	@RequestMapping(value="/updateChorbiFee", method = RequestMethod.GET)
+	public ModelAndView updateChorbiFee(){
+		ModelAndView result;
+		chorbiService.restartChorbiesFee();
+		result = new ModelAndView("redirect:/welcome/index.do");
 		return result;
 	}
 
