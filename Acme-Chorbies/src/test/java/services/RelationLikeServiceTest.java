@@ -39,13 +39,13 @@ public class RelationLikeServiceTest extends AbstractTest {
 	public void driverLikeUnlikeChorbi() {
 		Object testingData[][] = {
 			{
-				"chorbi1", 64, 63, null
+				"chorbi1", 87, 86, null
 			}, {
-				"chorbi2", 66, 64, null
+				"chorbi2", 89, 86, null
 			}, {
-				"admin", 62, 63, IllegalArgumentException.class
+				"admin", 85, 86, IllegalArgumentException.class
 			}, {
-				null, 62, 63, IllegalArgumentException.class
+				null, 85, 86, IllegalArgumentException.class
 			}
 		};
 

@@ -51,7 +51,7 @@ public class CacheTimeServiceTest extends AbstractTest{
 		Class<?> caught = null;
 		try{
 			authenticate(user); // nos autenticamos como usuario.
-			CacheTimeForm cacheTimeForm = cacheTimeService.transform(cacheTimeService.findOne(48)); // Creamos un objeto bannerForm
+			CacheTimeForm cacheTimeForm = cacheTimeService.transform(cacheTimeService.findOne(70)); // Creamos un objeto bannerForm
 			cacheTimeForm.setTime(time); // Le asignamos la url
 			CacheTime cacheTime = cacheTimeService.reconstruct(cacheTimeForm, null); // Reconstruimos el Banner por medio del BannerForm
 			Assert.notNull(cacheTime); // Comprobamos que banner no es nulo

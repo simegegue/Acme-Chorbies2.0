@@ -72,10 +72,10 @@ public class BannerServiceTest extends AbstractTest{
 	@Test
 	public void driverDeleteBanner(){
 		Object testingData[][] = {
-			{"admin", 45, null},
+			{"admin", 67, null},
 			{"admin", 200, IllegalArgumentException.class},
-			{"chorbi2", 45, IllegalArgumentException.class},
-			{null, 45, IllegalArgumentException.class}
+			{"chorbi2", 67, IllegalArgumentException.class},
+			{null, 67, IllegalArgumentException.class}
 		};
 		
 		for(int i = 0; i< testingData.length; i++){

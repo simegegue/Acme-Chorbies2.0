@@ -173,11 +173,11 @@ public class AdministratorServiceTest extends AbstractTest {
 	public void driverBanUnbanChorbi() {
 		Object testingData[][] = {
 			{
-				"admin", 62, null
+				"admin", 85, null
 			}, {
-				"chorbi2", 66, IllegalArgumentException.class
+				"chorbi2", 89, IllegalArgumentException.class
 			}, {
-				null, 65, IllegalArgumentException.class
+				null, 88, IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++) {

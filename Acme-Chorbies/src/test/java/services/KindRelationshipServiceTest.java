@@ -68,14 +68,14 @@ public class KindRelationshipServiceTest extends AbstractTest {
 	public void driverDelete() {
 		Object testingData[][] = {
 			{
-				"admin", 52, null
+				"admin", 75, null
 			}, // En este primer caso intentaremos borrar un kindRelationship que ningun actor tiene.
 			{
-				"chorbi1", 52, IllegalArgumentException.class
+				"chorbi1", 75, IllegalArgumentException.class
 			},
 		// Probamos ahora a borrar un kindRelationship que no tiene un actor como chorbi.
 			{
-				null, 52, IllegalArgumentException.class
+				null, 75, IllegalArgumentException.class
 			}
 		};
 
