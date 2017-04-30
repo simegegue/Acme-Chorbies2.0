@@ -80,10 +80,7 @@ public class ManagerService {
 	public Manager findOne(int managerId) {
 
 		Manager result;
-
 		result = managerRepository.findOne(managerId);
-		Assert.notNull(result);
-
 		return result;
 	}
 

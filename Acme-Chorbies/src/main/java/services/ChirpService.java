@@ -187,6 +187,19 @@ public class ChirpService {
 			return result;
 		}
 		
+		public Mailer findSenderByChirpId(int id){
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+
+			Assert.isTrue(userAccount.getAuthorities().contains(au));
+
+			Mailer result;
+			result = chirpRepository.findSenderByChirpId(id);
+			return result;
+		}
+		
 		public void deleteChirp(Chirp chirp){
 			UserAccount userAccount;
 			userAccount = LoginService.getPrincipal();
@@ -407,5 +420,7 @@ public class ChirpService {
 		}
 
 	}
+	
+	
 	
 }

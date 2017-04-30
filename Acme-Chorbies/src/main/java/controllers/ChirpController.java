@@ -2,6 +2,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -19,6 +21,7 @@ import services.EventService;
 import domain.Chirp;
 import domain.Chorbi;
 import domain.Event;
+import domain.Mailer;
 import forms.ChirpForm;
 
 @Controller
@@ -50,9 +53,16 @@ public class ChirpController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Chirp> chirps = chirpService.chirpReceivedByActorId();
+		Map<Integer,Mailer> senders = new HashMap<Integer,Mailer>();
+
+		
+		for(Chirp c: chirps){
+			senders.put(c.getId(), chirpService.findSenderByChirpId(c.getId()));
+		}
 
 		result = new ModelAndView("chirp/received");
 		result.addObject("chirp", chirps);
+		result.addObject("senders", senders);
 
 		return result;
 	}

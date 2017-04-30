@@ -103,10 +103,7 @@ public class ChorbiService {
 	public Chorbi findOne(int chorbiId) {
 
 		Chorbi result;
-
 		result = chorbiRepository.findOne(chorbiId);
-		Assert.notNull(result);
-
 		return result;
 	}
 

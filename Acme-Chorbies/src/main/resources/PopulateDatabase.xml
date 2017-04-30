@@ -718,8 +718,6 @@
 	<property name="text" value="text3"/>
 	<property name="attachment">
 			<set>
-				
-				
 			</set>
 		</property>
 	<property name="sender" ref="chorbi2"/>

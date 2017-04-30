@@ -21,7 +21,9 @@
 	<display:table name="chirp" id="row" class="displaytag" pagesize="5" requestURI="chirp/received.do" >
 	
 	<spring:message code = "chirp.sender" var = "senderHeader"/>
-	<display:column property="sender.userAccount.username" title="${senderHeader}" sortable="true"/>
+	<display:column title="${senderHeader}" sortable="true">
+		<jstl:out value="${senders[row.id].userAccount.username} "></jstl:out>
+	</display:column>
 	
 	<spring:message code = "chirp.recipient" var = "recipientHeader"/>
 	<display:column property="recipient.userAccount.username" title="${recipientHeader}" sortable="true"/>
