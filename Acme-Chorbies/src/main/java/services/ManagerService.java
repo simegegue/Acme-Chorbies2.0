@@ -38,6 +38,10 @@ public class ManagerService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
+	private ChorbiService		chorbiService;
+
+	
+	@Autowired
 	private Validator			validator;
 
 
@@ -180,7 +184,7 @@ public class ManagerService {
 		if (m.getCreditCard() == null) {
 			b = false;
 		} else {
-			b = ChorbiService.check(m.getCreditCard());
+			b = chorbiService.check(m.getCreditCard());
 		}
 		return b;
 	}

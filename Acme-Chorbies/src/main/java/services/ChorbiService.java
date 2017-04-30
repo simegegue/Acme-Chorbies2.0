@@ -739,7 +739,7 @@ public class ChorbiService {
 		return result;
 	}
 
-	public static boolean check(CreditCard creditCard) {
+	public boolean check(CreditCard creditCard) {
 		boolean validador = false;
 		int sum = 0;
 		Calendar fecha = Calendar.getInstance();
@@ -782,7 +782,7 @@ public class ChorbiService {
 		if (c.getCreditCard() == null) {
 			b = false;
 		} else {
-			b = ChorbiService.check(c.getCreditCard());
+			b = check(c.getCreditCard());
 		}
 		return b;
 	}

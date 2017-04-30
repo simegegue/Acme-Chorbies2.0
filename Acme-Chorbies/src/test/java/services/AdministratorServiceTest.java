@@ -198,5 +198,40 @@ public class AdministratorServiceTest extends AbstractTest {
 		}
 		checkExceptions(expected, caught);
 	}
+	
+	/*- An actor who is authenticated as an administrator must be able to:
+		 Display a dashboard with the following information:
+		 - The minimum, the maximum, and the average number of stars per chorbi.
+		 - The list of chorbies, sorted by the average number of stars that they've got.*/
 
+	@Test
+	public void driverDashboardA2() {
+		Object testingData[][] = {
+			{
+				"admin", null
+			}, {
+				"chorbi1", IllegalArgumentException.class
+			}, {
+				null, IllegalArgumentException.class
+			}
+		};
+		for (int i = 0; i < testingData.length; i++) {
+			driverDashboardA2((String) testingData[i][0], (Class<?>) testingData[i][1]);
+		}
+	}
+
+	protected void driverDashboardA2(String user, Class<?> expected) {
+		Class<?> caught = null;
+		try {
+			authenticate(user); // Nos autenticamos como usuario.
+			Collection<Double> d = chorbiService.minMaxAvgStarsChorbi(); // Obtenemos el minimo, máximo y media de numero de estrellas por chorbi.
+			Collection<Chorbi> t = chorbiService.chorbiesStars(); // Obtenemos los chorbies ordenados por la media de estrellas que tienen.
+			Assert.notEmpty(d);
+			Assert.notEmpty(t);
+			unauthenticate();
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		checkExceptions(expected, caught);
+	}
 }

@@ -103,6 +103,14 @@ public class RelationLikeService {
 
 	// Other bussiness methods ------------------------------------------------
 	public Collection<Chorbi> findByLikesSent(int id) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("CHORBI");
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
+		Assert.isTrue(chorbiService.principalCheckCreditCard());
+		
 		Collection<Chorbi> result;
 		result = relationLikeRepository.findByLikesSent(id);
 		return result;

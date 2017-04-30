@@ -70,5 +70,43 @@ public class RelationLikeServiceTest extends AbstractTest {
 		}
 		checkExceptions(expected, caught);
 	}
+	
+	/*An actor who is authenticated as a chorbi must be able to:
+		o Browse the catalogue of chorbies who have liked him or her as long as 
+		he or she has registered a valid credit card. If he or she's not register a valid card,
+		then the system must ask him or her to do so; the system must inform the chorbies that 
+		their credit cards will not be charged.*/
+	
+	@Test
+	public void driverListChorbiesbyLikes() {
+		Object testingData[][] = {
+			{
+				"chorbi1", 85 , null
+			}, {
+				"chorbi5", 89, IllegalArgumentException.class
+			}, {
+				"admin", 85, IllegalArgumentException.class
+			}, {
+				null, 85, IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			templateListChorbiesbyLikes((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void templateListChorbiesbyLikes(String user, int id, Class<?> expected) {
+		Class<?> caught = null;
+
+		try {
+			authenticate(user); // nos autenticamos como usuario.
+			relationLikeService.findByLikesSent(id); // obtenemos la lista de chorbies que le han dado like al usuario actual
+			unauthenticate();
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		checkExceptions(expected, caught);
+	}
 
 }
