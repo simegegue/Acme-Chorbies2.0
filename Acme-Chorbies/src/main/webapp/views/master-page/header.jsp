@@ -39,6 +39,7 @@
 			</li>
 			<li><a class="fNiv" href="admin/cacheTime/edit.do"><spring:message code="master.page.cacheTime" /></a></li>
 			<li><a class="fNiv" href="administrator/fee/edit.do"><spring:message code="master.page.fee" /></a></li>
+			<li><a class="fNiv" href="administrator/fee/updateChorbiFee.do"><spring:message code="master.page.fee.update" /></a></li>
 			<li><a class="fNiv"><spring:message	code="master.page.administrator.genre" /></a>
 				<ul>
 					<li class="arrow"></li>
