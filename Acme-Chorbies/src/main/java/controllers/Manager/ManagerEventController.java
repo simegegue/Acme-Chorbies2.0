@@ -80,7 +80,7 @@ public class ManagerEventController extends AbstractController {
 
 		eventForm = eventService.generateForm();
 		result = new ModelAndView("event/create");
-		result.addObject("event", eventForm);
+		result.addObject("eventForm", eventForm);
 		result.addObject("validatorCreditCard", b);
 
 		return result;
@@ -97,10 +97,10 @@ public class ManagerEventController extends AbstractController {
 		Boolean b = managerService.principalCheckCreditCard();
 
 		event = eventService.findOne(eventId);
-		//EventForm eventForm = eventService.transform(event);
+		EventForm eventForm = eventService.transform(event);
 		Assert.notNull(event);
 		result = new ModelAndView("event/edit");
-		result.addObject("event", event);
+		result.addObject("eventForm", eventForm);
 		result.addObject("validatorCreditCard", b);
 
 		return result;
@@ -108,15 +108,20 @@ public class ManagerEventController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Event event, BindingResult binding) {
+	public ModelAndView save(@Valid EventForm eventForm, BindingResult binding) {
 
 		ModelAndView result = new ModelAndView();
-
+		Event event;
+		
 		if (binding.hasErrors())
-			result = createEditModelAndView(event);
+			if(eventForm.getId()!=0){
+				result = createEditModelAndView(eventForm, null);
+			}else{
+				result = createEditModelAndView2(eventForm, null);
+			}
 		else
 			try {
-				event = eventService.reconstruct(event, binding);
+				event = eventService.reconstruct(eventForm, binding);
 				if (event.getId() == 0) {
 					Manager m = managerService.findByPrincipal();
 					Double f = m.getFeeAmount() + feeService.find().getManagerValue();
@@ -131,21 +136,30 @@ public class ManagerEventController extends AbstractController {
 				}
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
-				result = createEditModelAndView(event, msgCode);
+				if (oops.getMessage().equals("nullCreditCard"))
+					msgCode = "event.nullCreditCard";
+				else if (oops.getMessage().equals("badCreditCard"))
+					msgCode = "event.badCreditCard";
+				
+				if(eventForm.getId()!=0){
+					result = createEditModelAndView(eventForm, msgCode);
+				}else{
+					result = createEditModelAndView2(eventForm, msgCode);
+				}
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Event event, BindingResult binding) {
+	public ModelAndView delete(EventForm eventForm, BindingResult binding) {
 
 		ModelAndView result;
 
-		event = eventService.reconstruct(event, binding);
 		if (binding.hasErrors())
-			result = createEditModelAndView(event);
+			result = createEditModelAndView(eventForm, null);
 		else
 			try {
+				Event event = eventService.reconstruct(eventForm, binding);
 				String title = event.getTitle();
 				Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 				for (RelationEvent re : event.getRelationEvents()) {
@@ -155,7 +169,7 @@ public class ManagerEventController extends AbstractController {
 				chirpService.chirpDeleteEvent(title, chorbies);
 				result = list();
 			} catch (Throwable oops) {
-				result = createEditModelAndView(event);
+				result = createEditModelAndView(eventForm, null);
 			}
 		return result;
 	}
@@ -178,6 +192,17 @@ public class ManagerEventController extends AbstractController {
 		result = new ModelAndView("event/edit");
 		result.addObject("event", event);
 
+		result.addObject("message", message);
+
+		return result;
+
+	}
+	
+	protected ModelAndView createEditModelAndView2(EventForm event, String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("event/create");
+		result.addObject("event", event);
 		result.addObject("message", message);
 
 		return result;

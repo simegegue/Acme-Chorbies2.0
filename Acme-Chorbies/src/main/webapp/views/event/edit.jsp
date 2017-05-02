@@ -19,10 +19,7 @@
 
 <security:authorize access="hasRole('MANAGER')">
 
-<jstl:choose>
-	<jstl:when test="${validatorCreditCard == true }">
-
-	<form:form action="managerActor/event/edit.do"	modelAttribute="event">
+	<form:form action="managerActor/event/edit.do"	modelAttribute="eventForm">
 	
 		<form:hidden path="id"/>
 	
@@ -37,17 +34,11 @@
 		<acme:textbox code="event.seatsOffered" path="seatsOffered" />
 		<br/>
 		<acme:submit name="save" code="event.save"/>
-		<jstl:if test="${event.id != 0}">
+		<jstl:if test="${eventForm.id != 0}">
 			<input type="submit" name="delete" value="<spring:message code="event.delete" />" onclick="return confirm('<spring:message code="event.confirm.delete" />')" />
 		</jstl:if>
 		<acme:cancel code="event.cancel" url="managerActor/event/list.do" />
 	
 	</form:form>
-	
-	</jstl:when>
-	<jstl:otherwise>
-		<h2><spring:message code="searchTemplate.creditCard.invalid"/></h2>
-	</jstl:otherwise>
-</jstl:choose>
 
 </security:authorize>

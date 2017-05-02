@@ -217,10 +217,19 @@ public class EventService {
 		au.setAuthority("MANAGER");
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		Assert.notNull(managerService.findByPrincipal().getCreditCard(),"nullCreditCard");
+		Assert.isTrue(chorbiService.check(managerService.findByPrincipal().getCreditCard()),"badCreditCard");
 
+		
 		Manager manager = managerService.findByPrincipal();
 
-		Event result = create();
+		Event result;
+		
+		if(eventForm.getId()==0)
+			result = create();
+		else
+			result = findOne(eventForm.getId());
+		
 		result.setId(eventForm.getId());
 		result.setManager(manager);
 		result.setDescription(eventForm.getDescription());
@@ -233,43 +242,6 @@ public class EventService {
 		return result;
 	}
 
-	public Event reconstruct(Event event, BindingResult binding) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("MANAGER");
-
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
-		Event result;
-		Collection<RelationEvent> relationEvents = new ArrayList<RelationEvent>();
-
-		if (event.getId() == 0) {
-			Manager manager = managerService.findByPrincipal();
-
-			result = event;
-			result.setManager(manager);
-			result.setRelationEvents(relationEvents);
-			result.setDescription(event.getDescription());
-			result.setMoment(event.getMoment());
-			result.setPicture(event.getPicture());
-			result.setSeatsOffered(event.getSeatsOffered());
-			result.setTitle(event.getTitle());
-		} else {
-			Event event2 = findOne(event.getId());
-			result = eventRepository.findOne(event.getId());
-			result.setRelationEvents(event2.getRelationEvents());
-			result.setDescription(event.getDescription());
-			result.setMoment(event.getMoment());
-			result.setPicture(event.getPicture());
-			result.setSeatsOffered(event.getSeatsOffered());
-			result.setTitle(event.getTitle());
-
-			validator.validate(result, binding);
-		}
-
-		return result;
-	}
-
 	public EventForm transform(Event event) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -278,6 +250,7 @@ public class EventService {
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		EventForm result = generateForm();
+		result.setId(event.getId());
 		result.setDescription(event.getDescription());
 		result.setMoment(event.getMoment());
 		result.setPicture(event.getPicture());
