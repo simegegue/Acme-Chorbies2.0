@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Banners -->
+	
+	<bean id="banner1" class="domain.Banner">
+	<property name="url" value="https://c1.staticflickr.com/3/2813/33640539192_f498ce27f2.jpg"/>
+	</bean>
+	
+	<bean id="banner2" class="domain.Banner">
+	<property name="url" value="https://c1.staticflickr.com/4/3837/33667275001_890d00ddd7.jpg"/>
+	</bean>
+	
+	<bean id="banner3" class="domain.Banner">
+	<property name="url" value="https://c1.staticflickr.com/4/3856/33667279331_a4ec3acb2e_b.jpg"/>
+	</bean>
+	
+	<!-- Cache Time -->
+	
+	<bean id="cacheTimer" class="domain.CacheTime">
+	<property name="time" value="12:00:00"/>
+	</bean>
+	
+	<!-- Genre -->
+	
+	<bean id="genre3" class="domain.Genre">
+	<property name="value" value="none"/>
+	</bean>
+	
+	<bean id="genre1" class="domain.Genre">
+	<property name="value" value="man"/>
+	</bean>
+	
+	<bean id="genre2" class="domain.Genre">
+	<property name="value" value="woman"/>
+	</bean>
+	
+	<!-- KindRelationShip -->
+	
+	<bean id="kindRelationship4" class="domain.KindRelationship">
+	<property name="value" value="none"/>
+	</bean>
+	
+	<bean id="kindRelationship1" class="domain.KindRelationship">
+	<property name="value" value="activities"/>
+	</bean>
+	
+	<bean id="kindRelationship2" class="domain.KindRelationship">
+	<property name="value" value="friendship"/>
+	</bean>
+	
+	<bean id="kindRelationship3" class="domain.KindRelationship">
+	<property name="value" value="love"/>
+	</bean>
+	
+	<!-- Admin -->
+	
+	<bean id="admin" class="domain.Administrator">
+	<property name="name" value="Manuel" />
+	<property name="surname" value="Torres" />
+	<property name="email" value="manuto@gmail.com" />
+	<property name="phone" value="+34 965845789" />
+	<property name="userAccount" ref="userAccount1"/>
+	</bean>
+	
+	<!-- Other domain beans come here -->	
+	
+</beans>
