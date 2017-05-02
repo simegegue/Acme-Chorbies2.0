@@ -31,21 +31,21 @@ public class EventService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private EventRepository	eventRepository;
+	private EventRepository			eventRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ManagerService	managerService;
-	
-	@Autowired
-	private ChorbiService chorbiService;
+	private ManagerService			managerService;
 
 	@Autowired
-	private Validator		validator;
-	
+	private ChorbiService			chorbiService;
+
 	@Autowired
-	private RelationEventService relationEventService;
+	private Validator				validator;
+
+	@Autowired
+	private RelationEventService	relationEventService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -104,7 +104,7 @@ public class EventService {
 		au.setAuthority("MANAGER");
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
-		
+
 		Event result;
 		result = eventRepository.save(event);
 
@@ -112,20 +112,20 @@ public class EventService {
 	}
 
 	public void delete(Event event) {
-		
+
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
 		au.setAuthority("MANAGER");
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
-		
+
 		Assert.notNull(event);
 
 		Assert.isTrue(event.getId() != 0);
-		
-		if(!event.getRelationEvents().isEmpty()){
-			for(RelationEvent re : event.getRelationEvents()){
+
+		if (!event.getRelationEvents().isEmpty()) {
+			for (RelationEvent re : event.getRelationEvents()) {
 				relationEventService.delete(re);
 			}
 		}
@@ -143,7 +143,7 @@ public class EventService {
 		}
 		return map;
 	}
-	
+
 	public Collection<Event> eventsInLessOneMonth() {
 		Collection<Event> result = new ArrayList<Event>();
 		Map<Event, Integer> oneMonth = map();
@@ -222,21 +222,25 @@ public class EventService {
 		userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
 		au.setAuthority("MANAGER");
+		Event event;
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
-		Assert.notNull(managerService.findByPrincipal().getCreditCard(),"nullCreditCard");
-		Assert.isTrue(chorbiService.check(managerService.findByPrincipal().getCreditCard()),"badCreditCard");
+		Assert.notNull(managerService.findByPrincipal().getCreditCard(), "nullCreditCard");
+		Assert.isTrue(chorbiService.check(managerService.findByPrincipal().getCreditCard()), "badCreditCard");
+		if (eventForm.getId() != 0) {
+			event = findOne(eventForm.getId());
+			Assert.isTrue(eventForm.getSeatsOffered() - seats(event) >= 0, "negativeSeats");
+		}
 
-		
 		Manager manager = managerService.findByPrincipal();
 
 		Event result;
-		
-		if(eventForm.getId()==0)
+
+		if (eventForm.getId() == 0)
 			result = create();
 		else
 			result = findOne(eventForm.getId());
-		
+
 		result.setId(eventForm.getId());
 		result.setManager(manager);
 		result.setDescription(eventForm.getDescription());
@@ -280,26 +284,26 @@ public class EventService {
 		result = eventRepository.eventByManagerId(manager.getId());
 		return result;
 	}
-	
-	public Collection<Event> findByChorbiRegister(){
+
+	public Collection<Event> findByChorbiRegister() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
 		au.setAuthority("CHORBI");
 
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
-		
+
 		Collection<Event> result = new ArrayList<Event>();
 		Chorbi chorbi = chorbiService.findByPrincipal();
-		
-		for(Event e : findAll()){
-			for(RelationEvent re : e.getRelationEvents()){
-				if(re.getChorbi().equals(chorbi)){
+
+		for (Event e : findAll()) {
+			for (RelationEvent re : e.getRelationEvents()) {
+				if (re.getChorbi().equals(chorbi)) {
 					result.add(e);
 				}
 			}
 		}
-		
+
 		return result;
 	}
 }

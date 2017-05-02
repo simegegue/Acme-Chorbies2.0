@@ -122,35 +122,29 @@ public class ManagerEventController extends AbstractController {
 		else
 			try {
 				event = eventService.reconstruct(eventForm, binding);
+
 				if (event.getId() == 0) {
 					Manager m = managerService.findByPrincipal();
 					Double f = m.getFeeAmount() + feeService.find().getManagerValue();
 					m.setFeeAmount(f);
-					if (eventService.availableSeats(event) >= 0) {
-						Event event2 = eventService.save(event);
-						chirpService.chirpUpdateEvent(event2);
-						result = list();
-					} else {
-						String msgCode = "event.saveSeats.error";
-						result = createEditModelAndView(eventForm, msgCode);
-					}
+					Event event2 = eventService.save(event);
+					chirpService.chirpUpdateEvent(event2);
+					result = list();
 
 				} else {
-					if (eventService.availableSeats(event) >= 0) {
-						Event event2 = eventService.save(event);
-						chirpService.chirpUpdateEvent(event2);
-						result = list();
-					} else {
-						String msgCode = "event.saveSeats.error";
-						result = createEditModelAndView(eventForm, msgCode);
-					}
+					Event event2 = eventService.save(event);
+					chirpService.chirpUpdateEvent(event2);
+					result = list();
 				}
+
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
 				if (oops.getMessage().equals("nullCreditCard"))
 					msgCode = "event.nullCreditCard";
 				else if (oops.getMessage().equals("badCreditCard"))
 					msgCode = "event.badCreditCard";
+				else if (oops.getMessage().equals("negativeSeats"))
+					msgCode = "event.saveSeats.error";
 
 				if (eventForm.getId() != 0) {
 					result = createEditModelAndView(eventForm, msgCode);
