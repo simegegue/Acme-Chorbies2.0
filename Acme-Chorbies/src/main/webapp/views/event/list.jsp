@@ -26,7 +26,7 @@
 	requestURI="${requestURI}" >
 	
 	<display:column>
-		<a href="manager/event/edit.do?eventId=${row.id}"><spring:message code="event.edit" /></a>
+		<a href="managerActor/event/edit.do?eventId=${row.id}"><spring:message code="event.edit" /></a>
 	</display:column>
 	
 	<spring:message code="event.title" var="titleHeader" />

@@ -28,7 +28,7 @@ import domain.RelationEvent;
 import forms.EventForm;
 
 @Controller
-@RequestMapping("/manager/event")
+@RequestMapping("/managerActor/event")
 public class ManagerEventController extends AbstractController {
 
 	//Services-------------------------
@@ -64,7 +64,7 @@ public class ManagerEventController extends AbstractController {
 		result = new ModelAndView("event/list");
 		result.addObject("events", events);
 		result.addObject("seats", map);
-		result.addObject("requestURI", "manager/event/list.do");
+		result.addObject("requestURI", "managerActor/event/list.do");
 
 		return result;
 	}

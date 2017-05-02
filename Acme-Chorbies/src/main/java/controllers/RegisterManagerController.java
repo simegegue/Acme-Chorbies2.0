@@ -15,7 +15,7 @@ import domain.Manager;
 import forms.ManagerForm;
 
 @Controller
-@RequestMapping("/manager")
+@RequestMapping("/managerActor")
 public class RegisterManagerController extends AbstractController{
 
 	// Services ------------------------------------------------
@@ -39,7 +39,7 @@ public class RegisterManagerController extends AbstractController{
 
 		managerForm = managerService.generate();
 
-		result = new ModelAndView("manager/register");
+		result = new ModelAndView("managerActor/register");
 		result.addObject("managerForm", managerForm);
 
 		return result;
@@ -87,7 +87,7 @@ public class RegisterManagerController extends AbstractController{
 	protected ModelAndView createEditModelAndView(ManagerForm managerForm, String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("manager/register");
+		result = new ModelAndView("managerActor/register");
 		result.addObject("managerForm", managerForm);
 		result.addObject("message", message);
 

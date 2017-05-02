@@ -71,8 +71,8 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('MANAGER')">
-			<li><a class="fNiv" href="manager/event/list.do"><spring:message code="master.page.manager.list" /></a></li>
-			<li><a class="fNiv" href="manager/event/create.do"><spring:message code="master.page.manager.create" /></a></li>
+			<li><a class="fNiv" href="managerActor/event/list.do"><spring:message code="master.page.manager.list" /></a></li>
+			<li><a class="fNiv" href="managerActor/event/create.do"><spring:message code="master.page.manager.create" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
@@ -80,14 +80,16 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="chorbi/register.do"><spring:message code="master.page.register.chorbi" /></a></li>
-					<li><a href="manager/register.do"><spring:message code="master.page.register.manager" /></a></li>
+					<li><a href="managerActor/register.do"><spring:message code="master.page.register.manager" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<security:authorize access="hasRole('CHORBI')||hasRole('ADMIN')">
 		<li><a class="fNiv" href="chorbi/browse.do"><spring:message code="master.page.chorbi.browse" /></a></li>
+			</security:authorize>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -104,7 +106,7 @@
 				<security:authorize access="hasRole('MANAGER')">
 				<ul>
 					<li class="arrow"></li>			
-					<li><a href="manager/edit.do"><spring:message code="master.page.edit.profile" /> </a></li>	
+					<li><a href="managerActor/edit.do"><spring:message code="master.page.edit.profile" /> </a></li>	
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 				</security:authorize>

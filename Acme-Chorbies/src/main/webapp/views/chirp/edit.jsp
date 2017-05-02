@@ -23,8 +23,10 @@
 		<form:hidden path="eventId"/>
 		<acme:textbox code="chirp.sender" path="sender.userAccount.username" readonly="true" />
 		<br/>
+		<jstl:if test="${chorbies !=null }">
 		<acme:select items="${chorbies }" itemLabel="userAccount.username" code="chirp.recipient" path="recipient" />
 		<br/>
+		</jstl:if>
 		<acme:textbox code="chirp.subject" path="subject" />
 		<br/>
 		<acme:textarea code="chirp.text" path="text" />

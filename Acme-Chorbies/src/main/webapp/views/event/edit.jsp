@@ -22,7 +22,7 @@
 <jstl:choose>
 	<jstl:when test="${validatorCreditCard == true }">
 
-	<form:form action="manager/event/edit.do"	modelAttribute="event">
+	<form:form action="managerActor/event/edit.do"	modelAttribute="event">
 	
 		<form:hidden path="id"/>
 	
@@ -40,7 +40,7 @@
 		<jstl:if test="${event.id != 0}">
 			<input type="submit" name="delete" value="<spring:message code="event.delete" />" onclick="return confirm('<spring:message code="event.confirm.delete" />')" />
 		</jstl:if>
-		<acme:cancel code="event.cancel" url="manager/event/list.do" />
+		<acme:cancel code="event.cancel" url="managerActor/event/list.do" />
 	
 	</form:form>
 	

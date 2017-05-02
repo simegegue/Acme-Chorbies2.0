@@ -48,8 +48,8 @@
 		<security:intercept-url pattern="/chorbi/browse.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/browseLike.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/chorbi/register.do" access="permitAll" />
-		<security:intercept-url pattern="/manager/register.do" access="permitAll" />
-		<security:intercept-url pattern="/manager/edit.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/managerActor/register.do" access="permitAll" />
+		<security:intercept-url pattern="/managerActor/edit.do" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/chorbi/edit.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/chorbi/chorbieswholikethem.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/admin/cacheTime/edit.do" access="hasRole('ADMIN')" />
@@ -79,9 +79,9 @@
 		<security:intercept-url pattern="/event/browse.do" access="permitAll" />
 		<security:intercept-url pattern="/event/browseAvailable.do" access="permitAll" />
 		<security:intercept-url pattern="/event/display.do" access="permitAll" />
-		<security:intercept-url pattern="/manager/event/edit.do" access="hasRole('MANAGER')" />
-		<security:intercept-url pattern="/manager/event/create.do" access="hasRole('MANAGER')" />
-		<security:intercept-url pattern="/manager/event/list.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/managerActor/event/edit.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/managerActor/event/create.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/managerActor/event/list.do" access="hasRole('MANAGER')" />
 		
 		
 	
