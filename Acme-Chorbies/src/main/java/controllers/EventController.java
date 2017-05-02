@@ -107,17 +107,21 @@ public class EventController extends AbstractController {
 		event = eventService.findOne(eventId);
 		boolean past = pastEvents.contains(event);
 		boolean full = eventService.hasSeats(event);
-
-		UserAccount userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("CHORBI");
-		
-		if(userAccount.getAuthorities().contains(au)){
-			if(relationEventService.chorbiRegister(event)){
-				register = 1;
+		try{
+			UserAccount userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("CHORBI");
+			
+			if(userAccount.getAuthorities().contains(au)){
+				if(relationEventService.chorbiRegister(event)){
+					register = 1;
+				}
 			}
-		}
 		
+			
+		}catch(Throwable oops){
+			String message = "is anonymous";
+		}
 		result = new ModelAndView("event/display");
 		result.addObject("event", event);
 		result.addObject("requestURI", "event/display.do");
