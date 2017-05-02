@@ -112,11 +112,11 @@ public class ManagerEventController extends AbstractController {
 
 		ModelAndView result = new ModelAndView();
 		Event event;
-		
+
 		if (binding.hasErrors())
-			if(eventForm.getId()!=0){
+			if (eventForm.getId() != 0) {
 				result = createEditModelAndView(eventForm, null);
-			}else{
+			} else {
 				result = createEditModelAndView2(eventForm, null);
 			}
 		else
@@ -126,13 +126,24 @@ public class ManagerEventController extends AbstractController {
 					Manager m = managerService.findByPrincipal();
 					Double f = m.getFeeAmount() + feeService.find().getManagerValue();
 					m.setFeeAmount(f);
-					Event event2 = eventService.save(event);
-					chirpService.chirpUpdateEvent(event2);
-					result = list();
+					if (eventService.availableSeats(event) >= 0) {
+						Event event2 = eventService.save(event);
+						chirpService.chirpUpdateEvent(event2);
+						result = list();
+					} else {
+						String msgCode = "event.saveSeats.error";
+						result = createEditModelAndView(eventForm, msgCode);
+					}
+
 				} else {
-					Event event2 = eventService.save(event);
-					chirpService.chirpUpdateEvent(event2);
-					result = list();
+					if (eventService.availableSeats(event) >= 0) {
+						Event event2 = eventService.save(event);
+						chirpService.chirpUpdateEvent(event2);
+						result = list();
+					} else {
+						String msgCode = "event.saveSeats.error";
+						result = createEditModelAndView(eventForm, msgCode);
+					}
 				}
 			} catch (Throwable oops) {
 				String msgCode = "event.save.error";
@@ -140,10 +151,10 @@ public class ManagerEventController extends AbstractController {
 					msgCode = "event.nullCreditCard";
 				else if (oops.getMessage().equals("badCreditCard"))
 					msgCode = "event.badCreditCard";
-				
-				if(eventForm.getId()!=0){
+
+				if (eventForm.getId() != 0) {
 					result = createEditModelAndView(eventForm, msgCode);
-				}else{
+				} else {
 					result = createEditModelAndView2(eventForm, msgCode);
 				}
 			}
@@ -175,7 +186,7 @@ public class ManagerEventController extends AbstractController {
 					msgCode = "event.nullCreditCard";
 				else if (oops.getMessage().equals("badCreditCard"))
 					msgCode = "event.badCreditCard";
-				
+
 				result = createEditModelAndView(eventForm, msgCode);
 			}
 		return result;
@@ -204,7 +215,7 @@ public class ManagerEventController extends AbstractController {
 		return result;
 
 	}
-	
+
 	protected ModelAndView createEditModelAndView2(EventForm event, String message) {
 		ModelAndView result;
 
