@@ -79,7 +79,8 @@ public class ManagerEventController extends AbstractController {
 		Boolean b = managerService.principalCheckCreditCard();
 
 		eventForm = eventService.generateForm();
-		result = createEditModelAndView(eventForm, null);
+		result = new ModelAndView("event/create");
+		result.addObject("event", eventForm);
 		result.addObject("validatorCreditCard", b);
 
 		return result;

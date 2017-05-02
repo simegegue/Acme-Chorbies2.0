@@ -119,6 +119,7 @@ public class EventController extends AbstractController {
 			}
 
 		} catch (Throwable oops) {
+			@SuppressWarnings("unused")
 			String message = "is anonymous";
 		}
 		result = new ModelAndView("event/display");
@@ -145,8 +146,6 @@ public class EventController extends AbstractController {
 				relationEventService.register(event);
 				feeService.addFeeChorbi();
 			}
-			Collection<Event> events = eventService.findByChorbiRegister();
-			Map<Event, Integer> map = eventService.mapSeats();
 
 			Collection<Event> pastEvents = eventService.pastEvents();
 
