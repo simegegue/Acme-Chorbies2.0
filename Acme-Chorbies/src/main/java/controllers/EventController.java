@@ -139,14 +139,14 @@ public class EventController extends AbstractController {
 		Event event = eventService.findOne(eventId);
 
 		try {
+			int register;
 			if (eventService.availableSeats(event) == 0) {
-
+				register = 0;
 			} else {
 				relationEventService.register(event);
 				feeService.addFeeChorbi();
+				register = 1;
 			}
-			Collection<Event> events = eventService.findByChorbiRegister();
-			Map<Event, Integer> map = eventService.mapSeats();
 
 			Collection<Event> pastEvents = eventService.pastEvents();
 
@@ -155,7 +155,7 @@ public class EventController extends AbstractController {
 
 			result = new ModelAndView("event/display");
 			result.addObject("event", event);
-			result.addObject("register", 1);
+			result.addObject("register", register);
 			result.addObject("requestURI", "event/display.do");
 			result.addObject("past", past);
 			result.addObject("full", full);
@@ -174,11 +174,16 @@ public class EventController extends AbstractController {
 		Event event = eventService.findOne(eventId);
 
 		try {
-			if (eventService.availableSeats(event) == event.getSeatsOffered()) {
+			int register;
 
+			if (eventService.availableSeats(event) == event.getSeatsOffered()) {
+				register = 1;
 			} else {
 				relationEventService.unRegister(event);
+				register = 0;
 			}
+			
+			
 			Collection<Event> pastEvents = eventService.pastEvents();
 
 			boolean past = pastEvents.contains(event);
@@ -186,7 +191,7 @@ public class EventController extends AbstractController {
 
 			result = new ModelAndView("event/display");
 			result.addObject("event", event);
-			result.addObject("register", 0);
+			result.addObject("register", register);
 			result.addObject("requestURI", "event/display.do");
 			result.addObject("past", past);
 			result.addObject("full", full);

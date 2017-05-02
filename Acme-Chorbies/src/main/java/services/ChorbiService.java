@@ -76,6 +76,7 @@ public class ChorbiService {
 		result.setLikesSent(likesSent);
 		result.setReceived(received);
 		result.setAvgStars(0.0);
+		result.setFeeAmount(0.0);
 		result.setSearchTemplate(search);
 
 		return result;
