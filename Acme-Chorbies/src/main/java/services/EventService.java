@@ -98,6 +98,13 @@ public class EventService {
 	}
 
 	public Event save(Event event) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Authority au = new Authority();
+		au.setAuthority("MANAGER");
+
+		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		
 		Event result;
 		result = eventRepository.save(event);
 

@@ -84,8 +84,8 @@ public class EventServiceTest extends AbstractTest{
 			authenticate(user);
 			Event event = eventService.findOne(id); // Obtenemos el evento al cual vamos a editar.
 			event.setTitle(title); // Cmabiamos el titulo del evento
-			Event event2 = eventService.reconstruct(event, null);
-			Assert.isTrue(event2.getTitle().equals("prueba"));
+			Event event2 = eventService.save(event);
+			Assert.isTrue(eventService.findAll().contains(event2));
 			unauthenticate();
 		}catch(Throwable oops){
 			caught = oops.getClass();
