@@ -42,8 +42,11 @@
 	
 	<display:column><a href="chirp/view.do?chirpId=${row.id }"><spring:message code="chirp.view"/></a></display:column>
 	
-	<display:column><a href="chirp/reply.do?chirpId=${row.id }"><spring:message code="chirp.respond" /></a></display:column>
-		
+	<display:column>
+		<jstl:if test="${row.sender!=null }">
+			<a href="chirp/reply.do?chirpId=${row.id }"><spring:message code="chirp.respond" /></a>
+		</jstl:if>
+	</display:column>
 	</display:table>
 	
 </security:authorize>
