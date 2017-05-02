@@ -146,10 +146,17 @@ public class EventController extends AbstractController {
 			Collection<Event> events = eventService.findByChorbiRegister();
 			Map<Event, Integer> map = eventService.mapSeats();
 			
-			result = new ModelAndView("event/browseAvailable");
-			result.addObject("events", events);
-			result.addObject("seats", map);
-			result.addObject("requestURI", "event/browseRegistered.do");
+			Collection<Event> pastEvents = eventService.pastEvents();
+			
+			boolean past = pastEvents.contains(event);
+			boolean full = eventService.hasSeats(event);
+			
+			result = new ModelAndView("event/display");
+			result.addObject("event", event);
+			result.addObject("register", 1);
+			result.addObject("requestURI", "event/display.do");
+			result.addObject("past", past);
+			result.addObject("full", full);
 		}catch(Throwable oops){
 			String message = "event.no.register";
 			result = registerModelAndView(event,message);
@@ -167,9 +174,18 @@ public class EventController extends AbstractController {
 			
 			try{
 				relationEventService.unRegister(event);
+				
+				Collection<Event> pastEvents = eventService.pastEvents();
+				
+				boolean past = pastEvents.contains(event);
+				boolean full = eventService.hasSeats(event);
+				
 				result = new ModelAndView("event/display");
 				result.addObject("event", event);
+				result.addObject("register", 0);
 				result.addObject("requestURI", "event/display.do");
+				result.addObject("past", past);
+				result.addObject("full", full);
 			}catch(Throwable oops){
 				String message = "event.no.unregister";
 				result = unRegisterModelAndView(event,message);
