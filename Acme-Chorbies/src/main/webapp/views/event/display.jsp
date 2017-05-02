@@ -58,12 +58,19 @@
 <jstl:if test="${not past and full}">
 	<security:authorize access="hasRole('CHORBI')">
 		<jstl:choose>
-			<jstl:when test="${ register eq 1}">
-				<a href="event/unRegister.do?eventId=${event.id }"><spring:message code = "event.unRegister" /></a>
+			<jstl:when test="${ register==1}">
+				<input type="button" name="unRegister"
+						value="<spring:message code="event.unRegister" />"
+						onclick="javascript: window.location.replace('event/unRegister.do?eventId=${event.id }')" 
+						style="float: left;padding: 5px 15px; margin: 0 3px 0 3px;" /><br/>
 			</jstl:when>
 			<jstl:otherwise>
-				<a href="event/register.do?eventId=${event.id }"><spring:message code = "event.register" /></a>
+				<input type="button" name="register"
+						value="<spring:message code="event.register" />"
+						onclick="javascript: window.location.replace('event/register.do?eventId=${event.id }')" 
+						style="float: left;padding: 5px 15px; margin: 0 3px 0 3px;" /><br/>
 			</jstl:otherwise>
 		</jstl:choose>
+		<br>
 	</security:authorize>
 </jstl:if>
