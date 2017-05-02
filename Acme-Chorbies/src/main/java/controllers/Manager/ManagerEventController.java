@@ -169,7 +169,14 @@ public class ManagerEventController extends AbstractController {
 				chirpService.chirpDeleteEvent(title, chorbies);
 				result = list();
 			} catch (Throwable oops) {
-				result = createEditModelAndView(eventForm, null);
+				String msgCode = "event.save.error";
+
+				if (oops.getMessage().equals("nullCreditCard"))
+					msgCode = "event.nullCreditCard";
+				else if (oops.getMessage().equals("badCreditCard"))
+					msgCode = "event.badCreditCard";
+				
+				result = createEditModelAndView(eventForm, msgCode);
 			}
 		return result;
 	}
