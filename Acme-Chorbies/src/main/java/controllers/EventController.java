@@ -27,13 +27,13 @@ public class EventController extends AbstractController {
 	// Services ------------------------------------------------
 
 	@Autowired
-	private EventService	eventService;
-	
+	private EventService			eventService;
+
 	@Autowired
-	private RelationEventService relationEventService;
-	
+	private RelationEventService	relationEventService;
+
 	@Autowired
-	private FeeService 		feeService;
+	private FeeService				feeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -77,21 +77,21 @@ public class EventController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// Browse registered -------------------------------------
-	
+
 	@RequestMapping(value = "/browseRegistered", method = RequestMethod.GET)
-	public ModelAndView browseRegistered(){
+	public ModelAndView browseRegistered() {
 		ModelAndView result;
-		
+
 		Collection<Event> events = eventService.findByChorbiRegister();
 		Map<Event, Integer> map = eventService.mapSeats();
-		
+
 		result = new ModelAndView("event/browseRegistered");
 		result.addObject("events", events);
 		result.addObject("seats", map);
 		result.addObject("requestURI", "event/browseRegistered.do");
-		
+
 		return result;
 	}
 
@@ -107,19 +107,18 @@ public class EventController extends AbstractController {
 		event = eventService.findOne(eventId);
 		boolean past = pastEvents.contains(event);
 		boolean full = eventService.hasSeats(event);
-		try{
+		try {
 			UserAccount userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
-			
-			if(userAccount.getAuthorities().contains(au)){
-				if(relationEventService.chorbiRegister(event)){
+
+			if (userAccount.getAuthorities().contains(au)) {
+				if (relationEventService.chorbiRegister(event)) {
 					register = 1;
 				}
 			}
-		
-			
-		}catch(Throwable oops){
+
+		} catch (Throwable oops) {
 			String message = "is anonymous";
 		}
 		result = new ModelAndView("event/display");
@@ -131,53 +130,62 @@ public class EventController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// Register -------------------------------------------
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register(@RequestParam int eventId){
+	public ModelAndView register(@RequestParam int eventId) {
 		ModelAndView result;
 		Event event = eventService.findOne(eventId);
-		
-		try{
-			relationEventService.register(event);
-			feeService.addFeeChorbi();
-			
+
+		try {
+			if (eventService.availableSeats(event) == 0) {
+
+			} else {
+				relationEventService.register(event);
+				feeService.addFeeChorbi();
+			}
 			Collection<Event> events = eventService.findByChorbiRegister();
 			Map<Event, Integer> map = eventService.mapSeats();
-			
+
 			result = new ModelAndView("event/browseAvailable");
 			result.addObject("events", events);
 			result.addObject("seats", map);
 			result.addObject("requestURI", "event/browseRegistered.do");
-		}catch(Throwable oops){
+
+		} catch (Throwable oops) {
 			String message = "event.no.register";
-			result = registerModelAndView(event,message);
+			result = registerModelAndView(event, message);
 		}
-		
+
 		return result;
 	}
-	
+
 	// Register -------------------------------------------
-	
-		@RequestMapping(value = "/unRegister", method = RequestMethod.GET)
-		public ModelAndView unRegister(@RequestParam int eventId){
-			ModelAndView result;
-			Event event = eventService.findOne(eventId);
-			
-			try{
+
+	@RequestMapping(value = "/unRegister", method = RequestMethod.GET)
+	public ModelAndView unRegister(@RequestParam int eventId) {
+		ModelAndView result;
+		Event event = eventService.findOne(eventId);
+
+		try {
+			if (eventService.availableSeats(event) == event.getSeatsOffered()) {
+
+			} else {
 				relationEventService.unRegister(event);
-				result = new ModelAndView("event/display");
-				result.addObject("event", event);
-				result.addObject("requestURI", "event/display.do");
-			}catch(Throwable oops){
-				String message = "event.no.unregister";
-				result = unRegisterModelAndView(event,message);
 			}
-			
-			return result;
+
+			result = new ModelAndView("event/display");
+			result.addObject("event", event);
+			result.addObject("requestURI", "event/display.do");
+		} catch (Throwable oops) {
+			String message = "event.no.unregister";
+			result = unRegisterModelAndView(event, message);
 		}
-	
+
+		return result;
+	}
+
 	//Ancillary Methods---------------------------
 
 	protected ModelAndView registerModelAndView(Event event, String message) {
@@ -191,7 +199,7 @@ public class EventController extends AbstractController {
 		return result;
 
 	}
-	
+
 	protected ModelAndView unRegisterModelAndView(Event event, String message) {
 		ModelAndView result;
 
