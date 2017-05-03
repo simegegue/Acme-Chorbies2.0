@@ -258,16 +258,20 @@ public class ChirpController extends AbstractController {
 	}
 			
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveBroadcast(ChirpForm chirpForm, BindingResult binding){
+	public ModelAndView saveBroadcast(@Valid ChirpForm chirpForm, BindingResult binding){
 		ModelAndView result;
 		Event event = eventService.findOne(chirpForm.getEventId());
-		try{
-			chirpService.chirpToChorbies(event, chirpForm, binding);
-			result = new ModelAndView("redirect:/welcome/index.do");
-		}catch(Throwable oops){
-			String message = "chirp.error";
-			result = createEditModelAndView(chirpForm, message);
-		}		
+		if (binding.hasErrors()) {
+			result = createEditModelAndViewBroadcast(chirpForm);
+		} else {
+			try{
+				chirpService.chirpToChorbies(event, chirpForm, binding);
+				result = new ModelAndView("redirect:/welcome/index.do");
+			}catch(Throwable oops){
+				String message = "chirp.error";
+				result = createEditModelAndView(chirpForm, message);
+			}
+		}
 		return result;		
 	}
 
@@ -352,6 +356,26 @@ public class ChirpController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("chirp/sent");
+
+		return result;
+
+	}
+	
+	protected ModelAndView createEditModelAndViewBroadcast(ChirpForm chirpForm) {
+		ModelAndView result;
+
+		result = createEditModelAndViewBroadcast(chirpForm, null);
+
+		return result;
+
+	}
+
+	protected ModelAndView createEditModelAndViewBroadcast(ChirpForm chirpForm, String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("chirp/broadcast");
+		result.addObject("chirpForm", chirpForm);
+		result.addObject("message", message);
 
 		return result;
 

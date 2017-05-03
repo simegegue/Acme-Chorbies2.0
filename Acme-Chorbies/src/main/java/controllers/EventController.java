@@ -17,8 +17,10 @@ import security.LoginService;
 import security.UserAccount;
 import services.EventService;
 import services.FeeService;
+import services.ManagerService;
 import services.RelationEventService;
 import domain.Event;
+import domain.Manager;
 
 @Controller
 @RequestMapping("/event")
@@ -34,6 +36,9 @@ public class EventController extends AbstractController {
 
 	@Autowired
 	private FeeService				feeService;
+	
+	@Autowired
+	private ManagerService			managerService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -107,14 +112,23 @@ public class EventController extends AbstractController {
 		event = eventService.findOne(eventId);
 		boolean past = pastEvents.contains(event);
 		boolean full = eventService.hasSeats(event);
+		boolean creator = false;
+			
 		try {
 			UserAccount userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("CHORBI");
+			Authority au2 = new Authority();
+			au2.setAuthority("MANAGER");
 
 			if (userAccount.getAuthorities().contains(au)) {
 				if (relationEventService.chorbiRegister(event)) {
 					register = 1;
+				}
+			}else{
+				if(userAccount.getAuthorities().contains(au2)) {
+					Manager manager = managerService.findByPrincipal(); 
+					creator = event.getManager().equals(manager);
 				}
 			}
 
@@ -127,6 +141,7 @@ public class EventController extends AbstractController {
 		result.addObject("register", register);
 		result.addObject("past", past);
 		result.addObject("full", full);
+		result.addObject("creator", creator);
 
 		return result;
 	}
