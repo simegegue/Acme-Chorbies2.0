@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -74,7 +73,6 @@ public class EventForm {
 	}
 
 	@NotNull
-	@Min(1)
 	public Integer getSeatsOffered() {
 		return seatsOffered;
 	}

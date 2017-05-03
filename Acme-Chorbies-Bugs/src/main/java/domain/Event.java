@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -69,7 +68,6 @@ public class Event extends DomainEntity {
 	}
 
 	@NotNull
-	@Min(1)
 	public Integer getSeatsOffered() {
 		return this.seatsOffered;
 	}
