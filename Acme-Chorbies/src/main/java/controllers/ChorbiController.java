@@ -139,13 +139,17 @@ public class ChorbiController extends AbstractController {
 		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
 		Chorbi chorbi = chorbiService.findByPrincipal();
 		int chorbiId = chorbi.getId();
-		aux = relationLikeService.findByLikesSent(chorbiId);
+		
 		Boolean b = chorbiService.principalCheckCreditCard();
 
-		for (Chorbi c : aux)
-			if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
-				chorbies.add(c);
-			}
+		if(b){
+			aux = relationLikeService.findByLikesSent(chorbiId);
+			for (Chorbi c : aux)
+				if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
+					chorbies.add(c);
+				}
+		}
+
 		result = new ModelAndView("chorbi/browseLike");
 		result.addObject("chorbies", chorbies);
 		result.addObject("requestURI", "chorbi/browseLike.do");
