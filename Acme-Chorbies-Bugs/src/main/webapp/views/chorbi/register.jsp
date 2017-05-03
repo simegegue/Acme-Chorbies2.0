@@ -149,7 +149,9 @@
 		
 		<br/>
 		<acme:submit name="save" code="chorbi.save"/>
-		<acme:cancel code="chorbi.cancel" url="welcome/index.do" />
+		<button type="button" onclick="javascript: relativeRedir('chorbi/display.do')" >
+			<spring:message code="chorbi.cancel" />
+		</button>
 </jstl:if>
 
 </form:form>

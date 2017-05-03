@@ -25,10 +25,7 @@
 	pagesize="5"
 	requestURI="${requestURI}" >
 	
-	<spring:message code="chorbi.picture" var="pictureHeader" />
-	<display:column title="${pictureHeader}">
-		<img src="${row.picture}" width="100" height="100">
-	</display:column>
+	
 	<spring:message code="chorbi.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}"/>
 	
