@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="chirp/sent" extends="master.page">	
+		<put-attribute name="title" value="Lista de chirp enviados" />
+		<put-attribute name="body" value="/views/chirp/listsent.jsp" />
+	</definition>
+	
+	<definition name="chirp/received" extends="master.page">	
+		<put-attribute name="title" value="Lista de chirp recibidos" />
+		<put-attribute name="body" value="/views/chirp/listreceived.jsp" />
+	</definition>
+	
+	<definition name="chirp/write" extends="master.page">	
+		<put-attribute name="title" value="Escribir mensaje" />
+		<put-attribute name="body" value="/views/chirp/edit.jsp" />
+	</definition>
+	
+	<definition name="chirp/view" extends="master.page">	
+		<put-attribute name="title" value="Ver chirp" />
+		<put-attribute name="body" value="/views/chirp/view.jsp" />
+	</definition>
+	
+	<definition name="chirp/forward" extends="master.page">	
+		<put-attribute name="title" value="Reenviar chirp" />
+		<put-attribute name="body" value="/views/chirp/edit.jsp" />
+	</definition>
+	
+	<definition name="chirp/reply" extends="master.page">	
+		<put-attribute name="title" value="Responder chirp" />
+		<put-attribute name="body" value="/views/chirp/edit.jsp" />
+	</definition>
+	
+	<definition name="chirp/broadcast" extends="master.page">	
+		<put-attribute name="title" value="Informar a chorbies" />
+		<put-attribute name="body" value="/views/chirp/edit.jsp" />
+	</definition>
+	
+</tiles-definitions>
