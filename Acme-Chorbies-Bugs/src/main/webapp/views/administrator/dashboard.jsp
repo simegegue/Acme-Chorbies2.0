@@ -36,21 +36,7 @@
 	</fieldset>
 </div>
 
-<div>
-	<fieldset><legend class="dashLegend"><spring:message code="administrator.managersFee" /></legend>
-		<table id="mapManager" class="table">
-			<tr>
-				<jstl:if test="${not empty mapManager }">
-					<jstl:forEach var="X" items="${mapManager}">
-					<tr>
-						<td>	<jstl:out value="${X.name} (${X.userAccount.username}) = ${mapM.get(X)} "/><td>
-					</tr>
-					</jstl:forEach>	
-				</jstl:if>
-			</tr>
-		</table>
-	</fieldset>
-</div>
+
 
 <div>
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.chorbiesByEvents" /></legend>
@@ -170,30 +156,7 @@
 	</fieldset>
 </div>
 
-<div>
-	<fieldset><legend class="dashLegend"><spring:message code="administrator.minMaxAvgChorbiYear" /></legend>
-		<table id="minMaxAvgChorbiYear" class="table">
-			<tr>
-				<th><spring:message code="administrator.dashboard.min"/></th>
-				<jstl:if test="${not empty minMaxAvgChorbiYear }">
-					<td><jstl:out value="${minMaxAvgChorbiYear.get(0) }" /></td>
-				</jstl:if>
-			</tr>
-			<tr>
-				<th><spring:message code="administrator.dashboard.max"/></th>
-				<jstl:if test="${not empty minMaxAvgChorbiYear }">
-					<td><jstl:out value="${minMaxAvgChorbiYear.get(1) }" /></td>
-				</jstl:if>
-			</tr>
-			<tr>
-				<th><spring:message code="administrator.dashboard.avg"/></th>
-				<jstl:if test="${not empty minMaxAvgChorbiYear }">
-					<td><jstl:out value="${minMaxAvgChorbiYear.get(2) }" /></td>
-				</jstl:if>
-			</tr>
-		</table>
-	</fieldset>
-</div>
+
 
 <div>
 	<fieldset><legend class="dashLegend"><spring:message code="administrator.ratioChorbiesNullCreditCard" /></legend>

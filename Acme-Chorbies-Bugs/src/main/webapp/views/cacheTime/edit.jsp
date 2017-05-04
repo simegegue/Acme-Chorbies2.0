@@ -30,7 +30,9 @@
 		
 		
 		<acme:submit name="save" code="cacheTime.save"/>
-		<acme:cancel code="cacheTime.cancel" url="welcome/index.do"/>
+		<button type="button" onclick="javascript: relativeRedir('administrator/dashboard.do')" >
+			<spring:message code="cacheTime.cancel" />
+		</button>
 		
 		
 	</form:form>

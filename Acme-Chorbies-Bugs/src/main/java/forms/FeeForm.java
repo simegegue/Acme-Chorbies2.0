@@ -4,8 +4,6 @@ package forms;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
@@ -26,9 +24,6 @@ public class FeeForm {
 		this.id = id;
 	}
 
-	@NotNull
-	@Min(0)
-	@Digits(fraction = 2, integer = 3)
 	public Double getChorbiValue() {
 		return chorbiValue;
 	}
@@ -36,9 +31,6 @@ public class FeeForm {
 		this.chorbiValue = chorbiValue;
 	}
 
-	@NotNull
-	@Min(0)
-	@Digits(fraction = 2, integer = 3)
 	public Double getManagerValue() {
 		return managerValue;
 	}

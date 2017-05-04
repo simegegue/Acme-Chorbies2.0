@@ -30,9 +30,7 @@
 			<spring:message code="event.seats" var="seatsHeader" />
 			<display:column title="${seatsHeader}" style="background-color:lightblue; font-weight:bold" sortable="true"><jstl:out value="${seats.get(row)}" /></display:column>
 	
-			<spring:message code="event.moment" var="momentHeader" />
-			<display:column title="${momentHeader}" style="background-color:lightblue; font-weight:bold" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
-		
+			
 		</jstl:when>
 		<jstl:when test="${pastEvents.contains(row)}">
 			<spring:message code="event.title" var="titleHeader" />
@@ -41,9 +39,7 @@
 			<spring:message code="event.seats" var="seatsHeader" />
 			<display:column title="${seatsHeader}" style="background-color:grey"><jstl:out value="${seats.get(row)}"/></display:column>
 	
-			<spring:message code="event.moment" var="momentHeader" />
-			<display:column title="${momentHeader}" style="background-color:grey" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
-		
+			
 		</jstl:when>
 		<jstl:when test="${not pastEvents.contains(row) && not eventsOneMonth.contains(row)}">
 			<spring:message code="event.title" var="titleHeader" />
@@ -52,8 +48,7 @@
 			<spring:message code="event.seats" var="seatsHeader" />
 			<display:column title="${seatsHeader}" style="none"><jstl:out value="${seats.get(row)}"/></display:column>
 	
-			<spring:message code="event.moment" var="momentHeader" />
-			<display:column title="${momentHeader}" style="none" sortable="false"><fmt:formatDate value="${row.moment }" pattern="dd/MM/yyyy HH:mm" /></display:column>
+			
 			
 		</jstl:when>
 	</jstl:choose>
