@@ -78,8 +78,8 @@
 					<br/>	
 					<acme:textbox code="chorbi.creditCard.cvv" path="creditCard.cvv"/>
 				</fieldset>
-			</jstl:when>
-			<jstl:otherwise>
+		</jstl:when>
+		<jstl:otherwise>
 				<fieldset>
 					<legend align="left"><spring:message code="chorbi.account.info"/></legend>
 					<acme:textbox code="chorbi.username" path="username" />

@@ -226,6 +226,7 @@ public class ManagerService {
 		Assert.isTrue(managerForm.getPassword2().equals(managerForm.getPassword()), "notEqualPassword");
 		Assert.isTrue(managerForm.getAgreed(), "agreedNotAccepted");
 		Assert.isTrue(check(managerForm.getCreditCard()), "badCreditCard");
+		Assert.isTrue(managerForm.getCreditCard().getHolderName()!="", "badCreditCard");
 
 		result = managerRepository.findOne(managerForm.getId());
 
@@ -257,6 +258,7 @@ public class ManagerService {
 		Assert.isTrue(managerForm.getPassword2().equals(password), "notEqualPassword");
 		Assert.isTrue(managerForm.getAgreed(), "agreedNotAccepted");
 		Assert.isTrue(check(managerForm.getCreditCard()), "badCreditCard");
+		Assert.isTrue(managerForm.getCreditCard().getHolderName()!="", "badCreditCard");
 
 		UserAccount userAccount = new UserAccount();
 		List<Authority> authorities = new ArrayList<Authority>();
