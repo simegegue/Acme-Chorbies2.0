@@ -70,9 +70,10 @@ public class ChorbiController extends AbstractController {
 				comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
 			}
 		}
-
+		Boolean b=chorbiService.principalCheckCreditCard();
 		result = new ModelAndView("chorbi/display");
 		result.addObject("chorbi", chorbi);
+		result.addObject("validatorCreditCard", b);
 		result.addObject("description", chorbi.getDescription());
 		result.addObject("likesReceived", chorbi.getLikesReceived());
 		result.addObject("comments", comments);
@@ -96,9 +97,10 @@ public class ChorbiController extends AbstractController {
 				comments.put(r.getId(), relationLikeService.encrypt(r.getComment()));
 			}
 		}
-
+		Boolean b=chorbiService.principalCheckCreditCard();
 		result = new ModelAndView("chorbi/display");
 		result.addObject("chorbi", chorbi);
+		result.addObject("validatorCreditCard", b);
 		result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
 		result.addObject("likesReceived", chorbi.getLikesReceived());
 		result.addObject("comments", comments);
@@ -120,17 +122,21 @@ public class ChorbiController extends AbstractController {
 			userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
 			au.setAuthority("ADMIN");
-			if (userAccount.getAuthorities().contains(au))
+			Authority au2 = new Authority();
+			au2.setAuthority("CHORBI");
+			if (userAccount.getAuthorities().contains(au)) {
 				chorbies.addAll(aux);
-			else
-				for (Chorbi c : aux)
+				b=true;
+			}else{
+				for (Chorbi c : aux){
 					if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
 						chorbies.add(c);
 					}
-			if(chorbiService.findOne(userAccount.getId())!=null){
+				}
+			}
+			if(userAccount.getAuthorities().contains(au2)){
+				chorbi=chorbiService.findByPrincipal();
 				b=chorbiService.principalCheckCreditCard();
-			}else{
-				b=true;
 			}
 			result = new ModelAndView("chorbi/browse");
 			result.addObject("chorbies", chorbies);
