@@ -203,7 +203,9 @@ public class ChorbiController extends AbstractController {
 		String tipe = "edit";
 
 		Collection<Genre> genres = genreService.findAll();
+		genres.remove(genreService.findDefault());
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+		kindRelationships.remove(kindRelationshipService.findDefault());
 		ChorbiForm chorbiForm = chorbiService.generateForm(chorbi);
 
 		result = new ModelAndView("chorbi/edit");
@@ -261,7 +263,10 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 
 		Collection<Genre> genres = genreService.findAll();
+		genres.remove(genreService.findDefault());
+
 		Collection<KindRelationship> kindRelationships = kindRelationshipService.findAll();
+		kindRelationships.remove(kindRelationshipService.findDefault());
 
 		result = new ModelAndView("chorbi/edit");
 		result.addObject("chorbiForm", chorbiForm);
