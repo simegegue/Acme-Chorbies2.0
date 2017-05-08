@@ -66,14 +66,19 @@ public class WelcomeController extends AbstractController {
 		} else {
 
 			List<Banner> banners = (List<Banner>) bannerService.findAll();
-			int n = (int) (Math.random() * banners.size());
+			boolean empty = banners.isEmpty();
 
 			formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			moment = formatter.format(new Date());
-
+			
 			result = new ModelAndView("welcome/index");
 			result.addObject("moment", moment);
-			result.addObject("banner", banners.get(n));
+			if(!empty){
+				int n = (int) (Math.random() * banners.size());
+				result.addObject("banner", banners.get(n));
+			}
+			
+			result.addObject("emptyBanner", empty);
 		}
 		return result;
 	}

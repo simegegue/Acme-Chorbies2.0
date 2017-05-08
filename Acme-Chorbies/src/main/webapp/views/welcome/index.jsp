@@ -26,7 +26,8 @@
 	</script>
 </jstl:if>
 
-
-<img src="${banner.url}" width="400" height="100">
+<jstl:if test = "${not emptyBanner }" >
+	<img src="${banner.url}" width="400" height="100">
+</jstl:if>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 

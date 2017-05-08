@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import services.ChorbiService;
 import services.EventService;
 import services.FeeService;
 import services.ManagerService;
@@ -39,6 +40,9 @@ public class EventController extends AbstractController {
 	
 	@Autowired
 	private ManagerService			managerService;
+	
+	@Autowired
+	private ChorbiService			chorbiService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -113,6 +117,7 @@ public class EventController extends AbstractController {
 		boolean past = pastEvents.contains(event);
 		boolean full = eventService.hasSeats(event);
 		boolean creator = false;
+		boolean banned = chorbiService.findByPrincipal().getBanned();
 			
 		try {
 			UserAccount userAccount = LoginService.getPrincipal();
@@ -142,6 +147,7 @@ public class EventController extends AbstractController {
 		result.addObject("past", past);
 		result.addObject("full", full);
 		result.addObject("creator", creator);
+		result.addObject("banned", banned);
 
 		return result;
 	}
