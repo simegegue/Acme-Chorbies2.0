@@ -467,7 +467,7 @@ public class ChorbiService {
 	}
 
 	public Chorbi reconstruct(ChorbiForm chorbiForm, BindingResult binding) {
-		Chorbi result = create();
+		Chorbi result;
 		DateTime today = new DateTime();
 		DateTime birthDate = new DateTime(chorbiForm.getBirthDate());
 		String password = chorbiForm.getPassword();
@@ -476,16 +476,23 @@ public class ChorbiService {
 		Assert.isTrue(birthDate.isBefore(today.minusYears(18)), "not18Old");
 		Assert.isTrue(chorbiForm.getAgreed(), "agreedNotAccepted");
 
-		UserAccount userAccount = new UserAccount();
-		List<Authority> authorities = new ArrayList<Authority>();
-		Authority a = new Authority();
-		a.setAuthority(Authority.CHORBI);
-		authorities.add(a);
-		userAccount.addAuthority(a);
-		userAccount.setPassword(password);
-		userAccount.setUsername(chorbiForm.getUsername());
-
-		result.setUserAccount(userAccount);
+		if(chorbiForm.getId()==0){
+			result = create();
+			UserAccount userAccount = new UserAccount();
+			List<Authority> authorities = new ArrayList<Authority>();
+			Authority a = new Authority();
+			a.setAuthority(Authority.CHORBI);
+			authorities.add(a);
+			userAccount.addAuthority(a);
+			userAccount.setPassword(password);
+			userAccount.setUsername(chorbiForm.getUsername());
+			
+			result.setUserAccount(userAccount);
+		}else{
+			result = findOne(chorbiForm.getId());
+		}
+		
+	
 		result.setName(chorbiForm.getName());
 		result.setSurname(chorbiForm.getSurname());
 		result.setEmail(chorbiForm.getEmail());
