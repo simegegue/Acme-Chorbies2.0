@@ -22,7 +22,7 @@
 		<form:hidden path="id"/>
 	
 		<jstl:choose>
-			<jstl:when test="${tipe eq 'edit' }">
+			<jstl:when test="${chorbiForm.id!=0}">
 				<form:hidden path="username"/>
 				<form:hidden path="password"/>
 				<form:hidden path="password2"/>

@@ -225,7 +225,7 @@ public class ChorbiController extends AbstractController {
 			result = createEditModelAndView(chorbiForm);
 		else
 			try {
-				chorbi = chorbiService.reconstructEditPersonalData(chorbiForm, binding);
+				chorbi = chorbiService.reconstruct(chorbiForm, binding);
 				chorbiService.save2(chorbi);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
@@ -237,6 +237,8 @@ public class ChorbiController extends AbstractController {
 					msgCode = "chorbi.register.not18Old";
 				else if (oops.getMessage().equals("agreedNotAccepted"))
 					msgCode = "chorbi.register.agreedNotAccepted";
+				else if (oops.getMessage().equals("badCreditCard"))
+					msgCode = "chorbi.register.badCreditCard";
 
 				result = createEditModelAndView(chorbiForm, msgCode);
 			}

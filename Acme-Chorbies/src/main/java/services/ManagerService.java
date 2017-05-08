@@ -141,7 +141,7 @@ public class ManagerService {
 		return result;
 	}
 
-	public static boolean check(CreditCard creditCard) {
+	public boolean check(CreditCard creditCard) {
 		boolean validador = false;
 		int sum = 0;
 		Calendar fecha = Calendar.getInstance();
@@ -157,8 +157,13 @@ public class ManagerService {
 			}
 		}
 
+		if(numero.length()<15){
+			validador = false;
+		}
+		
 		if (validador) {
 			validador = false;
+			int sumatorio = 0;
 			for (int i = numero.length() - 1; i >= 0; i--) {
 				int n = Integer.parseInt(numero.substring(i, i + 1));
 				if (validador) {
@@ -169,8 +174,11 @@ public class ManagerService {
 				}
 				sum += n;
 				validador = !validador;
+				sumatorio += n;
 			}
-			if (sum % 10 == 0) {
+			if(sumatorio == 0){
+				validador = false;
+			}else if (sum % 10 == 0) {
 				validador = true;
 			}
 		}
@@ -214,6 +222,10 @@ public class ManagerService {
 
 	public Manager reconstructEditPersonalData(ManagerForm managerForm, BindingResult binding) {
 		Manager result;
+		
+		Assert.isTrue(managerForm.getPassword2().equals(managerForm.getPassword()), "notEqualPassword");
+		Assert.isTrue(managerForm.getAgreed(), "agreedNotAccepted");
+		Assert.isTrue(check(managerForm.getCreditCard()), "badCreditCard");
 
 		result = managerRepository.findOne(managerForm.getId());
 
@@ -244,6 +256,7 @@ public class ManagerService {
 
 		Assert.isTrue(managerForm.getPassword2().equals(password), "notEqualPassword");
 		Assert.isTrue(managerForm.getAgreed(), "agreedNotAccepted");
+		Assert.isTrue(check(managerForm.getCreditCard()), "badCreditCard");
 
 		UserAccount userAccount = new UserAccount();
 		List<Authority> authorities = new ArrayList<Authority>();

@@ -65,6 +65,8 @@ public class RegisterManagerController extends AbstractController{
 					msgCode = "manager.register.not18Old";
 				} else if (oops.getMessage().equals("agreedNotAccepted")) {
 					msgCode = "manager.register.agreedNotAccepted";
+				}else if (oops.getMessage().equals("badCreditCard")){
+					msgCode = "manager.register.badCreditCard";
 				}
 				result = createEditModelAndView(managerForm, msgCode);
 			}

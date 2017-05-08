@@ -430,7 +430,12 @@ public class ChorbiService {
 
 	public Chorbi reconstructEditPersonalData(ChorbiForm chorbiForm, BindingResult binding) {
 		Chorbi result;
-
+		DateTime today = new DateTime();
+		DateTime birthDate = new DateTime(chorbiForm.getBirthDate());
+		
+		Assert.isTrue(chorbiForm.getPassword2().equals(chorbiForm.getPassword()), "notEqualPassword");
+		Assert.isTrue(birthDate.isBefore(today.minusYears(18)), "not18Old");
+		
 		result = chorbiRepository.findOne(chorbiForm.getId());
 
 		result.setName(chorbiForm.getName());
@@ -443,6 +448,7 @@ public class ChorbiService {
 		if (chorbiForm.getCreditCard().getBrandName() == null) {
 			result.setCreditCard(null);
 		} else {
+			Assert.isTrue(check(chorbiForm.getCreditCard()), "badCreditCard");
 			result.setCreditCard(chorbiForm.getCreditCard());
 		}
 		result.setCoordinate(chorbiForm.getCoordinate());
@@ -495,6 +501,7 @@ public class ChorbiService {
 				|| chorbiForm.getCreditCard().getExpirationMonth() == 0 || chorbiForm.getCreditCard().getExpirationYear() == 0) {
 				Assert.isTrue(false);
 			} else {
+				Assert.isTrue(check(chorbiForm.getCreditCard()), "badCreditCard");
 				result.setCreditCard(chorbiForm.getCreditCard());
 			}
 		}
@@ -756,8 +763,13 @@ public class ChorbiService {
 			}
 		}
 
+		if(numero.length()<15){
+			validador = false;
+		}
+		
 		if (validador) {
 			validador = false;
+			int sumatorio = 0;
 			for (int i = numero.length() - 1; i >= 0; i--) {
 				int n = Integer.parseInt(numero.substring(i, i + 1));
 				if (validador) {
@@ -768,8 +780,11 @@ public class ChorbiService {
 				}
 				sum += n;
 				validador = !validador;
+				sumatorio += n;
 			}
-			if (sum % 10 == 0) {
+			if(sumatorio == 0){
+				validador = false;
+			}else if (sum % 10 == 0) {
 				validador = true;
 			}
 		}

@@ -21,7 +21,7 @@
 	<jstl:if test="${managerForm.id==0 || managerForm.username == pageContext.request.remoteUser}">
 		<form:hidden path="id"/>
 		<jstl:choose>
-			<jstl:when test="${tipe eq 'edit' }">
+			<jstl:when test="${managerForm.id!=0}">
 				<form:hidden path="username"/>
 				<form:hidden path="password"/>
 				<form:hidden path="password2"/>

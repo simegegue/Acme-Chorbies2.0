@@ -94,6 +94,8 @@ public class RegisterChorbiController extends AbstractController{
 					}
 					else if(oops.getMessage().equals("agreedNotAccepted")){
 						msgCode = "chorbi.register.agreedNotAccepted";
+					}else if (oops.getMessage().equals("badCreditCard")){
+						msgCode = "chorbi.register.badCreditCard";
 					}
 					result = createEditModelAndView(chorbiForm, msgCode);
 				}
