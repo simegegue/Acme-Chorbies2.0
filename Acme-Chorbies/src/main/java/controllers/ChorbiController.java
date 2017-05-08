@@ -60,7 +60,7 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Chorbi chorbi;
 		Map<Integer, String> comments = new HashMap<Integer, String>();
-
+		Boolean b=chorbiService.principalCheckCreditCard();
 		chorbi = chorbiService.findByPrincipal();
 
 		for (RelationLike r : chorbi.getLikesReceived()) {
@@ -73,6 +73,7 @@ public class ChorbiController extends AbstractController {
 
 		result = new ModelAndView("chorbi/display");
 		result.addObject("chorbi", chorbi);
+		result.addObject("validatorCreditCard", b);
 		result.addObject("description", chorbi.getDescription());
 		result.addObject("likesReceived", chorbi.getLikesReceived());
 		result.addObject("comments", comments);
@@ -85,6 +86,7 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView display(@RequestParam int chorbiId) {
 		ModelAndView result;
 		Chorbi chorbi;
+		Boolean b=chorbiService.principalCheckCreditCard();
 		Map<Integer, String> comments = new HashMap<Integer, String>();
 
 		chorbi = chorbiService.findOne(chorbiId);
@@ -99,6 +101,7 @@ public class ChorbiController extends AbstractController {
 
 		result = new ModelAndView("chorbi/display");
 		result.addObject("chorbi", chorbi);
+		result.addObject("validatorCreditCard", b);
 		result.addObject("description", chorbiService.encrypt(chorbi.getDescription()));
 		result.addObject("likesReceived", chorbi.getLikesReceived());
 		result.addObject("comments", comments);

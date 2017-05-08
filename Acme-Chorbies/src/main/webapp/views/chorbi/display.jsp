@@ -126,7 +126,9 @@
 	</div>
 	</security:authorize>
 </jstl:if>
-
+<jstl:choose>
+	<jstl:when test="${validatorCreditCard == true }">
+		
 <display:table pagesize="5" class="displaytag" keepStatus="true" name="likesReceived" requestURI="${requestURI}" id="row">
 
 	<spring:message code="chorbi.like.name" var="likeSender"/>
@@ -151,4 +153,8 @@
 <br/>
 	
 </display:table>
-
+	</jstl:when>
+	<jstl:otherwise>
+		<h2><spring:message code="chorbi.creditCard.invalid"/></h2>
+	</jstl:otherwise>
+</jstl:choose>
