@@ -163,10 +163,13 @@ public class ChorbiSearchTemplateController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final SearchTemplateForm searchTemplateForm, final String message) {
 		ModelAndView result;
-
+		final Collection<Genre> genres = this.genreService.findAll();
+		final Collection<KindRelationship> kindRelationships = this.kindRelationshipService.findAll();
+	
 		result = new ModelAndView("searchTemplate/edit");
 		result.addObject("searchTemplate", searchTemplateForm);
-
+		result.addObject("genres", genres);
+		result.addObject("kindRelationships", kindRelationships);
 		result.addObject("message", message);
 
 		return result;
