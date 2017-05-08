@@ -17,12 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:if test="${banned == true }">
-	<script>
-		posicion_x=(screen.width/2)-250; 
-	 	posicion_y=(screen.height/2)-50; 
-	    resultado = window.open('', 'formpopup', 'width=500,height=100,resizeable,scrollbars,left='+posicion_x+",top="+posicion_y+"");
-		resultado.document.write("<h2><spring:message code="welcome.chorbi.banned"/></h2>");
-	</script>
+	<script>alert("<spring:message code="welcome.chorbi.banned"/>")</script>
 	<script>window.location.href="j_spring_security_logout"</script>
 </jstl:if>
 
