@@ -117,7 +117,7 @@ public class EventController extends AbstractController {
 		boolean past = pastEvents.contains(event);
 		boolean full = eventService.hasSeats(event);
 		boolean creator = false;
-		boolean banned = chorbiService.findByPrincipal().getBanned();
+		boolean banned = false;
 			
 		try {
 			UserAccount userAccount = LoginService.getPrincipal();
@@ -129,6 +129,7 @@ public class EventController extends AbstractController {
 			if (userAccount.getAuthorities().contains(au)) {
 				if (relationEventService.chorbiRegister(event)) {
 					register = 1;
+					banned = chorbiService.findByPrincipal().getBanned();
 				}
 			}else{
 				if(userAccount.getAuthorities().contains(au2)) {
