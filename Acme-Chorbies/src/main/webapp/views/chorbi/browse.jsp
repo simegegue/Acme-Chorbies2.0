@@ -78,10 +78,12 @@
 	<display:column>
 		<a href="chorbi/displayById.do?chorbiId=${row.id}"><spring:message code="chorbi.view.profile" /></a>
 	</display:column>
-	
+
+	<jstl:if test="${validatorCreditCard == true }">
 	<display:column>
 		<a href="chorbi/chorbieswholikethem.do?chorbiId=${row.id}"><spring:message code="chorbi.view.likethem" /></a>
 	</display:column>
+	</jstl:if>
 	
 
 </display:table>

@@ -107,9 +107,11 @@ public class RelationLikeService {
 		userAccount = LoginService.getPrincipal();
 		Authority au = new Authority();
 		au.setAuthority("CHORBI");
-		Assert.isTrue(userAccount.getAuthorities().contains(au));
+		Authority au2 = new Authority();
+		au2.setAuthority("ADMIN");
+		Assert.isTrue(userAccount.getAuthorities().contains(au) || userAccount.getAuthorities().contains(au2));
 		
-		Assert.isTrue(chorbiService.principalCheckCreditCard());
+		
 		
 		Collection<Chorbi> result;
 		result = relationLikeRepository.findByLikesSent(id);

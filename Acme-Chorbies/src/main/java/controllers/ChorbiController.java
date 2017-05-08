@@ -108,29 +108,38 @@ public class ChorbiController extends AbstractController {
 	}
 	//Browse ----------------------------------------------------
 
-	@RequestMapping(value = "/browse", method = RequestMethod.GET)
-	public ModelAndView browse() {
-		ModelAndView result;
-		Collection<Chorbi> aux = new ArrayList<Chorbi>();
-		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-		aux = chorbiService.findAll();
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Authority au = new Authority();
-		au.setAuthority("ADMIN");
-		if (userAccount.getAuthorities().contains(au))
-			chorbies.addAll(aux);
-		else
-			for (Chorbi c : aux)
-				if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
-					chorbies.add(c);
-				}
-		result = new ModelAndView("chorbi/browse");
-		result.addObject("chorbies", chorbies);
-		result.addObject("requestURI", "chorbi/browse.do");
+		@RequestMapping(value = "/browse", method = RequestMethod.GET)
+		public ModelAndView browse() {
+			ModelAndView result;
+			Chorbi chorbi;
+			Boolean b=false;
+			Collection<Chorbi> aux = new ArrayList<Chorbi>();
+			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+			aux = chorbiService.findAll();
+			UserAccount userAccount;
+			userAccount = LoginService.getPrincipal();
+			Authority au = new Authority();
+			au.setAuthority("ADMIN");
+			if (userAccount.getAuthorities().contains(au))
+				chorbies.addAll(aux);
+			else
+				for (Chorbi c : aux)
+					if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
+						chorbies.add(c);
+					}
+			if(chorbiService.findOne(userAccount.getId())!=null){
+				b=chorbiService.principalCheckCreditCard();
+			}else{
+				b=true;
+			}
+			result = new ModelAndView("chorbi/browse");
+			result.addObject("chorbies", chorbies);
+			result.addObject("validatorCreditCard", b);
+			result.addObject("requestURI", "chorbi/browse.do");
 
-		return result;
-	}
+			return result;
+		}
+
 
 	@RequestMapping(value = "/browseLike", method = RequestMethod.GET)
 	public ModelAndView browseLike() {
@@ -159,23 +168,31 @@ public class ChorbiController extends AbstractController {
 	}
 
 	//Browse
-	@RequestMapping(value = "/chorbieswholikethem", method = RequestMethod.GET)
-	public ModelAndView chorbieswholikethem(@RequestParam int chorbiId) {
-		ModelAndView result;
-		Collection<Chorbi> aux = new ArrayList<Chorbi>();
-		Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
-		aux = relationLikeService.findByLikesSent(chorbiId);
-
-		for (Chorbi c : aux)
-			if (c.getBanned() == false && !c.equals(chorbiService.findByPrincipal())) {
-				chorbies.add(c);
+		@RequestMapping(value = "/chorbieswholikethem", method = RequestMethod.GET)
+		public ModelAndView chorbieswholikethem(@RequestParam int chorbiId) {
+			ModelAndView result;
+			Collection<Chorbi> aux = new ArrayList<Chorbi>();
+			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+			aux = relationLikeService.findByLikesSent(chorbiId);
+			Chorbi chorbi;
+			Boolean b=false;
+			UserAccount u=LoginService.getPrincipal();
+			
+			for (Chorbi c : aux)
+				if (c.getBanned() == false ) {
+					chorbies.add(c);
+				}
+			if(chorbiService.findOne(u.getId())!=null){
+				b=chorbiService.principalCheckCreditCard();
+			}else{
+				b=true;
 			}
-		result = new ModelAndView("chorbi/browse");
-		result.addObject("chorbies", chorbies);
-		result.addObject("requestURI", "chorbi/browse.do");
-
-		return result;
-	}
+			result = new ModelAndView("chorbi/browse");
+			result.addObject("chorbies", chorbies);
+			result.addObject("requestURI", "chorbi/browse.do");
+			result.addObject("validatorCreditCard", b);
+			return result;
+		}
 
 	//BanUnban -----
 

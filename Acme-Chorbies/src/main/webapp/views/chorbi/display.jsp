@@ -155,6 +155,6 @@
 </display:table>
 	</jstl:when>
 	<jstl:otherwise>
-		<h2><spring:message code="chorbi.creditCard.invalid"/></h2>
+		<h2><spring:message code="chorbi.creditCard.invalid2"/></h2>
 	</jstl:otherwise>
 </jstl:choose>
