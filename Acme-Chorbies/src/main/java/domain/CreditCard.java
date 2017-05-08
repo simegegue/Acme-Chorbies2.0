@@ -10,6 +10,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -27,7 +29,7 @@ public class CreditCard {
 
 	// Getters and Setters -----------------------------
 
-	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(nullable=true)
 	public String getHolderName() {
 		return this.holderName;
@@ -36,7 +38,6 @@ public class CreditCard {
 		this.holderName = holderName;
 	}
 
-	@NotBlank
 	@Pattern(regexp = "^Visa$|^MasterCard$|^Discover$|^Dinners$|^Amex$")
 	@Column(nullable=true)
 	public String getBrandName() {
@@ -46,7 +47,6 @@ public class CreditCard {
 		this.brandName = brandName;
 	}
 
-	@NotBlank
 	@Column(nullable=true)
 	public String getNumber() {
 		return this.number;
