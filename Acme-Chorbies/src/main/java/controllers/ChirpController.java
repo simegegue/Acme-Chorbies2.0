@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -151,7 +152,8 @@ public class ChirpController extends AbstractController {
 
 		Collection<Chorbi> chorbies = chirpService.reply(chirpId);
 
-		result = new ModelAndView("chirp/forward");
+		result = new ModelAndView("chirp/reply");
+		result.addObject("requestURI", "chirp/reply.do");
 		result.addObject("chirpForm", chirpForm);
 		result.addObject("chorbies", chorbies);
 
@@ -166,7 +168,13 @@ public class ChirpController extends AbstractController {
 		Chirp chirp;
 
 		if (binding.hasErrors()) {
-			result = createEditModelAndViewReply(chirpForm);
+			Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+			chorbies.add(chirpForm.getRecipient());
+
+			result = new ModelAndView("chirp/reply");
+			result.addObject("requestURI", "chirp/reply.do");
+			result.addObject("chirpForm", chirpForm);
+			result.addObject("chorbies", chorbies);
 		} else {
 			try {
 				chirp = chirpService.reconstruct(chirpForm, binding);
@@ -174,7 +182,15 @@ public class ChirpController extends AbstractController {
 				result = new ModelAndView("redirect:/chirp/sent.do");
 			} catch (Throwable oops) {
 				String msgCode = "chirp.error";
-				result = createEditModelAndViewReply(chirpForm, msgCode);
+				
+				Collection<Chorbi> chorbies = new ArrayList<Chorbi>();
+				chorbies.add(chirpForm.getRecipient());
+
+				result = new ModelAndView("chirp/reply");
+				result.addObject("requestURI", "chirp/reply.do");
+				result.addObject("chirpForm", chirpForm);
+				result.addObject("chorbies", chorbies);
+				result.addObject("message", msgCode);
 			}
 		}
 
@@ -194,6 +210,7 @@ public class ChirpController extends AbstractController {
 		chorbies.remove(chorbiService.findByPrincipal());
 
 		result = new ModelAndView("chirp/forward");
+		result.addObject("requestURI", "chirp/forward.do");
 		result.addObject("chirpForm", chirpForm);
 		result.addObject("chorbies", chorbies);
 
@@ -208,7 +225,14 @@ public class ChirpController extends AbstractController {
 		Chirp chirp;
 
 		if (binding.hasErrors()) {
-			result = createEditModelAndViewForward(chirpForm);
+			Collection<Chorbi> chorbies = chorbiService.findAll();
+			chorbies.remove(chorbiService.findByPrincipal());
+
+			result = new ModelAndView("chirp/forward");
+			result.addObject("requestURI", "chirp/forward.do");
+			result.addObject("chirpForm", chirpForm);
+			result.addObject("chorbies", chorbies);
+			
 		} else {
 			try {
 				chirp = chirpService.reconstruct(chirpForm, binding);
@@ -216,7 +240,16 @@ public class ChirpController extends AbstractController {
 				result = new ModelAndView("redirect:/chirp/sent.do");
 			} catch (Throwable oops) {
 				String msgCode = "chirp.error";
-				result = createEditModelAndViewForward(chirpForm, msgCode);
+				
+				Collection<Chorbi> chorbies = chorbiService.findAll();
+				chorbies.remove(chorbiService.findByPrincipal());
+
+				result = new ModelAndView("chirp/forward");
+				result.addObject("requestURI", "chirp/forward.do");
+				result.addObject("chirpForm", chirpForm);
+				result.addObject("chorbies", chorbies);
+				result.addObject("mesage", msgCode);
+				
 			}
 		}
 
@@ -289,6 +322,7 @@ public class ChirpController extends AbstractController {
 	protected ModelAndView createEditModelAndView(ChirpForm chirpForm, String message) {
 		ModelAndView result;
 		Collection<Chorbi> chorbies = chorbiService.findAll();
+		chorbies.remove(chorbiService.findByPrincipal());
 
 		result = new ModelAndView("chirp/write");
 		result.addObject("chirpForm", chirpForm);
