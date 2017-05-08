@@ -150,7 +150,7 @@
 </div>
 
 <div>
-	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCountry" /></legend>
+	<fieldset><legend class="dashLegend"><spring:message code="administrator.numberOfChorbiesByCity" /></legend>
 		<table id="numberOfChorbiesByCountry" class="table">
 			<tr>
 				<td><jstl:if test="${not empty auxCity }">
