@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Chorbi;
@@ -101,6 +102,7 @@ public class RelationLikeServiceTest extends AbstractTest {
 
 		try {
 			authenticate(user); // nos autenticamos como usuario.
+			Assert.isTrue(chorbiService.principalCheckCreditCard()); // Comprobamos la tarjeta de credito
 			relationLikeService.findByLikesSent(id); // obtenemos la lista de chorbies que le han dado like al usuario actual
 			unauthenticate();
 		} catch (Throwable oops) {

@@ -70,10 +70,10 @@ public class ChorbiServiceTest extends AbstractTest {
 				"05/05/2001", "Country", "State", "Province", "City", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, IllegalArgumentException.class
 			}, {//Chorbi que no pone Country
 				"username", "password", "password", "Nombre", "Apellidos", true, "correo@gmail.com", "+34 965456321", "http://2.bp.blogspot.com/-H6MLqMZhViM/VD7jpYbzemI/AAAAAAAABN0/C1eyjkI-Y4U/s1600/visitante%2Bmisterioso.jpg", "Description",
-				"05/05/1993", "", "State", "Province", "City", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, NullPointerException.class
+				"05/05/1993", "", "State", "Province", "City", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, null
 			}, {//Chorbi que no pone State
 				"username", "password", "password", "Nombre", "Apellidos", true, "correo@gmail.com", "+34 965456321", "http://2.bp.blogspot.com/-H6MLqMZhViM/VD7jpYbzemI/AAAAAAAABN0/C1eyjkI-Y4U/s1600/visitante%2Bmisterioso.jpg", "Description",
-				"05/05/1993", "Country", "", "Province", "City", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, NullPointerException.class
+				"05/05/1993", "Country", "", "Province", "City", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, null
 			}, {//Chorbi que no pone City
 				"username", "password", "password", "Nombre", "Apellidos", true, "correo@gmail.com", "+34 965456321", "http://2.bp.blogspot.com/-H6MLqMZhViM/VD7jpYbzemI/AAAAAAAABN0/C1eyjkI-Y4U/s1600/visitante%2Bmisterioso.jpg", "Description",
 				"05/05/1993", "Country", "State", "Province", "", "Visa", 580, 10, 2019, "Nombre", "4079978752719950", 50, 53, NullPointerException.class

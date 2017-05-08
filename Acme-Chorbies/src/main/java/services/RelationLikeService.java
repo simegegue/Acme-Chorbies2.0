@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -113,8 +114,8 @@ public class RelationLikeService {
 		
 		
 		
-		Collection<Chorbi> result;
-		result = relationLikeRepository.findByLikesSent(id);
+		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		result.addAll(relationLikeRepository.findByLikesSent(id));
 		return result;
 	}
 	public RelationLike giveLike(Chorbi likeSender, Chorbi likeRecipient) {
