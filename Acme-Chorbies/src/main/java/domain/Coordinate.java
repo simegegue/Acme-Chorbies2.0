@@ -22,7 +22,7 @@ public class Coordinate {
 
 	// Getters and Setters -----------------------------
 
-	@NotBlank
+	
 	@Column(nullable=true)
 	public String getCountry() {
 		return this.country;
@@ -32,7 +32,7 @@ public class Coordinate {
 		this.country = country;
 	}
 
-	@NotBlank
+	
 	@Column(nullable=true)
 	public String getState() {
 		return this.state;
@@ -50,8 +50,7 @@ public class Coordinate {
 		this.province = province;
 	}
 
-	@NotBlank
-	@Column(nullable=true)	
+	@NotBlank	
 	public String getCity() {
 		return this.city;
 	}
