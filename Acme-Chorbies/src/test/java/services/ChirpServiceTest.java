@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -238,10 +239,12 @@ public class ChirpServiceTest extends AbstractTest {
 			caught = null;
 			try {
 				authenticate(username); // Nos autenticamos como el usuario
+				Collection<String> attachment = new ArrayList<String>();
 				ChirpForm chirpForm = chirpService.generate(id);
 				Event event = eventService.findOne(id);
 				chirpForm.setSubject(subject);
 				chirpForm.setText(text);
+				chirpForm.setAttachment(attachment);
 				chirpService.chirpToChorbies(event, chirpForm, null);
 				unauthenticate();
 			}catch(Throwable oops){
