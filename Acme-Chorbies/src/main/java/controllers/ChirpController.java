@@ -295,14 +295,21 @@ public class ChirpController extends AbstractController {
 		ModelAndView result;
 		Event event = eventService.findOne(chirpForm.getEventId());
 		if (binding.hasErrors()) {
-			result = createEditModelAndViewBroadcast(chirpForm);
+			result = new ModelAndView("chirp/broadcast");
+			result.addObject("chirpForm", chirpForm);
 		} else {
 			try{
 				chirpService.chirpToChorbies(event, chirpForm, binding);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			}catch(Throwable oops){
 				String message = "chirp.error";
-				result = createEditModelAndView(chirpForm, message);
+				
+				if (oops.getMessage().equals("badAttachment")){
+					message = "chirp.attachment";
+				}
+				result = new ModelAndView("chirp/broadcast");
+				result.addObject("chirpForm", chirpForm);
+				result.addObject("message", message);
 			}
 		}
 		return result;		

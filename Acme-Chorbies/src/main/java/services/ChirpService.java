@@ -368,7 +368,9 @@ public class ChirpService {
 		String subject = "Modificaciones en el evento: " + event.getTitle();
 		Collection<RelationEvent> relationEvents = event.getRelationEvents();
 		Manager manager = managerService.findByPrincipal();
-
+		UrlValidator url = new UrlValidator();
+		
+		
 		for (RelationEvent re : relationEvents) {
 			Collection<String> attachement = new ArrayList<String>();
 			Chirp chirp = create();
@@ -408,7 +410,11 @@ public class ChirpService {
 	public void chirpToChorbies(Event event, ChirpForm chirpForm, BindingResult binding) {
 		Collection<RelationEvent> relationEvents = event.getRelationEvents();
 		Mailer sender = managerService.findByPrincipal();
-
+		UrlValidator url = new UrlValidator();
+		if (!chirpForm.getAttachment().isEmpty())
+			for (String s : chirpForm.getAttachment())
+				Assert.isTrue(url.isValid(s), "badAttachment");
+		
 		for (RelationEvent re : relationEvents) {
 			Chirp chirp = create();
 			chirp.setSender(sender);
