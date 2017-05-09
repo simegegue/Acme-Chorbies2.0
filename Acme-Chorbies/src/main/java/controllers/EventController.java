@@ -198,12 +198,12 @@ public class EventController extends AbstractController {
 		try {
 			int register;
 
-			if (eventService.availableSeats(event) == event.getSeatsOffered()) {
+		/*	if (eventService.availableSeats(event) == event.getSeatsOffered()) {
 				register = 1;
-			} else {
+			} else {*/
 				relationEventService.unRegister(event);
 				register = 0;
-			}
+		//	}
 			
 			
 			Collection<Event> pastEvents = eventService.pastEvents();
