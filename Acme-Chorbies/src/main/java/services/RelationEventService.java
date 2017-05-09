@@ -110,17 +110,20 @@ public class RelationEventService {
 		Assert.isTrue(userAccount.getAuthorities().contains(au));
 		
 		Chorbi chorbi = chorbiService.findByPrincipal();
-		Collection<RelationEvent> relationEventsEvent = event.getRelationEvents();
-		RelationEvent relationEvent = null;
-		Collection<RelationEvent> relationEventsChorbi = chorbi.getRelationEvents();
 		
-		for(RelationEvent re : event.getRelationEvents()){
-			if(re.getChorbi().equals(chorbi)){
+		Collection<RelationEvent> relationEvents = chorbi.getRelationEvents();
+		/*RelationEvent relationEvent = null;*/
+		RelationEvent relationEvent = null;
+		
+		for(RelationEvent re : relationEvents){
+			if(re.getEvent().equals(event)){
 				relationEvent = re;
 				break;
 			}
 		}
-		
+		if(relationEvent!=null)
+			delete(relationEvent);
+		/*
 		relationEventsEvent.remove(relationEvent);
 		relationEventsChorbi.remove(relationEvent);
 		
@@ -128,6 +131,8 @@ public class RelationEventService {
 		event.setRelationEvents(relationEventsEvent);
 		
 		delete(relationEvent);
+		*/
+		
 		
 	}
 	
