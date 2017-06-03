@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,11 +125,9 @@ public class EventService {
 
 		Assert.isTrue(event.getId() != 0);
 
-		if (!event.getRelationEvents().isEmpty()) {
-			for (RelationEvent re : event.getRelationEvents()) {
+		if (!event.getRelationEvents().isEmpty())
+			for (RelationEvent re : event.getRelationEvents())
 				relationEventService.delete(re);
-			}
-		}
 
 		eventRepository.delete(event);
 	}
@@ -138,32 +137,29 @@ public class EventService {
 	public Map<Event, Integer> map() {
 		Map<Event, Integer> map = new HashMap<Event, Integer>();
 		List<Object[]> aux = eventRepository.eventsInLessOneMonth();
-		for (Object[] o : aux) {
+		for (Object[] o : aux)
 			map.put((Event) o[0], (Integer) o[1]);
-		}
 		return map;
 	}
 
 	public Collection<Event> eventsInLessOneMonth() {
+		Date d = new Date(System.currentTimeMillis());
 		Collection<Event> result = new ArrayList<Event>();
 		Map<Event, Integer> oneMonth = map();
-		for (Event e : oneMonth.keySet()) {
-			if ((oneMonth.get(e) == 0) && (hasSeats(e) == true)) {
+		for (Event e : oneMonth.keySet())
+			if ((oneMonth.get(e) == 0 && e.getMoment().after(d)) && (hasSeats(e) == true))
 				result.add(e);
-			}
-		}
 
 		return result;
 	}
 
 	public Collection<Event> pastEvents() {
+		Date d = new Date(System.currentTimeMillis());
 		Collection<Event> result = new ArrayList<Event>();
 		Map<Event, Integer> pastEvents = map();
-		for (Event e : pastEvents.keySet()) {
-			if ((pastEvents.get(e) < 0)) {
+		for (Event e : pastEvents.keySet())
+			if ((pastEvents.get(e) < 0) || (e.getMoment().before(d)))
 				result.add(e);
-			}
-		}
 
 		return result;
 	}
@@ -183,9 +179,8 @@ public class EventService {
 
 		Boolean result = false;
 
-		if (availableSeats(event) > 0) {
+		if (availableSeats(event) > 0)
 			result = true;
-		}
 
 		return result;
 
@@ -296,13 +291,10 @@ public class EventService {
 		Collection<Event> result = new ArrayList<Event>();
 		Chorbi chorbi = chorbiService.findByPrincipal();
 
-		for (Event e : findAll()) {
-			for (RelationEvent re : e.getRelationEvents()) {
-				if (re.getChorbi().equals(chorbi)) {
+		for (Event e : findAll())
+			for (RelationEvent re : e.getRelationEvents())
+				if (re.getChorbi().equals(chorbi))
 					result.add(e);
-				}
-			}
-		}
 
 		return result;
 	}

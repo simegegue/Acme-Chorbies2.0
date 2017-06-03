@@ -37,10 +37,10 @@ public class EventController extends AbstractController {
 
 	@Autowired
 	private FeeService				feeService;
-	
+
 	@Autowired
 	private ManagerService			managerService;
-	
+
 	@Autowired
 	private ChorbiService			chorbiService;
 
@@ -118,7 +118,7 @@ public class EventController extends AbstractController {
 		boolean full = eventService.hasSeats(event);
 		boolean creator = false;
 		boolean banned = false;
-			
+
 		try {
 			UserAccount userAccount = LoginService.getPrincipal();
 			Authority au = new Authority();
@@ -131,15 +131,12 @@ public class EventController extends AbstractController {
 					register = 1;
 					banned = chorbiService.findByPrincipal().getBanned();
 				}
-			}else{
-				if(userAccount.getAuthorities().contains(au2)) {
-					Manager manager = managerService.findByPrincipal(); 
-					creator = event.getManager().equals(manager);
-				}
+			} else if (userAccount.getAuthorities().contains(au2)) {
+				Manager manager = managerService.findByPrincipal();
+				creator = event.getManager().equals(manager);
 			}
 
 		} catch (Throwable oops) {
-			String message = "is anonymous";
 		}
 		result = new ModelAndView("event/display");
 		result.addObject("event", event);
@@ -162,9 +159,9 @@ public class EventController extends AbstractController {
 
 		try {
 			int register;
-			if (eventService.availableSeats(event) == 0) {
+			if (eventService.availableSeats(event) == 0)
 				register = 0;
-			} else {
+			else {
 				relationEventService.register(event);
 				feeService.addFeeChorbi();
 				register = 1;
@@ -198,14 +195,15 @@ public class EventController extends AbstractController {
 		try {
 			int register;
 
-		/*	if (eventService.availableSeats(event) == event.getSeatsOffered()) {
-				register = 1;
-			} else {*/
-				relationEventService.unRegister(event);
-				register = 0;
-		//	}
-			
-			
+			/*
+			 * if (eventService.availableSeats(event) == event.getSeatsOffered()) {
+			 * register = 1;
+			 * } else {
+			 */
+			relationEventService.unRegister(event);
+			register = 0;
+			//	}
+
 			Collection<Event> pastEvents = eventService.pastEvents();
 
 			boolean past = pastEvents.contains(event);

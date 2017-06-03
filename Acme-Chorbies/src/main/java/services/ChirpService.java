@@ -368,7 +368,6 @@ public class ChirpService {
 		String subject = "Modificaciones en el evento: " + event.getTitle();
 		Collection<RelationEvent> relationEvents = event.getRelationEvents();
 		Manager manager = managerService.findByPrincipal();
-		UrlValidator url = new UrlValidator();
 		
 		
 		for (RelationEvent re : relationEvents) {
